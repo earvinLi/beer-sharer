@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import {
   Button,
@@ -9,23 +10,25 @@ import {
 
 const LoginForm = () => {
   return (
-    <Card>
-      <CardSection>
-        <Input
-          label="Email"
-          placeholder="email@gmail.com"
-        />
-      </CardSection>
-      <CardSection>
-        <Input
-          label="password"
-          placeholder="password"
-        />
-      </CardSection>
-      <CardSection>
-        <Button>Login</Button>
-      </CardSection>
-    </Card>
+    <View style={{ paddingTop: 36 }}>
+      <Card>
+        <CardSection>
+          <Input
+            label="Email"
+            placeholder="email@gmail.com"
+          />
+        </CardSection>
+        <CardSection>
+          <Input
+            label="Password"
+            placeholder="password"
+          />
+        </CardSection>
+        <CardSection>
+          <Button>Login</Button>
+        </CardSection>
+      </Card>
+    </View>
   );
 };
 
