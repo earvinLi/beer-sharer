@@ -16,20 +16,20 @@ const Input = (props) => {
   } = props;
 
   const {
-    container,
+    containerStyle,
     labelStyle,
-    input,
+    inputStyle,
   } = styles;
 
   return (
-    <View style={container}>
+    <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <TextInput
         autoCorrect={false}
         onChangeText={onChange}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
-        style={input}
+        style={inputStyle}
         value={value}
       />
     </View>
@@ -37,7 +37,7 @@ const Input = (props) => {
 };
 
 const styles = {
-  container: {
+  containerStyle: {
     alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
@@ -48,7 +48,7 @@ const styles = {
     fontSize: 18,
     paddingLeft: 20,
   },
-  input: {
+  inputStyle: {
     color: '#000',
     flex: 2,
     fontSize: 18,

@@ -9,11 +9,11 @@ const CardSection = (props) => {
     style
   } = props;
 
-  return <View style={[styles.container, style]}>{children}</View>;
+  return <View style={[styles.containerStyle, style]}>{children}</View>;
 };
 
 const styles = {
-  container: {
+  containerStyle: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderColor: '#ddd',
