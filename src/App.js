@@ -1,14 +1,12 @@
+// External Dependencies
 import React from 'react';
-import {
-  Text,
-  View,
-} from 'react-native';
+
+// Internal Dependencies
+import LoginForm from './components/LoginForm';
 
 const App = () => {
   return (
-    <View>
-      <Text>Welcome to Beer Sharer</Text>
-    </View>
+    <LoginForm />
   );
 };
 

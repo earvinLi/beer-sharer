@@ -1,3 +1,4 @@
+// External Dependencies
 import React from 'react';
 import {
   Text,
@@ -5,6 +6,7 @@ import {
   View,
 } from 'react-native';
 
+// Component Definition
 const Input = (props) => {
   const {
     label,
