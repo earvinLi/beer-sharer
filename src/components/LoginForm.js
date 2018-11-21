@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 
 import {
@@ -8,28 +8,39 @@ import {
   Input,
 } from './shared';
 
-const LoginForm = () => {
-  return (
-    <View style={{ paddingTop: 36 }}>
-      <Card>
-        <CardSection>
-          <Input
-            label="Email"
-            placeholder="email@gmail.com"
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            label="Password"
-            placeholder="password"
-          />
-        </CardSection>
-        <CardSection>
-          <Button>Login</Button>
-        </CardSection>
-      </Card>
-    </View>
-  );
-};
+class LoginForm extends Component {
+  state = {
+    email: '',
+    password: '',
+  }
+
+  render() {
+    return (
+      <View style={{ paddingTop: 36 }}>
+        <Card>
+          <CardSection>
+            <Input
+              label="Email"
+              onChange={email => this.setState({ email })}
+              placeholder="email@gmail.com"
+              value={this.state.email}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              label="Password"
+              onChange={password => this.setState({ password })}
+              placeholder="password"
+              value={this.state.password}
+            />
+          </CardSection>
+          <CardSection>
+            <Button>Login</Button>
+          </CardSection>
+        </Card>
+      </View>
+    );
+  }
+}
 
 export default LoginForm;
