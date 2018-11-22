@@ -1,6 +1,9 @@
+// External Dependencies
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
+// Internal Dependencies
 import {
   Button,
   Card,
@@ -12,6 +15,16 @@ class LoginForm extends Component {
   state = {
     email: '',
     password: '',
+  }
+
+  onLoginButtonPress() {
+    const {
+      email,
+      password,
+    } = this.state;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(user => console.log(user));
   }
 
   render() {
@@ -31,11 +44,12 @@ class LoginForm extends Component {
               label="Password"
               onChange={password => this.setState({ password })}
               placeholder="password"
+              secureTextEntry
               value={this.state.password}
             />
           </CardSection>
           <CardSection>
-            <Button>Login</Button>
+            <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>
           </CardSection>
         </Card>
       </View>
