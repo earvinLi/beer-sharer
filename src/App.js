@@ -1,13 +1,21 @@
 // External Dependencies
-import React from 'react';
+import firebase from 'firebase';
+import React, { Component } from 'react';
 
 // Internal Dependencies
+import fireBaseInitConfig from './OuthConfig';
 import LoginForm from './components/LoginForm';
 
-const App = () => {
-  return (
-    <LoginForm />
-  );
-};
+class App extends Component {
+  componentWillMount() {
+    firebase.initializeApp(fireBaseInitConfig);
+  }
+
+  render() {
+    return (
+      <LoginForm />
+    );
+  }
+}
 
 export default App;
