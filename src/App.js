@@ -1,6 +1,8 @@
 // External Dependencies
 import firebase from 'firebase';
 import React, { Component } from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 // Internal Dependencies
 import { fireBaseInitConfig } from './OuthConfig';
@@ -12,8 +14,12 @@ class App extends Component {
   }
 
   render() {
+    const store = createStore(() => {}, {});
+
     return (
-      <LoginForm />
+      <Provider store={store}>
+        <LoginForm />
+      </Provider>
     );
   }
 }
