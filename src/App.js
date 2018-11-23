@@ -5,8 +5,9 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 // Internal Dependencies
-import { fireBaseInitConfig } from './OuthConfig';
 import LoginForm from './components/LoginForm';
+import reducers from './reducers';
+import { fireBaseInitConfig } from './OuthConfig';
 
 class App extends Component {
   componentWillMount() {
@@ -14,7 +15,7 @@ class App extends Component {
   }
 
   render() {
-    const store = createStore(() => {}, {});
+    const store = createStore(reducers, {});
 
     return (
       <Provider store={store}>
