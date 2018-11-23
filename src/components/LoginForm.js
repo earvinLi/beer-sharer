@@ -24,7 +24,10 @@ class LoginForm extends Component {
     } = this.state;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => console.log(user));
+      .then(user => console.log(user))
+      .catch(() => {
+        firebase.auth().createUserWithEmailAndPassword(email, password);
+      });
   }
 
   render() {
