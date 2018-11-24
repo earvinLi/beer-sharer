@@ -1,5 +1,4 @@
 // External Dependencies
-import firebase from 'firebase';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
@@ -13,6 +12,7 @@ import {
 } from './shared';
 import {
   emailChange,
+  loginUser,
   passwordChange,
 } from '../actions';
 
@@ -20,14 +20,11 @@ class LoginForm extends Component {
   onLoginButtonPress() {
     const {
       email,
+      onLoginUser,
       password,
     } = this.props;
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => console.log(user))
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password);
-      });
+    onLoginUser({ email, password });
   }
 
   emailChanged(email) {
@@ -80,5 +77,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   onEmailChange: emailChange,
+  onLoginUser: loginUser,
   onPasswordChange: passwordChange,
 })(LoginForm);
