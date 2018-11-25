@@ -9,8 +9,8 @@ import {
 
 const INITIAL_STATE = {
   email: '',
-  errorText: '',
   isLoading: false,
+  loginFailErrorText: '',
   password: '',
   user: null,
 };
@@ -18,9 +18,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case EMAIL_CHANGE: return { ...state, email: action.payload };
-    case LOGIN_USER: return { ...state, errorText: '', isLoading: true };
+    case LOGIN_USER: return { ...state, loginFailErrorText: '', isLoading: true };
     // TODO:  Generate a more clear error message
-    case LOGIN_USER_FAIL: return { ...state, errorText: 'Authentication Failed.', isLoading: false };
+    case LOGIN_USER_FAIL: return { ...state, loginFailErrorText: 'Authentication Failed.', isLoading: false };
     case LOGIN_USER_SUCCESS: return { ...state, ...INITIAL_STATE, user: action.payload };
     case PASSWORD_CHANGE: return { ...state, password: action.payload };
     default: return state;

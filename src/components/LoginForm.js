@@ -1,7 +1,10 @@
 // External Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import {
+  Text,
+  View,
+} from 'react-native';
 
 // Internal Dependencies
 import {
@@ -41,8 +44,15 @@ class LoginForm extends Component {
     const {
       email,
       isLoading,
+      loginFailErrorText,
       password,
     } = this.props;
+
+    const loginFailErrorElement = Boolean(loginFailErrorText) && (
+      <View style={{ backgroundColor: 'white' }}>
+        <Text style={styles.errorTextStyle}>{loginFailErrorText}</Text>
+      </View>
+    );
 
     const loginButton = isLoading
       ? <Spinner size="large" />
@@ -68,6 +78,7 @@ class LoginForm extends Component {
               value={password}
             />
           </CardSection>
+          {loginFailErrorElement}
           <CardSection>{loginButton}</CardSection>
         </Card>
       </View>
@@ -75,9 +86,18 @@ class LoginForm extends Component {
   }
 }
 
+const styles = {
+  errorTextStyle: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 20,
+  },
+};
+
 const mapStateToProps = state => ({
   email: state.auth.email,
   isLoading: state.auth.isLoading,
+  loginFailErrorText: state.auth.loginFailErrorText,
   password: state.auth.password,
 });
 
