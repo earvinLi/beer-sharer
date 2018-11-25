@@ -9,6 +9,7 @@ import {
   Card,
   CardSection,
   Input,
+  Spinner,
 } from './shared';
 import {
   emailChange,
@@ -16,6 +17,7 @@ import {
   passwordChange,
 } from '../actions';
 
+// Component Definition
 class LoginForm extends Component {
   onLoginButtonPress() {
     const {
@@ -38,8 +40,13 @@ class LoginForm extends Component {
   render() {
     const {
       email,
+      isLoading,
       password,
     } = this.props;
+
+    const loginButton = isLoading
+      ? <Spinner size="large" />
+      : <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>;
 
     return (
       <View style={{ paddingTop: 36 }}>
@@ -61,9 +68,7 @@ class LoginForm extends Component {
               value={password}
             />
           </CardSection>
-          <CardSection>
-            <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>
-          </CardSection>
+          <CardSection>{loginButton}</CardSection>
         </Card>
       </View>
     );
@@ -72,6 +77,7 @@ class LoginForm extends Component {
 
 const mapStateToProps = state => ({
   email: state.auth.email,
+  isLoading: state.auth.isLoading,
   password: state.auth.password,
 });
 

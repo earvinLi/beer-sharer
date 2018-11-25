@@ -14,8 +14,6 @@ import {
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
 const loginUserSuccess = (dispatch, user) => {
-  console.log(user);
-
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user,
