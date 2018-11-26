@@ -9,7 +9,8 @@ import {
 import { Provider } from 'react-redux';
 
 // Internal Dependencies
-import LoginForm from './components/LoginForm';
+// import LoginForm from './components/LoginForm';
+import FriendAdd from './components/FriendAdd';
 import reducers from './reducers';
 import { fireBaseInitConfig } from './OuthConfig';
 
@@ -23,7 +24,8 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <LoginForm />
+        {/* <LoginForm /> */}
+        <FriendAdd />
       </Provider>
     );
   }
