@@ -14,6 +14,7 @@ const styles = {
     borderWidth: 1,
     elevation: 1,
     marginLeft: 5,
+    marginRight: 5,
     marginTop: 10,
     shadowColor: '#000',
     shadowOffset: {
