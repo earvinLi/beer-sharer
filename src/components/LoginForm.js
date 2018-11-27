@@ -15,9 +15,8 @@ import {
   Spinner,
 } from './shared';
 import {
-  emailChange,
+  loginInfoUpdate,
   loginUser,
-  passwordChange,
 } from '../actions';
 
 // Component Definition
@@ -32,19 +31,12 @@ class LoginForm extends Component {
     onLoginUser({ email, password });
   }
 
-  emailChanged(email) {
-    this.props.onEmailChange(email);
-  }
-
-  passwordChanged(password) {
-    this.props.onPasswordChange(password);
-  }
-
   render() {
     const {
       email,
       isLoading,
       loginFailErrorText,
+      onLoginInfoUpdate,
       password,
     } = this.props;
 
@@ -64,7 +56,7 @@ class LoginForm extends Component {
           <CardSection>
             <Input
               label="Email"
-              onChange={this.emailChanged.bind(this)}
+              onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
               placeholder="email@gmail.com"
               value={email}
             />
@@ -72,7 +64,7 @@ class LoginForm extends Component {
           <CardSection>
             <Input
               label="Password"
-              onChange={this.passwordChanged.bind(this)}
+              onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
               placeholder="password"
               secureTextEntry
               value={password}
@@ -94,15 +86,23 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => ({
-  email: state.auth.email,
-  isLoading: state.auth.isLoading,
-  loginFailErrorText: state.auth.loginFailErrorText,
-  password: state.auth.password,
-});
+const mapStateToProps = state => {
+  const {
+    email,
+    isLoading,
+    loginFailErrorText,
+    password,
+  } = state.auth;
+
+  return {
+    email,
+    isLoading,
+    loginFailErrorText,
+    password,
+  };
+};
 
 export default connect(mapStateToProps, {
-  onEmailChange: emailChange,
+  onLoginInfoUpdate: loginInfoUpdate,
   onLoginUser: loginUser,
-  onPasswordChange: passwordChange,
 })(LoginForm);
