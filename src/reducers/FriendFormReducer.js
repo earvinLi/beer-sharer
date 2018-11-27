@@ -1,6 +1,7 @@
 import { FRIEND_UPDATE } from '../actions/Types';
 
 const INITIAL_STATE = {
+  favoriteStyle: '',
   name: '',
   phone: '',
 };

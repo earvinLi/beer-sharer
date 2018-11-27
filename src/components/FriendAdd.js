@@ -1,7 +1,11 @@
 // External Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import {
+  Picker,
+  Text,
+  View,
+} from 'react-native';
 
 // Internal Dependencies
 import {
@@ -14,6 +18,7 @@ import { friendUpdate } from '../actions';
 class FriendAdd extends Component {
   render() {
     const {
+      favoriteStyle,
       name,
       onFriendUpdate,
       phone,
@@ -37,21 +42,41 @@ class FriendAdd extends Component {
             value={phone}
           />
         </CardSection>
+        <CardSection style={{ flexDirection: 'column' }}>
+          <Text style={styles.pickerLabelStyle}>Favorite Style</Text>
+          <Picker
+            onValueChange={value => onFriendUpdate({ prop: 'favoriteStyle', value })}
+            selectedValue={favoriteStyle}
+          >
+            <Picker.Item label="India Pale Ale" value="ipa" />
+            <Picker.Item label="Stout" value="stout" />
+            <Picker.Item label="American Pale Ale" value="apa" />
+            <Picker.Item label="Belgian (Tripel)" value="tripel" />
+            <Picker.Item label="Bock" value="bock" />
+            <Picker.Item label="Pilsner (German Style)" value="pilsner" />
+          </Picker>
+        </CardSection>
       </View>
     );
   }
 }
 
+const styles = {
+  pickerLabelStyle: {
+    fontSize: 18,
+    paddingLeft: 20,
+  },
+};
+
 const mapStateToProps = (state) => {
   const {
+    favoriteStyle,
     name,
     phone,
   } = state.friendForm;
 
-  console.log(name);
-  console.log(phone);
-
   return {
+    favoriteStyle,
     name,
     phone,
   };
