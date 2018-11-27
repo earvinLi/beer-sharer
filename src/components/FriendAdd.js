@@ -1,16 +1,13 @@
 // External Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Picker,
-  Text,
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 
 // Internal Dependencies
 import {
   CardSection,
   Input,
+  NativePicker,
 } from './shared';
 import { friendUpdate } from '../actions';
 
@@ -23,6 +20,15 @@ class FriendAdd extends Component {
       onFriendUpdate,
       phone,
     } = this.props;
+
+    const beerStylesData = [
+      { key: 'ipa', label: 'India Pale Ale', value: 'ipa' },
+      { key: 'stout', label: 'Stout', value: 'stout' },
+      { key: 'apa', label: 'American Pale Ale', value: 'apa' },
+      { key: 'tripel', label: 'Belgian (Tripel)', value: 'tripel' },
+      { key: 'bock', label: 'Bock', value: 'bock' },
+      { key: 'pilsner', label: 'Pilsner (German Style)', value: 'pilsner' },
+    ];
 
     return (
       <View style={{ paddingTop: 36 }}>
@@ -43,30 +49,17 @@ class FriendAdd extends Component {
           />
         </CardSection>
         <CardSection style={{ flexDirection: 'column' }}>
-          <Text style={styles.pickerLabelStyle}>Favorite Style</Text>
-          <Picker
-            onValueChange={value => onFriendUpdate({ prop: 'favoriteStyle', value })}
-            selectedValue={favoriteStyle}
-          >
-            <Picker.Item label="India Pale Ale" value="ipa" />
-            <Picker.Item label="Stout" value="stout" />
-            <Picker.Item label="American Pale Ale" value="apa" />
-            <Picker.Item label="Belgian (Tripel)" value="tripel" />
-            <Picker.Item label="Bock" value="bock" />
-            <Picker.Item label="Pilsner (German Style)" value="pilsner" />
-          </Picker>
+          <NativePicker
+            onPick={value => onFriendUpdate({ prop: 'favoriteStyle', value })}
+            optionsToPick={beerStylesData}
+            pickedValue={favoriteStyle}
+            pickerLabel="Favorite Style"
+          />
         </CardSection>
       </View>
     );
   }
 }
-
-const styles = {
-  pickerLabelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
-  },
-};
 
 const mapStateToProps = (state) => {
   const {
