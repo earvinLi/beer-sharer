@@ -5,14 +5,29 @@ import { View } from 'react-native';
 
 // Internal Dependencies
 import {
+  Button,
   CardSection,
   Input,
   NativePicker,
 } from './shared';
-import { friendUpdate } from '../actions';
+import {
+  friendCreate,
+  friendUpdate,
+} from '../actions';
 
 // Component Definition
 class FriendAdd extends Component {
+  onCreateButtonPress() {
+    const {
+      favoriteStyle,
+      name,
+      onFriendCreate,
+      phone,
+    } = this.props;
+
+    onFriendCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
+  }
+
   render() {
     const {
       favoriteStyle,
@@ -56,6 +71,9 @@ class FriendAdd extends Component {
             pickerLabel="Favorite Style"
           />
         </CardSection>
+        <CardSection>
+          <Button onPress={this.onCreateButtonPress.bind(this)}>Create</Button>
+        </CardSection>
       </View>
     );
   }
@@ -76,5 +94,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  onFriendCreate: friendCreate,
   onFriendUpdate: friendUpdate,
 })(FriendAdd);

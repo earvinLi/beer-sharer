@@ -5,4 +5,5 @@ export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 
 // Friend Add
+export const FRIEND_CREATE = 'FRIEND_CREATE';
 export const FRIEND_UPDATE = 'FRIEND_UPDATE';
