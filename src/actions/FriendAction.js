@@ -4,16 +4,27 @@ import firebase from 'firebase';
 // Internal Dependencies
 import {
   FRIEND_CREATE,
+  FRIEND_FETCH_SUCCESS,
   FRIEND_UPDATE,
 } from './Types';
 
-export const friendCreate = ({ favoriteStyle, name, phone }) => dispatch => {
-  const { currentUser } = firebase.auth();
+const { currentUserId } = firebase.auth().uid;
 
-  firebase.database().ref(`/users/${currentUser.uid}/friends`)
+export const friendCreate = ({ favoriteStyle, name, phone }) => dispatch => {
+  firebase.database().ref(`/users/${currentUserId}/friends`)
     .push({ favoriteStyle, name, phone })
     .then(() => {
       dispatch({ type: FRIEND_CREATE });
+    });
+};
+
+export const friendsFetch = () => dispatch => {
+  firebase.database().ref(`/users/${currentUserId}/friends`)
+    .on('value', snapshot => {
+      dispatch({
+        type: FRIEND_FETCH_SUCCESS,
+        payload: snapshot.val(),
+      });
     });
 };
 
