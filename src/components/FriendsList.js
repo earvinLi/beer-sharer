@@ -1,5 +1,4 @@
 // External Dependencies
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -11,9 +10,11 @@ import {
 // Internal Dependencies
 import { friendsFetch } from '../actions';
 
-class FriendList extends Component {
+class FriendsList extends Component {
   componentWillMount() {
     this.props.onFriendsFetch();
+
+    this.createDataSource(this.props);
   }
 
   createDataSource({ friends }) {
@@ -40,9 +41,9 @@ class FriendList extends Component {
 }
 
 const mapStateToProps = state => ({
-  friends: _.map(state.friends, (val, uid) => ({ ...val, uid })),
+  friends: state.friends,
 });
 
 export default connect(mapStateToProps, {
   onFriendsFetch: friendsFetch,
-})(FriendList);
+})(FriendsList);
