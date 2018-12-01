@@ -9,9 +9,7 @@ import {
 import { Provider } from 'react-redux';
 
 // Internal Dependencies
-// import FriendAdd from './components/FriendAdd';
-import FriendsList from './components/FriendsList';
-// import LoginForm from './components/LoginForm';
+import AppRouter from './AppRouter';
 import reducers from './reducers';
 import { fireBaseInitConfig } from './OuthConfig';
 
@@ -25,9 +23,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        {/* <FriendAdd /> */}
-        <FriendsList />
-        {/* <LoginForm /> */}
+        <AppRouter />
       </Provider>
     );
   }

@@ -1,5 +1,6 @@
 // External Dependencies
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 // Internal Dependencies
 import {
@@ -13,12 +14,12 @@ import {
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
 const loginUserSuccess = (dispatch, user) => {
-  console.log(user);
-
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user,
   });
+
+  Actions.friendsList();
 };
 
 export const loginInfoUpdate = ({ prop, value }) => ({
