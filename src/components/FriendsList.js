@@ -17,6 +17,10 @@ class FriendsList extends Component {
     this.createDataSource(this.props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps);
+  }
+
   createDataSource({ friends }) {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row, nextRow) => row !== nextRow,
