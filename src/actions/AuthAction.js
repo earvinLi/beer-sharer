@@ -19,7 +19,8 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user,
   });
 
-  Actions.friendsList();
+  // Go to upper level route first
+  Actions.friendSection();
 };
 
 export const loginInfoUpdate = ({ prop, value }) => ({

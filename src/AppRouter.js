@@ -17,10 +17,16 @@ const AppRouter = () => {
   return (
     <Router>
       <Scene key="root" hideNavBar>
-        <Scene component={LoginForm} initial key="login" title="Please Login" />
-        {/* TODO Fix this multiple line bug of react-native-router-flux */}
-        <Scene component={FriendsList} key="friendsList" onRight={navToFriendCreate} rightTitle="Add" title="Friends" />
-        <Scene component={FriendAdd} key="friendAdd" title="Add Friend" />
+        <Scene key="auth">
+          <Scene component={LoginForm} initial key="login" title="Please Login" />
+        </Scene>
+        <Scene key="friendSection">
+          {/* TODO Fix this multiple line bug of react-native-router-flux */}
+          {/* eslint-disable */}
+          <Scene component={FriendsList} initial key="friendsList" onRight={navToFriendCreate} rightTitle="Add" title="Friends" />
+          {/* eslint-disable */}
+          <Scene component={FriendAdd} key="friendAdd" title="Add Friend" />
+        </Scene>
       </Scene>
     </Router>
   );

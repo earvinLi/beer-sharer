@@ -51,29 +51,27 @@ class LoginForm extends Component {
       : <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>;
 
     return (
-      <View style={{ paddingTop: 36 }}>
-        <Card>
-          <CardSection>
-            <Input
-              label="Email"
-              onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
-              placeholder="email@gmail.com"
-              value={email}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              label="Password"
-              onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
-              placeholder="password"
-              secureTextEntry
-              value={password}
-            />
-          </CardSection>
-          {loginFailErrorElement}
-          <CardSection>{loginButton}</CardSection>
-        </Card>
-      </View>
+      <Card>
+        <CardSection>
+          <Input
+            label="Email"
+            onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
+            placeholder="email@gmail.com"
+            value={email}
+          />
+        </CardSection>
+        <CardSection>
+          <Input
+            label="Password"
+            onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
+            placeholder="password"
+            secureTextEntry
+            value={password}
+          />
+        </CardSection>
+        {loginFailErrorElement}
+        <CardSection>{loginButton}</CardSection>
+      </Card>
     );
   }
 }
