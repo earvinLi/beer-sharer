@@ -1,14 +1,11 @@
 // External Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  ListView,
-  Text,
-  View,
-} from 'react-native';
+import { ListView } from 'react-native';
 
 // Internal Dependencies
 import { friendsFetch } from '../actions';
+import { ListItem } from './shared';
 
 class FriendsList extends Component {
   componentWillMount() {
@@ -30,7 +27,12 @@ class FriendsList extends Component {
   }
 
   renderFriendsRow(friend) {
-    return <View><Text>{friend.name}</Text></View>;
+    return (
+      <ListItem
+        onPress={() => {}}
+        title={friend.name}
+      />
+    );
   }
 
   render() {
