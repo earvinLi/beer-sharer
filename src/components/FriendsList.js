@@ -1,11 +1,17 @@
 // External Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import {
+  ListView,
+  View,
+} from 'react-native';
 
 // Internal Dependencies
 import { friendsFetch } from '../actions';
-import { ListItem } from './shared';
+import {
+  ListItem,
+  Spinner,
+} from './shared';
 
 class FriendsList extends Component {
   componentWillMount() {
@@ -18,12 +24,12 @@ class FriendsList extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ friends }) {
+  createDataSource({ fetchedFriends }) {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row, nextRow) => row !== nextRow,
     });
 
-    this.friendsData = dataSource.cloneWithRows(friends);
+    this.friendsData = dataSource.cloneWithRows(fetchedFriends);
   }
 
   renderFriendsRow(friend) {
@@ -36,7 +42,15 @@ class FriendsList extends Component {
   }
 
   render() {
-    return (
+    const { isFetching } = this.props;
+
+    return isFetching
+    ? (
+      <View style={styles.spinnerContainerStyle}>
+        <Spinner loadingItemsLabel="friends" />
+      </View>
+    )
+    : (
       <ListView
         dataSource={this.friendsData}
         enableEmptySections
@@ -46,9 +60,24 @@ class FriendsList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  friends: state.friends,
-});
+const styles = {
+  spinnerContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+};
+
+const mapStateToProps = state => {
+  const {
+    fetchedFriends,
+    isFetching,
+  } = state.friends;
+
+  return {
+    fetchedFriends,
+    isFetching,
+  };
+};
 
 export default connect(mapStateToProps, {
   onFriendsFetch: friendsFetch,

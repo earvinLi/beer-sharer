@@ -2,12 +2,25 @@
 import _ from 'lodash';
 
 // Internal Dependencies
-import { FRIEND_FETCH_SUCCESS } from '../actions/Types';
+import {
+  FRIENDS_FETCH,
+  FRIENDS_FETCH_SUCCESS,
+} from '../actions/Types';
 
-export default (state = {}, action) => {
+const INITIAL_STATE = {
+  fetchedFriends: [],
+  isFetching: false,
+};
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FRIEND_FETCH_SUCCESS:
-      return _.map(action.payload, (val, uid) => ({ ...val, uid }));
+    case FRIENDS_FETCH: return { ...state, isFetching: true };
+    case FRIENDS_FETCH_SUCCESS:
+      return {
+        ...state,
+        fetchedFriends: _.map(action.payload, (val, uid) => ({ ...val, uid })),
+        isFetching: false,
+      };
     default: return state;
   }
 };

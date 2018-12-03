@@ -4,7 +4,8 @@ import firebase from 'firebase';
 // Internal Dependencies
 import {
   FRIEND_CREATE,
-  FRIEND_FETCH_SUCCESS,
+  FRIENDS_FETCH,
+  FRIENDS_FETCH_SUCCESS,
   FRIEND_UPDATE,
 } from './Types';
 
@@ -21,10 +22,12 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => dispatch => {
 export const friendsFetch = () => dispatch => {
   const { uid: currentUserId } = firebase.auth().currentUser;
 
+  dispatch({ type: FRIENDS_FETCH });
+
   firebase.database().ref(`/users/${currentUserId}/friends`)
     .on('value', snapshot => {
       dispatch({
-        type: FRIEND_FETCH_SUCCESS,
+        type: FRIENDS_FETCH_SUCCESS,
         payload: snapshot.val(),
       });
     });
