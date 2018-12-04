@@ -8,6 +8,7 @@ import {
 
 // Internal Dependencies
 import FriendAdd from './components/FriendAdd';
+import FriendEdit from './components/FriendEdit';
 import FriendsList from './components/FriendsList';
 import LoginForm from './components/LoginForm';
 
@@ -22,10 +23,9 @@ const AppRouter = () => {
         </Scene>
         <Scene key="friendSection">
           {/* TODO Fix this multiple line bug of react-native-router-flux */}
-          {/* eslint-disable */}
           <Scene component={FriendsList} initial key="friendsList" onRight={navToFriendCreate} rightTitle="Add" title="Friends" />
-          {/* eslint-disable */}
           <Scene component={FriendAdd} key="friendAdd" title="Add Friend" />
+          <Scene component={FriendEdit} key="friendEdit" title="Edit Friend" />
         </Scene>
       </Scene>
     </Router>

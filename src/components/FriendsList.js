@@ -1,5 +1,6 @@
 // External Dependencies
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import {
   ListView,
@@ -24,6 +25,10 @@ class FriendsList extends Component {
     this.createDataSource(nextProps);
   }
 
+  // onFriendRowPress = (friend) => {
+  //   Actions.friendEdit({ friend });
+  // }
+
   createDataSource({ fetchedFriends }) {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row, nextRow) => row !== nextRow,
@@ -32,10 +37,10 @@ class FriendsList extends Component {
     this.friendsData = dataSource.cloneWithRows(fetchedFriends);
   }
 
-  renderFriendsRow(friend) {
+  renderFriendRow(friend) {
     return (
       <ListItem
-        onPress={() => {}}
+        onPress={() => { Actions.friendEdit({ friend }); }}
         title={friend.name}
       />
     );
@@ -54,7 +59,7 @@ class FriendsList extends Component {
       <ListView
         dataSource={this.friendsData}
         enableEmptySections
-        renderRow={this.renderFriendsRow}
+        renderRow={this.renderFriendRow}
       />
     );
   }

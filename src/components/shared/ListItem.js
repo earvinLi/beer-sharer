@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Text,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 // Internal Dependencies
@@ -17,9 +18,12 @@ const ListItem = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <CardSection>
-        <Text style={styles.titleStyle}>{title}</Text>
-      </CardSection>
+      {/* <TouchableWithoutFeedback /> needs <View />!!! */}
+      <View>
+        <CardSection>
+          <Text style={styles.titleStyle}>{title}</Text>
+        </CardSection>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
