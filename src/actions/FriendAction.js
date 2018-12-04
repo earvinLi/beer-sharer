@@ -9,8 +9,8 @@ import {
   FRIEND_UPDATE,
 } from './Types';
 
-export const friendCreate = ({ favoriteStyle, name, phone }) => dispatch => {
-  const { uid: currentUserId } = firebase.auth().currentUser;
+export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getState) => {
+  const { currentUserId } = getState().auth;
 
   firebase.database().ref(`/users/${currentUserId}/friends`)
     .push({ favoriteStyle, name, phone })
@@ -19,8 +19,8 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => dispatch => {
     });
 };
 
-export const friendsFetch = () => dispatch => {
-  const { uid: currentUserId } = firebase.auth().currentUser;
+export const friendsFetch = () => (dispatch, getState) => {
+  const { currentUserId } = getState().auth;
 
   dispatch({ type: FRIENDS_FETCH });
 

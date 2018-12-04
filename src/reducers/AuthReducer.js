@@ -7,11 +7,11 @@ import {
 } from '../actions/Types';
 
 const INITIAL_STATE = {
+  currentUserId: '',
   email: '',
   isLoading: false,
   loginFailErrorText: '',
   password: '',
-  user: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +22,8 @@ export default (state = INITIAL_STATE, action) => {
     // TODO:  Generate a more clear error message
     case LOGIN_USER_FAIL:
       return { ...state, loginFailErrorText: 'Authentication Failed.', isLoading: false };
-    case LOGIN_USER_SUCCESS: return { ...state, ...INITIAL_STATE, user: action.payload };
+    case LOGIN_USER_SUCCESS:
+      return { ...state, ...INITIAL_STATE, currentUserId: action.payload.user.uid };
     default: return state;
   }
 };
