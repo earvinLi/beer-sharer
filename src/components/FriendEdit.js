@@ -1,4 +1,5 @@
 // External Dependencies
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
@@ -16,7 +17,13 @@ import {
 } from '../actions';
 
 // Component Definition
-class FriendAdd extends Component {
+class FriendEdit extends Component {
+  componentWillMount() {
+    _.each(this.props.friend, (value, prop) => {
+      this.props.onFriendUpdate({ prop, value });
+    });
+  }
+
   onCreateButtonPress() {
     const {
       favoriteStyle,
@@ -96,4 +103,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   onFriendCreate: friendCreate,
   onFriendUpdate: friendUpdate,
-})(FriendAdd);
+})(FriendEdit);
