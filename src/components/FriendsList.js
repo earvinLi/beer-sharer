@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import {
-  ListView,
+  FlatList,
   View,
 } from 'react-native';
 
@@ -14,32 +14,16 @@ import {
   Spinner,
 } from './shared';
 
+// Component Definition
 class FriendsList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.onFriendsFetch();
-
-    this.createDataSource(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps);
-  }
-
-  // onFriendRowPress = (friend) => {
-  //   Actions.friendEdit({ friend });
-  // }
-
-  createDataSource({ fetchedFriends }) {
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row, nextRow) => row !== nextRow,
-    });
-
-    this.friendsData = dataSource.cloneWithRows(fetchedFriends);
-  }
-
-  renderFriendRow(friend) {
+  renderFriendItem({ item: friend }) {
     return (
       <ListItem
+        // TODO: Change to not declare a function inside render
         onPress={() => { Actions.friendEdit({ friend }); }}
         title={friend.name}
       />
@@ -47,7 +31,10 @@ class FriendsList extends Component {
   }
 
   render() {
-    const { isFetching } = this.props;
+    const {
+      fetchedFriends,
+      isFetching,
+    } = this.props;
 
     return isFetching
     ? (
@@ -56,10 +43,10 @@ class FriendsList extends Component {
       </View>
     )
     : (
-      <ListView
-        dataSource={this.friendsData}
-        enableEmptySections
-        renderRow={this.renderFriendRow}
+      <FlatList
+        data={fetchedFriends}
+        // enableEmptySections
+        renderItem={this.renderFriendItem}
       />
     );
   }

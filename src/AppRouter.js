@@ -22,7 +22,7 @@ const AppRouter = () => {
           <Scene component={LoginForm} initial key="login" title="Please Login" />
         </Scene>
         <Scene key="friendSection">
-          {/* TODO Fix this multiple line bug of react-native-router-flux */}
+          {/* TODO: Fix this multiple line bug of react-native-router-flux */}
           <Scene component={FriendsList} initial key="friendsList" onRight={navToFriendCreate} rightTitle="Add" title="Friends" />
           <Scene component={FriendAdd} key="friendAdd" title="Add Friend" />
           <Scene component={FriendEdit} key="friendEdit" title="Edit Friend" />
