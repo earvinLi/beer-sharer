@@ -45,7 +45,6 @@ class FriendsList extends Component {
     : (
       <FlatList
         data={fetchedFriends}
-        // enableEmptySections
         renderItem={this.renderFriendItem}
       />
     );

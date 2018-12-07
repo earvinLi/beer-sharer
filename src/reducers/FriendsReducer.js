@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
     case FRIENDS_FETCH_SUCCESS:
       return {
         ...state,
-        fetchedFriends: _.map(action.payload, (val, uid) => ({ ...val, uid })),
+        fetchedFriends: _.map(action.payload, (val, uid) => ({ ...val, uid, key: uid })),
         isFetching: false,
       };
     default: return state;
