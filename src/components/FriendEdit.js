@@ -18,7 +18,7 @@ import {
 
 // Component Definition
 class FriendEdit extends Component {
-  componentWillMount() {
+  componentDidMount() {
     _.each(this.props.friend, (value, prop) => {
       this.props.onFriendUpdate({ prop, value });
     });

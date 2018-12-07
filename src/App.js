@@ -14,7 +14,7 @@ import reducers from './reducers';
 import { fireBaseInitConfig } from './OuthConfig';
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     firebase.initializeApp(fireBaseInitConfig);
   }
 
