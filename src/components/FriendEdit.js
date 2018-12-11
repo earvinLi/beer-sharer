@@ -2,11 +2,11 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
 
 // Internal Dependencies
 import {
   Button,
+  Card,
   CardSection,
   Input,
   NativePicker,
@@ -53,7 +53,7 @@ class FriendEdit extends Component {
     ];
 
     return (
-      <View style={{ paddingTop: 36 }}>
+      <Card>
         <CardSection>
           <Input
             label="Name"
@@ -79,9 +79,15 @@ class FriendEdit extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button onPress={this.onCreateButtonPress.bind(this)}>Create</Button>
+          <Button>Save</Button>
         </CardSection>
-      </View>
+        <CardSection>
+          <Button>Text</Button>
+        </CardSection>
+        <CardSection>
+          <Button>Delete</Button>
+        </CardSection>
+      </Card>
     );
   }
 }
