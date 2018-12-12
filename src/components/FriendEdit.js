@@ -12,7 +12,7 @@ import {
   NativePicker,
 } from './shared';
 import {
-  friendCreate,
+  friendSave,
   friendUpdate,
 } from '../actions';
 
@@ -24,15 +24,16 @@ class FriendEdit extends Component {
     });
   }
 
-  onCreateButtonPress() {
+  onSaveButtonPress() {
     const {
       favoriteStyle,
+      friend,
       name,
-      onFriendCreate,
+      onFriendSave,
       phone,
     } = this.props;
 
-    onFriendCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
+    onFriendSave({ favoriteStyle, name, phone, uid: friend.uid });
   }
 
   render() {
@@ -79,7 +80,9 @@ class FriendEdit extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button>Save</Button>
+          <Button onPress={this.onSaveButtonPress.bind(this)}>
+            Save
+          </Button>
         </CardSection>
         <CardSection>
           <Button>Text</Button>
@@ -107,6 +110,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onFriendCreate: friendCreate,
+  onFriendSave: friendSave,
   onFriendUpdate: friendUpdate,
 })(FriendEdit);

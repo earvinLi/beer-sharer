@@ -6,6 +6,7 @@ export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 
 // Friend Add
 export const FRIEND_CREATE = 'FRIEND_CREATE';
+export const FRIEND_SAVE = 'FRIEND_SAVE';
 export const FRIENDS_FETCH = 'FRIENDS_FETCH';
 export const FRIENDS_FETCH_SUCCESS = 'FRIENDS_FETCH_SUCCESS';
 export const FRIEND_UPDATE = 'FRIEND_UPDATE';

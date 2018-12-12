@@ -4,6 +4,7 @@ import firebase from 'firebase';
 // Internal Dependencies
 import {
   FRIEND_CREATE,
+  FRIEND_SAVE,
   FRIENDS_FETCH,
   FRIENDS_FETCH_SUCCESS,
   FRIEND_UPDATE,
@@ -16,6 +17,16 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getSt
     .push({ favoriteStyle, name, phone })
     .then(() => {
       dispatch({ type: FRIEND_CREATE });
+    });
+};
+
+export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, getState) => {
+  const { currentUserId } = getState().auth;
+
+  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
+    .set({ favoriteStyle, name, phone })
+    .then(() => {
+      dispatch({ type: FRIEND_SAVE });
     });
 };
 
