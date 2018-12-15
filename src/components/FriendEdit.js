@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { text as communicationsText } from 'react-native-communications';
 
 // Internal Dependencies
 import {
@@ -34,6 +35,16 @@ class FriendEdit extends Component {
     } = this.props;
 
     onFriendSave({ favoriteStyle, name, phone, uid: friend.uid });
+  }
+
+  onTextButtonPress() {
+    const {
+      favoriteStyle,
+      onCommunicationsText,
+      phone,
+    } = this.props;
+
+    onCommunicationsText(phone, `Nice! Your favorite style is ${favoriteStyle}`);
   }
 
   render() {
@@ -85,7 +96,9 @@ class FriendEdit extends Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Button>Text</Button>
+          <Button onPress={this.onTextButtonPress.bind(this)}>
+            Text
+          </Button>
         </CardSection>
         <CardSection>
           <Button>Delete</Button>
@@ -110,6 +123,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  onCommunicationsText: communicationsText,
   onFriendSave: friendSave,
   onFriendUpdate: friendUpdate,
 })(FriendEdit);
