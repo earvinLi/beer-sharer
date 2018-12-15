@@ -1,5 +1,6 @@
 // External Dependencies
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 // Internal Dependencies
 import {
@@ -17,6 +18,7 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getSt
     .push({ favoriteStyle, name, phone })
     .then(() => {
       dispatch({ type: FRIEND_CREATE });
+      Actions.pop();
     });
 };
 
@@ -27,6 +29,7 @@ export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, ge
     .set({ favoriteStyle, name, phone })
     .then(() => {
       dispatch({ type: FRIEND_SAVE });
+      Actions.pop();
     });
 };
 
