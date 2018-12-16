@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { text as communicationsText } from 'react-native-communications';
+import { text as onCommunicationsText } from 'react-native-communications';
 
 // Internal Dependencies
 import {
@@ -40,7 +40,6 @@ class FriendEdit extends Component {
   onTextButtonPress() {
     const {
       favoriteStyle,
-      onCommunicationsText,
       phone,
     } = this.props;
 
@@ -123,7 +122,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onCommunicationsText: communicationsText,
   onFriendSave: friendSave,
   onFriendUpdate: friendUpdate,
 })(FriendEdit);
