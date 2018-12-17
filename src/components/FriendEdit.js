@@ -35,11 +35,11 @@ class FriendEdit extends Component {
 
   onAccept() {
     const {
-      friend,
       onFriendDelete,
+      uid,
     } = this.props;
 
-    onFriendDelete({ uid: friend.uid });
+    onFriendDelete({ uid });
   }
 
   onDecline() {
@@ -49,13 +49,13 @@ class FriendEdit extends Component {
   onSaveButtonPress() {
     const {
       favoriteStyle,
-      friend,
       name,
       onFriendSave,
       phone,
+      uid,
     } = this.props;
 
-    onFriendSave({ favoriteStyle, name, phone, uid: friend.uid });
+    onFriendSave({ favoriteStyle, name, phone, uid });
   }
 
   onTextButtonPress() {
@@ -141,12 +141,14 @@ const mapStateToProps = (state) => {
     favoriteStyle,
     name,
     phone,
+    uid,
   } = state.friendForm;
 
   return {
     favoriteStyle,
     name,
     phone,
+    uid,
   };
 };
 

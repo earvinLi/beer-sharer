@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   favoriteStyle: '',
   name: '',
   phone: '',
+  uid: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
