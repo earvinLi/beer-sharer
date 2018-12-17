@@ -22,6 +22,16 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getSt
     });
 };
 
+export const friendDelete = ({ uid }) => getState => {
+  const { currentUserId } = getState().auth;
+
+  firebase.database().ref(`/users/${currentUserId}/employees/${uid}`)
+    .remove()
+    .then(() => {
+      Actions.pop();
+    });
+};
+
 export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 

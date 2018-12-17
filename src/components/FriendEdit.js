@@ -13,6 +13,7 @@ import {
   NativePicker,
 } from './shared';
 import {
+  friendDelete,
   friendSave,
   friendUpdate,
 } from '../actions';
@@ -23,6 +24,15 @@ class FriendEdit extends Component {
     _.each(this.props.friend, (value, prop) => {
       this.props.onFriendUpdate({ prop, value });
     });
+  }
+
+  onDeleteButtonPress() {
+    const {
+      friend,
+      onFriendDelete,
+    } = this.props;
+
+    onFriendDelete({ uid: friend.uid });
   }
 
   onSaveButtonPress() {
@@ -100,7 +110,9 @@ class FriendEdit extends Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Button>Delete</Button>
+          <Button onPress={this.onDeleteButtonPress.bind(this)}>
+            Delete
+          </Button>
         </CardSection>
       </Card>
     );
@@ -122,6 +134,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  onFriendDelete: friendDelete,
   onFriendSave: friendSave,
   onFriendUpdate: friendUpdate,
 })(FriendEdit);
