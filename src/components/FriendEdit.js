@@ -6,6 +6,7 @@ import { text as onCommunicationsText } from 'react-native-communications';
 
 // Internal Dependencies
 import {
+  Alert,
   Button,
   Card,
   CardSection,
@@ -20,6 +21,8 @@ import {
 
 // Component Definition
 class FriendEdit extends Component {
+  state = { isAlertOpen: false };
+
   componentDidMount() {
     _.each(this.props.friend, (value, prop) => {
       this.props.onFriendUpdate({ prop, value });
@@ -27,12 +30,20 @@ class FriendEdit extends Component {
   }
 
   onDeleteButtonPress() {
+    this.setState({ isAlertOpen: true });
+  }
+
+  onAccept() {
     const {
       friend,
       onFriendDelete,
     } = this.props;
 
     onFriendDelete({ uid: friend.uid });
+  }
+
+  onDecline() {
+    this.setState({ isAlertOpen: false });
   }
 
   onSaveButtonPress() {
@@ -114,6 +125,12 @@ class FriendEdit extends Component {
             Delete
           </Button>
         </CardSection>
+        <Alert
+          alertContent="Are you sure you want to delete this friend?"
+          isOpen={this.state.isAlertOpen}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
+        />
       </Card>
     );
   }

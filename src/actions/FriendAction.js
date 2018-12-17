@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 // Internal Dependencies
 import {
   FRIEND_CREATE,
+  FRIEND_DELETE,
   FRIEND_SAVE,
   FRIENDS_FETCH,
   FRIENDS_FETCH_SUCCESS,
@@ -22,12 +23,13 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getSt
     });
 };
 
-export const friendDelete = ({ uid }) => getState => {
+export const friendDelete = ({ uid }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
-  firebase.database().ref(`/users/${currentUserId}/employees/${uid}`)
+  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
     .remove()
     .then(() => {
+      dispatch({ type: FRIEND_DELETE });
       Actions.pop();
     });
 };
