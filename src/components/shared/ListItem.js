@@ -10,7 +10,7 @@ import {
 import { CardSection } from './CardSection';
 
 // Component Definition
-const ListItem = (props) => {
+function ListItem(props) {
   const {
     onPress,
     title,
@@ -26,7 +26,7 @@ const ListItem = (props) => {
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = {
   titleStyle: {

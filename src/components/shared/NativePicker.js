@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 // Component Definition
-const NativePicker = (props) => {
+function NativePicker(props) {
   const {
     onPick,
     optionsToPick,
@@ -29,7 +29,7 @@ const NativePicker = (props) => {
       </Picker>
     </View>
   );
-};
+}
 
 const styles = {
   pickerLabelStyle: {

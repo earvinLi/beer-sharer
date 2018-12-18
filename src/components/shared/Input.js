@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 // Component Definition
-const Input = (props) => {
+function Input(props) {
   const {
     label,
     // Name from material-ui
@@ -36,7 +36,7 @@ const Input = (props) => {
       />
     </View>
   );
-};
+}
 
 const styles = {
   containerStyle: {

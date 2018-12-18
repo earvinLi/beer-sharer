@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 // Component Definition
-const Button = (props) => {
+function Button(props) {
   const {
     children,
     onPress,
@@ -25,7 +25,7 @@ const Button = (props) => {
       <Text style={textStyle}>{children}</Text>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = {
   buttonStyle: {

@@ -12,7 +12,7 @@ import FriendEdit from './components/FriendEdit';
 import FriendsList from './components/FriendsList';
 import LoginForm from './components/LoginForm';
 
-const AppRouter = () => {
+function AppRouter() {
   const navToFriendCreate = () => Actions.friendAdd();
 
   return (
@@ -30,6 +30,6 @@ const AppRouter = () => {
       </Scene>
     </Router>
   );
-};
+}
 
 export default AppRouter;

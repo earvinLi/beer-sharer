@@ -3,14 +3,14 @@ import React from 'react';
 import { View } from 'react-native';
 
 // Component Definition
-const CardSection = (props) => {
+function CardSection(props) {
   const {
     children,
     style
   } = props;
 
   return <View style={[styles.containerStyle, style]}>{children}</View>;
-};
+}
 
 const styles = {
   containerStyle: {

@@ -11,7 +11,7 @@ import { Button } from './Button';
 import { CardSection } from './CardSection';
 
 // Component Definition
-const Alert = (props) => {
+function Alert(props) {
   const {
     alertContent,
     isOpen,
@@ -41,7 +41,7 @@ const Alert = (props) => {
       </View>
     </Modal>
   );
-};
+}
 
 const styles = {
   alertContentStyle: {

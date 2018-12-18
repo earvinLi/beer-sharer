@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 // Component Definition
-const Spinner = (props) => {
+function Spinner(props) {
   const {
     loadingItemsLabel,
     size,
@@ -27,7 +27,7 @@ const Spinner = (props) => {
       {loadingWordsElement}
     </View>
   );
-};
+}
 
 const styles = {
   loadingWordsStyle: {
