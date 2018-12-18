@@ -1,5 +1,13 @@
-export const EMAIL_CHANGE = 'EMAIL_CHANGE';
-export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
+// Login
+export const LOGIN_INFO_UPDATE = 'LOGIN_INFO_UPDATE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+
+// Friend Add
+export const FRIEND_CREATE = 'FRIEND_CREATE';
+export const FRIEND_DELETE = 'FRIEND_DELETE';
+export const FRIEND_SAVE = 'FRIEND_SAVE';
+export const FRIENDS_FETCH = 'FRIENDS_FETCH';
+export const FRIENDS_FETCH_SUCCESS = 'FRIENDS_FETCH_SUCCESS';
+export const FRIEND_UPDATE = 'FRIEND_UPDATE';

@@ -9,12 +9,12 @@ import {
 import { Provider } from 'react-redux';
 
 // Internal Dependencies
-import LoginForm from './components/LoginForm';
+import AppRouter from './AppRouter';
 import reducers from './reducers';
 import { fireBaseInitConfig } from './OuthConfig';
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     firebase.initializeApp(fireBaseInitConfig);
   }
 
@@ -23,7 +23,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <LoginForm />
+        <AppRouter />
       </Provider>
     );
   }
