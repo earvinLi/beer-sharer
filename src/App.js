@@ -9,10 +9,12 @@ import {
 import { Provider } from 'react-redux';
 
 // Internal Dependencies
-import AppRouter from './AppRouter';
+import AppNavigation from './AppRouter';
+// import AppRouter from './AppRouter';
 import reducers from './reducers';
 import { fireBaseInitConfig } from './OuthConfig';
 
+// Component Definition
 class App extends Component {
   componentDidMount() {
     firebase.initializeApp(fireBaseInitConfig);
@@ -23,7 +25,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <AppRouter />
+        <AppNavigation />
       </Provider>
     );
   }

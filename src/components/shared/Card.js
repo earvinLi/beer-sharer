@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 // Component Definition
+// Change to normal function?
 const Card = ({ children }) => <View style={styles.containerStyle}>{children}</View>;
 
 // May change to shorthands by css-to-react-native in the future
