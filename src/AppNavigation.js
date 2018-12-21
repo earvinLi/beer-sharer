@@ -2,37 +2,32 @@
 import {
   createAppContainer,
   createBottomTabNavigator,
-  // createStackNavigator,
+  createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
 
 // Internal Dependencies
-// import FriendAdd from './components/FriendAdd';
-// import FriendEdit from './components/FriendEdit';
+import FriendAdd from './components/FriendAdd';
+import FriendEdit from './components/FriendEdit';
 import FriendsList from './components/FriendsList';
 import LoginForm from './components/LoginForm';
 
 // Component Definition
-// const FriendStack = createStackNavigator({
-//   FriendHome: FriendsList,
-//   FriendAdd,
-//   FriendEdit,
-// });
-//
-// const BeerStack = createStackNavigator({
-//   FriendHome: FriendsList,
-//   FriendAdd,
-//   FriendEdit,
-// });
-//
-// const HomeTab = createBottomTabNavigator({
-//   Friend: FriendStack,
-//   Beer: BeerStack,
-// });
+const FriendStack = createStackNavigator({
+  FriendHome: FriendsList,
+  BeerAdd: FriendAdd,
+  FriendEdit,
+});
+
+const BeerStack = createStackNavigator({
+  BeerHome: FriendsList,
+  BeerAdd: FriendAdd,
+  BeerEdit: FriendEdit,
+});
 
 const HomeTab = createBottomTabNavigator({
-  Friend: FriendsList,
-  Beer: FriendsList,
+  Friend: FriendStack,
+  Beer: BeerStack,
 });
 
 const AppNavigation = createSwitchNavigator({
