@@ -21,14 +21,17 @@ import {
 
 // Component Definition
 class LoginForm extends Component {
-  onLoginButtonPress() {
+  onLoginButtonPress = async () => {
     const {
       email,
+      navigation,
       onLoginUser,
       password,
     } = this.props;
 
-    onLoginUser({ email, password });
+    await onLoginUser({ email, password });
+
+    navigation.navigate('Home');
   }
 
   render() {
@@ -51,27 +54,29 @@ class LoginForm extends Component {
       : <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>;
 
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="Email"
-            onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
-            placeholder="email@gmail.com"
-            value={email}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            label="Password"
-            onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
-            placeholder="password"
-            secureTextEntry
-            value={password}
-          />
-        </CardSection>
-        {loginFailErrorElement}
-        <CardSection>{loginButton}</CardSection>
-      </Card>
+      <View style={{ paddingTop: 36 }}>
+        <Card>
+          <CardSection>
+            <Input
+              label="Email"
+              onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
+              placeholder="email@gmail.com"
+              value={email}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              label="Password"
+              onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
+              placeholder="password"
+              secureTextEntry
+              value={password}
+            />
+          </CardSection>
+          {loginFailErrorElement}
+          <CardSection>{loginButton}</CardSection>
+        </Card>
+      </View>
     );
   }
 }
