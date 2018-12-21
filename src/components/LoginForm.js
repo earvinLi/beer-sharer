@@ -21,7 +21,7 @@ import {
 
 // Component Definition
 class LoginForm extends Component {
-  onLoginButtonPress = async () => {
+  onLoginButtonPress() {
     const {
       email,
       navigation,
@@ -29,9 +29,7 @@ class LoginForm extends Component {
       password,
     } = this.props;
 
-    await onLoginUser({ email, password });
-
-    navigation.navigate('Home');
+    onLoginUser({ email, password, toHomeNav: navigation });
   }
 
   render() {
