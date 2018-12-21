@@ -17,7 +17,7 @@ const loginUserSuccess = (dispatch, toHomeNav, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user,
   });
-  
+
   toHomeNav.navigate('Home');
 };
 
@@ -26,14 +26,19 @@ export const loginInfoUpdate = ({ prop, value }) => ({
    payload: { prop, value },
 });
 
-export const loginUser = ({ email, password, toHomeNav }) => dispatch => {
+export const loginUser = ({ email, password, toHomeNav }) => async dispatch => {
   dispatch({ type: LOGIN_USER });
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(user => loginUserSuccess(dispatch, toHomeNav, user))
-    .catch(() => {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => loginUserSuccess(dispatch, toHomeNav, user))
-        .catch(() => loginUserFail(dispatch));
-    });
+  // TODO: Simplify this ugliness of the following Try...Catch
+  try {
+    const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password);
+    loginUserSuccess(dispatch, toHomeNav, loggedInUser);
+  } catch (loggingErr) {
+    try {
+      const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      loginUserSuccess(dispatch, toHomeNav, createdUser);
+    } catch (creatingErr) {
+      loginUserFail(dispatch);
+    }
+  }
 };
