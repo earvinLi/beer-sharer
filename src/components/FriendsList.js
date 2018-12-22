@@ -16,6 +16,10 @@ import {
 
 // Component Definition
 class FriendsList extends Component {
+  static navigationOptions = {
+    title: 'Drinking Buddies',
+  };
+
   componentDidMount() {
     this.props.onFriendsFetch();
   }
