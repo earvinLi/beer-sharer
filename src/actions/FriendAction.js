@@ -1,6 +1,5 @@
 // External Dependencies
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
 
 // Internal Dependencies
 import {
@@ -17,10 +16,7 @@ export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getSt
 
   firebase.database().ref(`/users/${currentUserId}/friends`)
     .push({ favoriteStyle, name, phone })
-    .then(() => {
-      dispatch({ type: FRIEND_CREATE });
-      Actions.pop();
-    });
+    .then(() => dispatch({ type: FRIEND_CREATE }));
 };
 
 export const friendDelete = ({ uid }) => (dispatch, getState) => {
@@ -28,10 +24,7 @@ export const friendDelete = ({ uid }) => (dispatch, getState) => {
 
   firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
     .remove()
-    .then(() => {
-      dispatch({ type: FRIEND_DELETE });
-      Actions.pop();
-    });
+    .then(() => dispatch({ type: FRIEND_DELETE }));
 };
 
 export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, getState) => {
@@ -39,10 +32,7 @@ export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, ge
 
   firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
     .set({ favoriteStyle, name, phone })
-    .then(() => {
-      dispatch({ type: FRIEND_SAVE });
-      Actions.pop();
-    });
+    .then(() => dispatch({ type: FRIEND_SAVE }));
 };
 
 export const friendsFetch = () => (dispatch, getState) => {
