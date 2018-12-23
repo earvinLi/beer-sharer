@@ -10,15 +10,19 @@ import {
 // Internal Dependencies
 import { friendsFetch } from '../../actions';
 import {
+  Button,
   ListItem,
   Spinner,
 } from '../shared';
 
 // Component Definition
 class FriendsList extends Component {
-  static navigationOptions = {
-    title: 'Drinking Buddies',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Drinking Buddies',
+    headerRight: (
+      <Button onPress={() => navigation.navigate('FriendAdd')}>Add</Button>
+    ),
+  });
 
   componentDidMount() {
     this.props.onFriendsFetch();
