@@ -7,22 +7,25 @@ import {
 } from 'react-navigation';
 
 // Internal Dependencies
-import FriendAdd from './components/FriendAdd';
-import FriendEdit from './components/FriendEdit';
-import FriendsList from './components/FriendsList';
-import LoginForm from './components/LoginForm';
+import BeerAdd from './components/Beer/BeerAdd';
+import BeerEdit from './components/Beer/BeerEdit';
+import BeerList from './components/Beer/BeerList';
+import FriendAdd from './components/Friend/FriendAdd';
+import FriendEdit from './components/Friend/FriendEdit';
+import FriendList from './components/Friend/FriendList';
+import LoginForm from './components/Auth/LoginForm';
 
 // Component Definition
-const FriendStack = createStackNavigator({
-  FriendHome: FriendsList,
-  BeerAdd: FriendAdd,
-  FriendEdit,
+const BeerStack = createStackNavigator({
+  BeerHome: BeerList,
+  BeerAdd,
+  BeerEdit,
 });
 
-const BeerStack = createStackNavigator({
-  BeerHome: FriendsList,
-  BeerAdd: FriendAdd,
-  BeerEdit: FriendEdit,
+const FriendStack = createStackNavigator({
+  FriendHome: FriendList,
+  FriendAdd,
+  FriendEdit,
 });
 
 const HomeTab = createBottomTabNavigator({

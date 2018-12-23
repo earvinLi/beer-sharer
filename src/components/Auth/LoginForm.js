@@ -13,11 +13,11 @@ import {
   CardSection,
   Input,
   Spinner,
-} from './shared';
+} from '../shared';
 import {
   loginInfoUpdate,
   loginUser,
-} from '../actions';
+} from '../../actions';
 
 // Component Definition
 class LoginForm extends Component {

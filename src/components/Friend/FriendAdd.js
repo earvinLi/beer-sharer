@@ -9,11 +9,11 @@ import {
   CardSection,
   Input,
   NativePicker,
-} from './shared';
+} from '../shared';
 import {
   friendCreate,
   friendUpdate,
-} from '../actions';
+} from '../../actions';
 
 // Component Definition
 class FriendAdd extends Component {
