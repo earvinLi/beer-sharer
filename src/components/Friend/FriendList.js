@@ -8,12 +8,10 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
+import Button from '../shared/Button';
+import ListItem from '../shared/ListItem';
+import Spinner from '../shared/Spinner';
 import { friendsFetch } from '../../actions';
-import {
-  Button,
-  ListItem,
-  Spinner,
-} from '../shared';
 
 // Component Definition
 class FriendsList extends Component {

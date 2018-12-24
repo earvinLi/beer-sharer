@@ -4,12 +4,10 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 // Internal Dependencies
-import {
-  Button,
-  CardSection,
-  Input,
-  NativePicker,
-} from '../shared';
+import Button from '../shared/Button';
+import CardSection from '../shared/CardSection';
+import Input from '../shared/Input';
+import NativePicker from '../shared/NativePicker';
 import {
   friendCreate,
   friendUpdate,

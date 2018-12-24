@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { text as onCommunicationsText } from 'react-native-communications';
 
 // Internal Dependencies
-import {
-  Alert,
-  Button,
-  Card,
-  CardSection,
-  Input,
-  NativePicker,
-} from '../shared';
+import Alert from '../shared/Alert';
+import Button from '../shared/Button';
+import Card from '../shared/Card';
+import CardSection from '../shared/CardSection';
+import Input from '../shared/Input';
+import NativePicker from '../shared/NativePicker';
 import {
   friendDelete,
   friendSave,
