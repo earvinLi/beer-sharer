@@ -1,4 +1,5 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Text,
@@ -6,8 +7,16 @@ import {
   View,
 } from 'react-native';
 
-// Internal Dependencies
-import { CardSection } from './CardSection';
+// Local Dependencies
+import CardSection from './CardSection';
+
+// Local Variables
+const styles = {
+  titleStyle: {
+    fontSize: 18,
+    paddingLeft: 15,
+  },
+};
 
 // Component Definition
 function ListItem(props) {
@@ -28,11 +37,14 @@ function ListItem(props) {
   );
 }
 
-const styles = {
-  titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15,
-  },
+// Prop Validations
+ListItem.propTypes = {
+  onPress: PropTypes.func,
+  title: PropTypes.string.isRequired,
 };
 
-export { ListItem };
+ListItem.defaultProps = {
+  onPress: null,
+};
+
+export default ListItem;

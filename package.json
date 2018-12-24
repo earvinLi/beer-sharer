@@ -9,6 +9,7 @@
   "dependencies": {
     "firebase": "^5.5.9",
     "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
     "react": "16.6.1",
     "react-native": "0.57.5",
     "react-native-communications": "^2.2.1",

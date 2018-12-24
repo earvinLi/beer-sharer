@@ -1,11 +1,9 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 
-// Component Definition
-// Change to normal function?
-const Card = ({ children }) => <View style={styles.containerStyle}>{children}</View>;
-
+// Local Variables
 // May change to shorthands by css-to-react-native in the future
 const styles = {
   containerStyle: {
@@ -27,4 +25,13 @@ const styles = {
   },
 };
 
-export { Card };
+// Component Definition
+// Change to normal function?
+const Card = ({ children }) => <View style={styles.containerStyle}>{children}</View>;
+
+// Prop Validations
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Card;
