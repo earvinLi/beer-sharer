@@ -1,6 +1,6 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import {
   FlatList,
@@ -13,6 +13,14 @@ import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
 import { friendsFetch } from '../../actions';
 
+// Local Variables
+const styles = {
+  spinnerContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+};
+
 // Component Definition
 class FriendsList extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -23,18 +31,18 @@ class FriendsList extends Component {
   });
 
   componentDidMount() {
-    this.props.onFriendsFetch();
+    const { onFriendsFetch } = this.props;
+
+    onFriendsFetch();
   }
 
-  renderFriendItem({ item: friend }) {
-    return (
-      <ListItem
-        // TODO: Change to not declare a function inside render
-        onPress={() => { Actions.friendEdit({ friend }); }}
-        title={friend.name}
-      />
-    );
-  }
+  renderFriendItem = ({ item: friend }) => (
+    <ListItem
+      // TODO: Change to not declare a function inside render
+      onPress={() => {}}
+      title={friend.name}
+    />
+  );
 
   render() {
     const {
@@ -43,28 +51,33 @@ class FriendsList extends Component {
     } = this.props;
 
     return isFetching
-    ? (
-      <View style={styles.spinnerContainerStyle}>
-        <Spinner loadingItemsLabel="friends" />
-      </View>
-    )
-    : (
-      <FlatList
-        data={fetchedFriends}
-        renderItem={this.renderFriendItem}
-      />
-    );
+      ? (
+        <View style={styles.spinnerContainerStyle}>
+          <Spinner loadingItemsLabel="friends" />
+        </View>
+      )
+      : (
+        <FlatList
+          data={fetchedFriends}
+          renderItem={this.renderFriendItem}
+        />
+      );
   }
 }
 
-const styles = {
-  spinnerContainerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+// Prop Validations
+FriendsList.propTypes = {
+  fetchedFriends: PropTypes.arrayOf(PropTypes.object),
+  isFetching: PropTypes.bool,
+  onFriendsFetch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+FriendsList.defaultProps = {
+  fetchedFriends: [],
+  isFetching: false,
+};
+
+const mapStateToProps = (state) => {
   const {
     fetchedFriends,
     isFetching,
