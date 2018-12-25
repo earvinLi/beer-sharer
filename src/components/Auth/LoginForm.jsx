@@ -1,4 +1,5 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -7,17 +8,24 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
-import {
-  Button,
-  Card,
-  CardSection,
-  Input,
-  Spinner,
-} from '../shared';
+import Button from '../shared/Button';
+import Card from '../shared/Card';
+import CardSection from '../shared/CardSection';
+import Input from '../shared/Input';
+import Spinner from '../shared/Spinner';
 import {
   loginInfoUpdate,
   loginUser,
 } from '../../actions';
+
+// Local Variables
+const styles = {
+  errorTextStyle: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 20,
+  },
+};
 
 // Component Definition
 class LoginForm extends Component {
@@ -49,7 +57,7 @@ class LoginForm extends Component {
 
     const loginButton = isLoading
       ? <Spinner size="large" />
-      : <Button onPress={this.onLoginButtonPress.bind(this)}>Login</Button>;
+      : <Button onPress={this.onLoginButtonPress}>Login</Button>;
 
     return (
       <View style={{ paddingTop: 36 }}>
@@ -79,15 +87,25 @@ class LoginForm extends Component {
   }
 }
 
-const styles = {
-  errorTextStyle: {
-    alignSelf: 'center',
-    color: 'red',
-    fontSize: 20,
-  },
+// Prop Validations
+LoginForm.propTypes = {
+  email: PropTypes.string,
+  isLoading: PropTypes.bool,
+  loginFailErrorText: PropTypes.string,
+  navigation: PropTypes.shapeOf(PropTypes.object).isRequired,
+  password: PropTypes.string,
+  onLoginUser: PropTypes.func.isRequired,
+  onLoginInfoUpdate: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+LoginForm.defaultProps = {
+  email: '',
+  isLoading: false,
+  loginFailErrorText: '',
+  password: '',
+};
+
+const mapStateToProps = (state) => {
   const {
     email,
     isLoading,
