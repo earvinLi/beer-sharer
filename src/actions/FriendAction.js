@@ -27,7 +27,12 @@ export const friendDelete = ({ uid }) => (dispatch, getState) => {
     .then(() => dispatch({ type: FRIEND_DELETE }));
 };
 
-export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, getState) => {
+export const friendSave = ({
+  favoriteStyle,
+  name,
+  phone,
+  uid,
+}) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
   firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
@@ -41,7 +46,7 @@ export const friendsFetch = () => (dispatch, getState) => {
   dispatch({ type: FRIENDS_FETCH });
 
   firebase.database().ref(`/users/${currentUserId}/friends`)
-    .on('value', snapshot => {
+    .on('value', (snapshot) => {
       dispatch({
         type: FRIENDS_FETCH_SUCCESS,
         payload: snapshot.val(),

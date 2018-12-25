@@ -8,7 +8,7 @@ import {
   LOGIN_USER,
   LOGIN_USER_FAIL,
   LOGIN_USER_SUCCESS,
-} from '../actions/Types';
+} from './Types';
 
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
@@ -22,11 +22,11 @@ const loginUserSuccess = (dispatch, toHomeNav, user) => {
 };
 
 export const loginInfoUpdate = ({ prop, value }) => ({
-   type: LOGIN_INFO_UPDATE,
-   payload: { prop, value },
+  type: LOGIN_INFO_UPDATE,
+  payload: { prop, value },
 });
 
-export const loginUser = ({ email, password, toHomeNav }) => async dispatch => {
+export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) => {
   dispatch({ type: LOGIN_USER });
 
   // TODO: Simplify this ugliness of the following Try...Catch

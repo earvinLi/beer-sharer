@@ -16,7 +16,7 @@ import {
   friendDelete,
   friendSave,
   friendUpdate,
-} from '../../actions';
+} from '../../actions/FriendAction';
 
 // Component Definition
 class FriendEdit extends Component {

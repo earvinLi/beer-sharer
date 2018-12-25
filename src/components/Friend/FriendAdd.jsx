@@ -12,7 +12,7 @@ import NativePicker from '../shared/NativePicker';
 import {
   friendCreate,
   friendUpdate,
-} from '../../actions';
+} from '../../actions/FriendAction';
 
 // Component Definition
 class FriendAdd extends Component {

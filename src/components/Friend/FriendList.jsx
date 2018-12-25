@@ -11,7 +11,7 @@ import {
 import Button from '../shared/Button';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
-import { friendsFetch } from '../../actions';
+import { friendsFetch } from '../../actions/FriendAction';
 
 // Local Variables
 const styles = {

@@ -16,7 +16,7 @@ import Spinner from '../shared/Spinner';
 import {
   loginInfoUpdate,
   loginUser,
-} from '../../actions';
+} from '../../actions/AuthAction';
 
 // Local Variables
 const styles = {
