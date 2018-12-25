@@ -1,5 +1,6 @@
 // External Dependencies
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 
@@ -70,12 +71,27 @@ class FriendAdd extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button onPress={this.onCreateButtonPress.bind(this)}>Create</Button>
+          <Button onPress={this.onCreateButtonPress}>Create</Button>
         </CardSection>
       </View>
     );
   }
 }
+
+// Prop Validations
+FriendAdd.propTypes = {
+  favoriteStyle: PropTypes.string,
+  name: PropTypes.string,
+  onFriendCreate: PropTypes.func.isRequired,
+  onFriendUpdate: PropTypes.func.isRequired,
+  phone: PropTypes.string,
+};
+
+FriendAdd.defaultProps = {
+  favoriteStyle: '',
+  name: '',
+  phone: '',
+};
 
 const mapStateToProps = (state) => {
   const {
