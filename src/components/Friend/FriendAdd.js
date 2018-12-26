@@ -1,84 +1,33 @@
 // External Dependencies
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { text as onCommunicationsText } from 'react-native-communications';
+import { View } from 'react-native';
 
 // Internal Dependencies
-import Alert from '../shared/Alert';
 import Button from '../shared/Button';
-import Card from '../shared/Card';
 import CardSection from '../shared/CardSection';
 import Input from '../shared/Input';
 import NativePicker from '../shared/NativePicker';
 import {
-  friendDelete,
-  friendSave,
+  friendCreate,
   friendUpdate,
-} from '../../actions';
+} from '../../actions/FriendAction';
 
 // Component Definition
-class FriendEdit extends Component {
-  state = { isAlertOpen: false };
-
-  componentDidMount() {
-    const {
-      friend,
-      onFriendUpdate,
-    } = this.props;
-
-    _.each(friend, (value, prop) => {
-      onFriendUpdate({ prop, value });
-    });
-  }
-
-  onDeleteButtonPress() {
-    this.setState({ isAlertOpen: true });
-  }
-
-  onAccept() {
-    const {
-      onFriendDelete,
-      uid,
-    } = this.props;
-
-    onFriendDelete({ uid });
-  }
-
-  onDecline() {
-    this.setState({ isAlertOpen: false });
-  }
-
-  onSaveButtonPress() {
+class FriendAdd extends Component {
+  onCreateButtonPress() {
     const {
       favoriteStyle,
       name,
-      onFriendSave,
-      phone,
-      uid,
-    } = this.props;
-
-    onFriendSave({
-      favoriteStyle,
-      name,
-      phone,
-      uid,
-    });
-  }
-
-  onTextButtonPress() {
-    const {
-      favoriteStyle,
+      onFriendCreate,
       phone,
     } = this.props;
 
-    onCommunicationsText(phone, `Nice! Your favorite style is ${favoriteStyle}`);
+    onFriendCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
   }
 
   render() {
-    const { isAlertOpen } = this.state;
-
     const {
       favoriteStyle,
       name,
@@ -96,7 +45,7 @@ class FriendEdit extends Component {
     ];
 
     return (
-      <Card>
+      <View style={{ paddingTop: 36 }}>
         <CardSection>
           <Input
             label="Name"
@@ -122,48 +71,26 @@ class FriendEdit extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button onPress={this.onSaveButtonPress}>
-            Save
-          </Button>
+          <Button onPress={this.onCreateButtonPress}>Create</Button>
         </CardSection>
-        <CardSection>
-          <Button onPress={this.onTextButtonPress}>
-            Text
-          </Button>
-        </CardSection>
-        <CardSection>
-          <Button onPress={this.onDeleteButtonPress}>
-            Delete
-          </Button>
-        </CardSection>
-        <Alert
-          alertContent="Are you sure you want to delete this friend?"
-          isOpen={isAlertOpen}
-          onAccept={this.onAccept}
-          onDecline={this.onDecline}
-        />
-      </Card>
+      </View>
     );
   }
 }
 
 // Prop Validations
-FriendEdit.propTypes = {
-  friend: PropTypes.shapeOf(PropTypes.object).isRequired,
+FriendAdd.propTypes = {
   favoriteStyle: PropTypes.string,
   name: PropTypes.string,
-  onFriendDelete: PropTypes.func.isRequired,
-  onFriendSave: PropTypes.func.isRequired,
+  onFriendCreate: PropTypes.func.isRequired,
   onFriendUpdate: PropTypes.func.isRequired,
   phone: PropTypes.string,
-  uid: PropTypes.string,
 };
 
-FriendEdit.defaultProps = {
+FriendAdd.defaultProps = {
   favoriteStyle: '',
   name: '',
   phone: '',
-  uid: '',
 };
 
 const mapStateToProps = (state) => {
@@ -171,19 +98,16 @@ const mapStateToProps = (state) => {
     favoriteStyle,
     name,
     phone,
-    uid,
   } = state.friendForm;
 
   return {
     favoriteStyle,
     name,
     phone,
-    uid,
   };
 };
 
 export default connect(mapStateToProps, {
-  onFriendDelete: friendDelete,
-  onFriendSave: friendSave,
+  onFriendCreate: friendCreate,
   onFriendUpdate: friendUpdate,
-})(FriendEdit);
+})(FriendAdd);

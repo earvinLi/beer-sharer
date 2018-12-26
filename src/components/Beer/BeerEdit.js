@@ -149,7 +149,7 @@ class FriendEdit extends Component {
 
 // Prop Validations
 FriendEdit.propTypes = {
-  friend: PropTypes.shapeOf(PropTypes.object).isRequired,
+  friend: PropTypes.shape(PropTypes.object).isRequired,
   favoriteStyle: PropTypes.string,
   name: PropTypes.string,
   onFriendDelete: PropTypes.func.isRequired,

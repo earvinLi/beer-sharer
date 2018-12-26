@@ -92,7 +92,7 @@ LoginForm.propTypes = {
   email: PropTypes.string,
   isLoading: PropTypes.bool,
   loginFailErrorText: PropTypes.string,
-  navigation: PropTypes.shapeOf(PropTypes.object).isRequired,
+  navigation: PropTypes.shape(PropTypes.object).isRequired,
   password: PropTypes.string,
   onLoginUser: PropTypes.func.isRequired,
   onLoginInfoUpdate: PropTypes.func.isRequired,
