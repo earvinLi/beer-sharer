@@ -1,7 +1,10 @@
 // External Dependencies
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import {
+  View,
+  ViewPropTypes,
+} from 'react-native';
 
 // Local Variables
 const styles = {
@@ -29,7 +32,7 @@ function CardSection(props) {
 // Prop Validations
 CardSection.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.shape(PropTypes.object),
+  style: ViewPropTypes.style,
 };
 
 CardSection.defaultProps = {
