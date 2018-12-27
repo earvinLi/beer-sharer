@@ -8,15 +8,17 @@ import {
 
 // Local Variables
 const styles = {
-  buttonStyle: {
+  basicButtonStyle: {
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    borderColor: '#007aff',
-    borderRadius: 5,
-    borderWidth: 1,
     flex: 1,
     marginLeft: 5,
     marginRight: 5,
+  },
+  buttonBorderStyle: {
+    borderColor: '#007aff',
+    borderRadius: 5,
+    borderWidth: 1,
   },
   textStyle: {
     alignSelf: 'center',
@@ -33,18 +35,22 @@ const styles = {
 function Button(props) {
   const {
     children,
+    hasBorder,
     onPress,
   } = props;
 
   const {
-    buttonStyle,
+    basicButtonStyle,
+    buttonBorderStyle,
     textStyle,
   } = styles;
+
+  const buttonWithBorderStyle = { ...basicButtonStyle, ...buttonBorderStyle };
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={buttonStyle}
+      style={hasBorder ? buttonWithBorderStyle : basicButtonStyle}
     >
       <Text style={textStyle}>{children}</Text>
     </TouchableOpacity>
@@ -54,10 +60,12 @@ function Button(props) {
 // Prop Validations
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  hasBorder: PropTypes.bool,
   onPress: PropTypes.func,
 };
 
 Button.defaultProps = {
+  hasBorder: true,
   onPress: null,
 };
 
