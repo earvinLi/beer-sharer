@@ -29,7 +29,7 @@ const styles = {
 
 // Component Definition
 class LoginForm extends Component {
-  onLoginButtonPress() {
+  onLoginButtonPress = () => {
     const {
       email,
       navigation,
