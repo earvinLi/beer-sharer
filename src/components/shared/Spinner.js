@@ -23,6 +23,7 @@ const styles = {
 // Component Definition
 function Spinner(props) {
   const {
+    hasLabel,
     loadingItemsLabel,
     size,
   } = props;
@@ -32,7 +33,7 @@ function Spinner(props) {
     spinnerStyle,
   } = styles;
 
-  const loadingWordsElement = loadingItemsLabel
+  const loadingWordsElement = hasLabel
     && (
       <Text style={loadingWordsStyle}>
         Loading&nbsp;
@@ -51,11 +52,13 @@ function Spinner(props) {
 
 // Prop Validations
 Spinner.propTypes = {
+  hasLabel: PropTypes.bool,
   loadingItemsLabel: PropTypes.string,
   size: PropTypes.string,
 };
 
 Spinner.defaultProps = {
+  hasLabel: false,
   loadingItemsLabel: 'Items',
   size: 'large',
 };
