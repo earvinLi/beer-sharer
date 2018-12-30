@@ -8,18 +8,26 @@ import {
   // How to deal with the alpha order here :(
   LOGIN_USER,
   LOGIN_USER_FAIL,
-  LOGIN_USER_SUCCESS,
+  REACH_MAIN_APP_SUCCESS,
 } from './Types';
 
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
-const loginUserSuccess = (dispatch, toHomeNav, user) => {
+const reachMainAppSuccess = (dispatch, toHomeNav, currentUserId) => {
   dispatch({
-    type: LOGIN_USER_SUCCESS,
-    payload: user,
+    type: REACH_MAIN_APP_SUCCESS,
+    payload: currentUserId,
   });
 
   toHomeNav.navigate('Home');
+};
+
+export const loadApp = toAppNav => async (dispatch) => {
+  const currentUserId = await AsyncStorage.getItem('currentUserId');
+
+  if (currentUserId) return reachMainAppSuccess(dispatch, toAppNav, currentUserId);
+
+  return toAppNav.navigate('Auth');
 };
 
 export const loginInfoUpdate = ({ prop, value }) => ({
@@ -32,15 +40,16 @@ export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) =>
 
   // TODO: Simplify this ugliness of the following Try...Catch
   try {
-    const [loggedInUser] = await Promise.all([
-      firebase.auth().signInWithEmailAndPassword(email, password),
-      AsyncStorage.setItem('hasLoggedInUser', 'Yes, he&#39;s here.'),
-    ]);
-    loginUserSuccess(dispatch, toHomeNav, loggedInUser);
+    const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const currentUserId = loggedInUser.user.uid;
+
+    await AsyncStorage.setItem('currentUserId', currentUserId);
+
+    reachMainAppSuccess(dispatch, toHomeNav, currentUserId);
   } catch (loggingErr) {
     try {
       const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      loginUserSuccess(dispatch, toHomeNav, createdUser);
+      reachMainAppSuccess(dispatch, toHomeNav, createdUser);
     } catch (creatingErr) {
       loginUserFail(dispatch);
     }

@@ -1,13 +1,12 @@
 // External Dependencies
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-  AsyncStorage,
-  View,
-} from 'react-native';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
 
 // Internal Dependencies
 import Spinner from '../shared/Spinner';
+import { loadApp } from '../../actions/AuthAction';
 
 // Local Variables
 const styles = {
@@ -18,17 +17,13 @@ const styles = {
 };
 
 class AuthLoadingScreen extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const {
+      navigation: toAppNav,
+      onLoadApp,
+    } = this.props;
 
-    this.loadApp();
-  }
-
-  loadApp = async () => {
-    const { navigation } = this.props;
-
-    const hasLoggedInUser = await AsyncStorage.getItem('hasLoggedInUser');
-    navigation.navigate(hasLoggedInUser ? 'Home' : 'Auth');
+    onLoadApp(toAppNav);
   }
 
   render() {
@@ -46,6 +41,9 @@ class AuthLoadingScreen extends Component {
 // Prop Validations
 AuthLoadingScreen.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
+  onLoadApp: PropTypes.func.isRequired,
 };
 
-export default AuthLoadingScreen;
+export default connect(null, {
+  onLoadApp: loadApp,
+})(AuthLoadingScreen);

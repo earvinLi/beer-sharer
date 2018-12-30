@@ -2,7 +2,7 @@
 export const LOGIN_INFO_UPDATE = 'LOGIN_INFO_UPDATE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const REACH_MAIN_APP_SUCCESS = 'REACH_MAIN_APP_SUCCESS';
 
 // Friend Add
 export const FRIEND_CREATE = 'FRIEND_CREATE';
