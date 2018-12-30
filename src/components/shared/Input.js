@@ -35,6 +35,7 @@ const styles = {
 // Component Definition
 function Input(props) {
   const {
+    autoCapitalize,
     label,
     // Name from material-ui
     onChange,
@@ -53,6 +54,7 @@ function Input(props) {
     <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <TextInput
+        autoCapitalize={autoCapitalize}
         autoCorrect={false}
         onChangeText={onChange}
         placeholder={placeholder}
@@ -66,6 +68,7 @@ function Input(props) {
 
 // Prop Validations
 Input.propTypes = {
+  autoCapitalize: PropTypes.string,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
@@ -77,6 +80,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  autoCapitalize: 'sentences',
   onChange: null,
   placeholder: '',
   secureTextEntry: false,

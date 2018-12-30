@@ -26,7 +26,12 @@ class FriendsList extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Finest Liquids',
     headerRight: (
-      <Button onPress={() => navigation.navigate('FriendAdd')}>Add</Button>
+      <Button
+        hasBorder={false}
+        onPress={() => navigation.navigate('BeerAdd')}
+      >
+        Add
+      </Button>
     ),
   });
 

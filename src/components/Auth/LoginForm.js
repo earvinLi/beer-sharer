@@ -64,6 +64,7 @@ class LoginForm extends Component {
         <Card>
           <CardSection>
             <Input
+              autoCapitalize="none"
               label="Email"
               onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
               placeholder="email@gmail.com"
@@ -72,6 +73,7 @@ class LoginForm extends Component {
           </CardSection>
           <CardSection>
             <Input
+              autoCapitalize="none"
               label="Password"
               onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
               placeholder="password"
