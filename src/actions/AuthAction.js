@@ -1,5 +1,6 @@
 // External Dependencies
 import firebase from 'firebase';
+import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
 import {
@@ -31,7 +32,10 @@ export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) =>
 
   // TODO: Simplify this ugliness of the following Try...Catch
   try {
-    const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const [loggedInUser] = await Promise.all([
+      firebase.auth().signInWithEmailAndPassword(email, password),
+      AsyncStorage.setItem('hasLoggedInUser', 'Yes, he&#39;s here.'),
+    ]);
     loginUserSuccess(dispatch, toHomeNav, loggedInUser);
   } catch (loggingErr) {
     try {

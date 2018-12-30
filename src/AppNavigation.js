@@ -7,6 +7,7 @@ import {
 } from 'react-navigation';
 
 // Internal Dependencies
+import AppLoadingScreen from './components/Auth/AppLoadingScreen';
 import BeerAdd from './components/Beer/BeerAdd';
 import BeerEdit from './components/Beer/BeerEdit';
 import BeerList from './components/Beer/BeerList';
@@ -34,6 +35,7 @@ const HomeTab = createBottomTabNavigator({
 });
 
 const AppNavigation = createSwitchNavigator({
+  AuthLoading: AppLoadingScreen,
   Auth: LoginForm,
   Home: HomeTab,
 });
