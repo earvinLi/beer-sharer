@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
+import Alert from '../shared/Alert';
 import Button from '../shared/Button';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
@@ -28,18 +29,29 @@ class FriendsList extends Component {
     headerRight: (
       <Button
         hasBorder={false}
-        onPress={() => navigation.navigate('FriendAdd')}
+        onPress={navigation.getParam('onAddButtonPress')}
       >
         Add
       </Button>
     ),
   });
 
+  state = { isAlertOpen: false };
+
   componentDidMount() {
-    const { onFriendsFetch } = this.props;
+    const {
+      navigation,
+      onFriendsFetch,
+    } = this.props;
+
+    navigation.setParams({ onAddButtonPress: this.onAddButtonPress });
 
     onFriendsFetch();
   }
+
+  onAddButtonPress = () => this.setState({ isAlertOpen: true });
+
+  onDeclineButtonPress = () => this.setState({ isAlertOpen: false });
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
@@ -50,6 +62,8 @@ class FriendsList extends Component {
   );
 
   render() {
+    const { isAlertOpen } = this.state;
+
     const {
       fetchedFriends,
       isFetching,
@@ -65,10 +79,18 @@ class FriendsList extends Component {
         </View>
       )
       : (
-        <FlatList
-          data={fetchedFriends}
-          renderItem={this.renderFriendItem}
-        />
+        <View>
+          <FlatList
+            data={fetchedFriends}
+            renderItem={this.renderFriendItem}
+          />
+          <Alert
+            alertContent="Are you sure you want to delete this friend?"
+            isOpen={isAlertOpen}
+            onAccept={this.onAccept}
+            onDecline={this.onDeclineButtonPress}
+          />
+        </View>
       );
   }
 }
@@ -77,6 +99,7 @@ class FriendsList extends Component {
 FriendsList.propTypes = {
   fetchedFriends: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
+  navigation: PropTypes.shape({}).isRequired,
   onFriendsFetch: PropTypes.func.isRequired,
 };
 

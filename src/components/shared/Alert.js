@@ -43,7 +43,7 @@ function Alert(props) {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent
       visible={isOpen}
     >
@@ -52,7 +52,7 @@ function Alert(props) {
           <Text style={alertContentStyle}>{alertContent}</Text>
         </CardSection>
         <CardSection>
-          <Button onPress={onDecline}>CANCEl</Button>
+          <Button onPress={onDecline}>CANCEL</Button>
           <Button onPress={onAccept}>OK</Button>
         </CardSection>
       </View>

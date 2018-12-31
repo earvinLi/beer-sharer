@@ -20,10 +20,7 @@ import {
 
 // Component Definition
 class FriendEdit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isAlertOpen: false };
-  }
+  state = { isAlertOpen: false };
 
   componentDidMount() {
     const {
