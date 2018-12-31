@@ -30,6 +30,7 @@ const styles = {
 // Component Definition
 function DialogConfirm(props) {
   const {
+    acceptButtonText,
     children,
     title,
     isOpen,
@@ -57,7 +58,7 @@ function DialogConfirm(props) {
         </CardSection>
         <CardSection>
           <Button onPress={onDecline}>CANCEL</Button>
-          <Button onPress={onAccept}>OK</Button>
+          <Button onPress={onAccept}>{acceptButtonText || 'OK'}</Button>
         </CardSection>
       </View>
     </Modal>
@@ -66,6 +67,7 @@ function DialogConfirm(props) {
 
 // Prop Validations
 DialogConfirm.propTypes = {
+  acceptButtonText: PropTypes.string,
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
@@ -74,6 +76,7 @@ DialogConfirm.propTypes = {
 };
 
 DialogConfirm.defaultProps = {
+  acceptButtonText: '',
   isOpen: false,
 };
 

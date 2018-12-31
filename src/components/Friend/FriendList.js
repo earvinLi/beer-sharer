@@ -86,6 +86,7 @@ class FriendsList extends Component {
             renderItem={this.renderFriendItem}
           />
           <DialogConfirm
+            acceptButtonText="Add"
             isOpen={isAlertOpen}
             onAccept={this.onAccept}
             onDecline={this.onDeclineButtonPress}
@@ -93,7 +94,7 @@ class FriendsList extends Component {
           >
             <Input
               autoCapitalize="none"
-              placeholder="email@gmail.com"
+              placeholder="Enter an emaill to search"
             />
           </DialogConfirm>
         </View>

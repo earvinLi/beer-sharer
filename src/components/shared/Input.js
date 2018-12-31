@@ -52,7 +52,7 @@ function Input(props) {
 
   return (
     <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
+      {Boolean(label) && <Text style={labelStyle}>{label}</Text>}
       <TextInput
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
