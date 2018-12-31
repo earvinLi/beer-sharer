@@ -4,12 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   FlatList,
+  Text,
   View,
 } from 'react-native';
 
 // Internal Dependencies
-import Alert from '../shared/Alert';
 import Button from '../shared/Button';
+import DialogConfirm from '../shared/DialogConfirm';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
 import { friendsFetch } from '../../actions/FriendAction';
@@ -84,12 +85,14 @@ class FriendsList extends Component {
             data={fetchedFriends}
             renderItem={this.renderFriendItem}
           />
-          <Alert
-            alertContent="Are you sure you want to delete this friend?"
+          <DialogConfirm
             isOpen={isAlertOpen}
             onAccept={this.onAccept}
             onDecline={this.onDeclineButtonPress}
-          />
+            title="Search User"
+          >
+            <Text>please give me a user&apos;s email :)</Text>
+          </DialogConfirm>
         </View>
       );
   }
