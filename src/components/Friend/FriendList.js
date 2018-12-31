@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   FlatList,
-  Text,
   View,
 } from 'react-native';
 
 // Internal Dependencies
 import Button from '../shared/Button';
 import DialogConfirm from '../shared/DialogConfirm';
+import Input from '../shared/Input';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
 import { friendsFetch } from '../../actions/FriendAction';
@@ -91,7 +91,10 @@ class FriendsList extends Component {
             onDecline={this.onDeclineButtonPress}
             title="Search User"
           >
-            <Text>please give me a user&apos;s email :)</Text>
+            <Input
+              autoCapitalize="none"
+              placeholder="email@gmail.com"
+            />
           </DialogConfirm>
         </View>
       );

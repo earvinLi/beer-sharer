@@ -17,6 +17,8 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     flex: 1,
     justifyContent: 'center',
+    paddingLeft: 18,
+    paddingRight: 18,
     position: 'relative',
   },
   titleStyle: {

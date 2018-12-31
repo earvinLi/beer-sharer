@@ -69,7 +69,7 @@ function Input(props) {
 // Prop Validations
 Input.propTypes = {
   autoCapitalize: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   secureTextEntry: PropTypes.bool,
@@ -81,6 +81,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
   autoCapitalize: 'sentences',
+  label: '',
   onChange: null,
   placeholder: '',
   secureTextEntry: false,
