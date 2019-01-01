@@ -13,23 +13,23 @@ import CardSection from '../shared/CardSection';
 import Input from '../shared/Input';
 import NativePicker from '../shared/NativePicker';
 import {
-  friendDelete,
-  friendSave,
-  friendUpdate,
-} from '../../actions/FriendAction';
+  beerDelete,
+  beerSave,
+  beerUpdate,
+} from '../../actions/BeerAction';
 
 // Component Definition
-class FriendEdit extends Component {
+class BeerEdit extends Component {
   state = { isAlertOpen: false };
 
   componentDidMount() {
     const {
-      friend,
-      onFriendUpdate,
+      beer,
+      onBeerUpdate,
     } = this.props;
 
-    _.each(friend, (value, prop) => {
-      onFriendUpdate({ prop, value });
+    _.each(beer, (value, prop) => {
+      onBeerUpdate({ prop, value });
     });
   }
 
@@ -39,11 +39,11 @@ class FriendEdit extends Component {
 
   onAccept() {
     const {
-      onFriendDelete,
+      onBeerDelete,
       uid,
     } = this.props;
 
-    onFriendDelete({ uid });
+    onBeerDelete({ uid });
   }
 
   onDecline() {
@@ -54,12 +54,12 @@ class FriendEdit extends Component {
     const {
       favoriteStyle,
       name,
-      onFriendSave,
+      onBeerSave,
       phone,
       uid,
     } = this.props;
 
-    onFriendSave({
+    onBeerSave({
       favoriteStyle,
       name,
       phone,
@@ -82,7 +82,7 @@ class FriendEdit extends Component {
     const {
       favoriteStyle,
       name,
-      onFriendUpdate,
+      onBeerUpdate,
       phone,
     } = this.props;
 
@@ -100,7 +100,7 @@ class FriendEdit extends Component {
         <CardSection>
           <Input
             label="Name"
-            onChange={value => onFriendUpdate({ prop: 'name', value })}
+            onChange={value => onBeerUpdate({ prop: 'name', value })}
             placeholder="Ninkasi"
             value={name}
           />
@@ -108,14 +108,14 @@ class FriendEdit extends Component {
         <CardSection>
           <Input
             label="Phone"
-            onChange={value => onFriendUpdate({ prop: 'phone', value })}
+            onChange={value => onBeerUpdate({ prop: 'phone', value })}
             placeholder="413-523-2367"
             value={phone}
           />
         </CardSection>
         <CardSection style={{ flexDirection: 'column' }}>
           <NativePicker
-            onPick={value => onFriendUpdate({ prop: 'favoriteStyle', value })}
+            onPick={value => onBeerUpdate({ prop: 'favoriteStyle', value })}
             optionsToPick={beerStylesData}
             pickedValue={favoriteStyle}
             pickerLabel="Favorite Style"
@@ -137,7 +137,7 @@ class FriendEdit extends Component {
           </Button>
         </CardSection>
         <Alert
-          alertContent="Are you sure you want to delete this friend?"
+          alertContent="Are you sure you want to delete this beer?"
           isOpen={isAlertOpen}
           onAccept={this.onAccept}
           onDecline={this.onDecline}
@@ -148,18 +148,18 @@ class FriendEdit extends Component {
 }
 
 // Prop Validations
-FriendEdit.propTypes = {
-  friend: PropTypes.shape({}).isRequired,
+BeerEdit.propTypes = {
+  beer: PropTypes.shape({}).isRequired,
   favoriteStyle: PropTypes.string,
   name: PropTypes.string,
-  onFriendDelete: PropTypes.func.isRequired,
-  onFriendSave: PropTypes.func.isRequired,
-  onFriendUpdate: PropTypes.func.isRequired,
+  onBeerDelete: PropTypes.func.isRequired,
+  onBeerSave: PropTypes.func.isRequired,
+  onBeerUpdate: PropTypes.func.isRequired,
   phone: PropTypes.string,
   uid: PropTypes.string,
 };
 
-FriendEdit.defaultProps = {
+BeerEdit.defaultProps = {
   favoriteStyle: '',
   name: '',
   phone: '',
@@ -172,7 +172,7 @@ const mapStateToProps = (state) => {
     name,
     phone,
     uid,
-  } = state.friendForm;
+  } = state.beerForm;
 
   return {
     favoriteStyle,
@@ -183,7 +183,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onFriendDelete: friendDelete,
-  onFriendSave: friendSave,
-  onFriendUpdate: friendUpdate,
-})(FriendEdit);
+  onBeerDelete: beerDelete,
+  onBeerSave: beerSave,
+  onBeerUpdate: beerUpdate,
+})(BeerEdit);

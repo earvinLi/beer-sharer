@@ -10,28 +10,28 @@ import CardSection from '../shared/CardSection';
 import Input from '../shared/Input';
 import NativePicker from '../shared/NativePicker';
 import {
-  friendCreate,
-  friendUpdate,
-} from '../../actions/FriendAction';
+  beerCreate,
+  beerUpdate,
+} from '../../actions/BeerAction';
 
 // Component Definition
-class FriendAdd extends Component {
+class BeerAdd extends Component {
   onCreateButtonPress() {
     const {
       favoriteStyle,
       name,
-      onFriendCreate,
+      onBeerCreate,
       phone,
     } = this.props;
 
-    onFriendCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
+    onBeerCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
   }
 
   render() {
     const {
       favoriteStyle,
       name,
-      onFriendUpdate,
+      onBeerUpdate,
       phone,
     } = this.props;
 
@@ -49,7 +49,7 @@ class FriendAdd extends Component {
         <CardSection>
           <Input
             label="Name"
-            onChange={value => onFriendUpdate({ prop: 'name', value })}
+            onChange={value => onBeerUpdate({ prop: 'name', value })}
             placeholder="Ninkasi"
             value={name}
           />
@@ -57,14 +57,14 @@ class FriendAdd extends Component {
         <CardSection>
           <Input
             label="Phone"
-            onChange={value => onFriendUpdate({ prop: 'phone', value })}
+            onChange={value => onBeerUpdate({ prop: 'phone', value })}
             placeholder="413-523-2367"
             value={phone}
           />
         </CardSection>
         <CardSection style={{ flexDirection: 'column' }}>
           <NativePicker
-            onPick={value => onFriendUpdate({ prop: 'favoriteStyle', value })}
+            onPick={value => onBeerUpdate({ prop: 'favoriteStyle', value })}
             optionsToPick={beerStylesData}
             pickedValue={favoriteStyle}
             pickerLabel="Favorite Style"
@@ -79,15 +79,15 @@ class FriendAdd extends Component {
 }
 
 // Prop Validations
-FriendAdd.propTypes = {
+BeerAdd.propTypes = {
   favoriteStyle: PropTypes.string,
   name: PropTypes.string,
-  onFriendCreate: PropTypes.func.isRequired,
-  onFriendUpdate: PropTypes.func.isRequired,
+  onBeerCreate: PropTypes.func.isRequired,
+  onBeerUpdate: PropTypes.func.isRequired,
   phone: PropTypes.string,
 };
 
-FriendAdd.defaultProps = {
+BeerAdd.defaultProps = {
   favoriteStyle: '',
   name: '',
   phone: '',
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
     favoriteStyle,
     name,
     phone,
-  } = state.friendForm;
+  } = state.beerForm;
 
   return {
     favoriteStyle,
@@ -108,6 +108,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onFriendCreate: friendCreate,
-  onFriendUpdate: friendUpdate,
-})(FriendAdd);
+  onBeerCreate: beerCreate,
+  onBeerUpdate: beerUpdate,
+})(BeerAdd);
