@@ -13,3 +13,5 @@ export const BEER_FETCH_SUCCESS = 'BEERS_FETCH_SUCCESS';
 export const BEER_UPDATE = 'BEER_UPDATE';
 
 // Friend
+export const FRIEND_FETCH = 'FRIEND_FETCH';
+export const FRIEND_FETCH_SUCCESS = 'FRIEND_FETCH_SUCCESS';

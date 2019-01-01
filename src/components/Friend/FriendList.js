@@ -13,7 +13,7 @@ import DialogConfirm from '../shared/DialogConfirm';
 import Input from '../shared/Input';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
-import { friendsFetch } from '../../actions/FriendAction';
+import { friendFetch } from '../../actions/FriendAction';
 
 // Local Variables
 const styles = {
@@ -24,7 +24,7 @@ const styles = {
 };
 
 // Component Definition
-class FriendsList extends Component {
+class FriendList extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Drinking Buddies',
     headerRight: (
@@ -42,12 +42,12 @@ class FriendsList extends Component {
   componentDidMount() {
     const {
       navigation,
-      onFriendsFetch,
+      onFriendFetch,
     } = this.props;
 
     navigation.setParams({ onAddButtonPress: this.onAddButtonPress });
 
-    onFriendsFetch();
+    onFriendFetch();
   }
 
   onAddButtonPress = () => this.setState({ isAlertOpen: true });
@@ -66,7 +66,7 @@ class FriendsList extends Component {
     const { isAlertOpen } = this.state;
 
     const {
-      fetchedFriends,
+      fetchedFriend,
       isFetching,
     } = this.props;
 
@@ -82,7 +82,7 @@ class FriendsList extends Component {
       : (
         <View>
           <FlatList
-            data={fetchedFriends}
+            data={fetchedFriend}
             renderItem={this.renderFriendItem}
           />
           <DialogConfirm
@@ -103,30 +103,30 @@ class FriendsList extends Component {
 }
 
 // Prop Validations
-FriendsList.propTypes = {
-  fetchedFriends: PropTypes.arrayOf(PropTypes.object),
+FriendList.propTypes = {
+  fetchedFriend: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
-  onFriendsFetch: PropTypes.func.isRequired,
+  onFriendFetch: PropTypes.func.isRequired,
 };
 
-FriendsList.defaultProps = {
-  fetchedFriends: [],
+FriendList.defaultProps = {
+  fetchedFriend: [],
   isFetching: false,
 };
 
 const mapStateToProps = (state) => {
   const {
-    fetchedFriends,
+    fetchedFriend,
     isFetching,
-  } = state.friends;
+  } = state.friend;
 
   return {
-    fetchedFriends,
+    fetchedFriend,
     isFetching,
   };
 };
 
 export default connect(mapStateToProps, {
-  onFriendsFetch: friendsFetch,
-})(FriendsList);
+  onFriendFetch: friendFetch,
+})(FriendList);
