@@ -1,65 +1,24 @@
 // External Dependencies
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
 
 // Internal Dependencies
 import {
-  FRIEND_CREATE,
-  FRIEND_DELETE,
-  FRIEND_SAVE,
-  FRIENDS_FETCH,
-  FRIENDS_FETCH_SUCCESS,
-  FRIEND_UPDATE,
+  FRIEND_FETCH,
+  FRIEND_FETCH_SUCCESS,
 } from './Types';
 
-export const friendCreate = ({ favoriteStyle, name, phone }) => (dispatch, getState) => {
+export const friendFetch = () => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
+
+  dispatch({ type: FRIEND_FETCH });
 
   firebase.database().ref(`/users/${currentUserId}/friends`)
-    .push({ favoriteStyle, name, phone })
-    .then(() => {
-      dispatch({ type: FRIEND_CREATE });
-      Actions.pop();
-    });
-};
-
-export const friendDelete = ({ uid }) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
-
-  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
-    .remove()
-    .then(() => {
-      dispatch({ type: FRIEND_DELETE });
-      Actions.pop();
-    });
-};
-
-export const friendSave = ({ favoriteStyle, name, phone, uid }) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
-
-  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
-    .set({ favoriteStyle, name, phone })
-    .then(() => {
-      dispatch({ type: FRIEND_SAVE });
-      Actions.pop();
-    });
-};
-
-export const friendsFetch = () => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
-
-  dispatch({ type: FRIENDS_FETCH });
-
-  firebase.database().ref(`/users/${currentUserId}/friends`)
-    .on('value', snapshot => {
+    .on('value', (snapshot) => {
       dispatch({
-        type: FRIENDS_FETCH_SUCCESS,
+        type: FRIEND_FETCH_SUCCESS,
         payload: snapshot.val(),
       });
     });
 };
 
-export const friendUpdate = ({ prop, value }) => ({
-  type: FRIEND_UPDATE,
-  payload: { prop, value },
-});
+export const friendSearch = () => {};

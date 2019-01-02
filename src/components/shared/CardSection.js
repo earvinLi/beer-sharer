@@ -1,17 +1,12 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import {
+  View,
+  ViewPropTypes,
+} from 'react-native';
 
-// Component Definition
-const CardSection = (props) => {
-  const {
-    children,
-    style
-  } = props;
-
-  return <View style={[styles.containerStyle, style]}>{children}</View>;
-};
-
+// Local Variables
 const styles = {
   containerStyle: {
     backgroundColor: '#fff',
@@ -24,4 +19,24 @@ const styles = {
   },
 };
 
-export { CardSection };
+// Component Definition
+function CardSection(props) {
+  const {
+    children,
+    style,
+  } = props;
+
+  return <View style={[styles.containerStyle, style]}>{children}</View>;
+}
+
+// Prop Validations
+CardSection.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: ViewPropTypes.style,
+};
+
+CardSection.defaultProps = {
+  style: {},
+};
+
+export default CardSection;

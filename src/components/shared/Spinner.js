@@ -1,4 +1,5 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -6,29 +7,7 @@ import {
   View,
 } from 'react-native';
 
-// Component Definition
-const Spinner = (props) => {
-  const {
-    loadingItemsLabel,
-    size,
-  } = props;
-
-  const {
-    loadingWordsStyle,
-    spinnerStyle,
-  } = styles;
-
-  const loadingWordsElement = loadingItemsLabel
-    && <Text style={loadingWordsStyle} >Loading {loadingItemsLabel}...</Text>;
-
-  return (
-    <View style={spinnerStyle}>
-      <ActivityIndicator size={size || 'large'} />
-      {loadingWordsElement}
-    </View>
-  );
-};
-
+// Local Variables
 const styles = {
   loadingWordsStyle: {
     fontSize: 18,
@@ -41,4 +20,47 @@ const styles = {
   },
 };
 
-export { Spinner };
+// Component Definition
+function Spinner(props) {
+  const {
+    hasLabel,
+    loadingItemsLabel,
+    size,
+  } = props;
+
+  const {
+    loadingWordsStyle,
+    spinnerStyle,
+  } = styles;
+
+  const loadingWordsElement = hasLabel
+    && (
+      <Text style={loadingWordsStyle}>
+        Loading&nbsp;
+        {loadingItemsLabel}
+        ...
+      </Text>
+    );
+
+  return (
+    <View style={spinnerStyle}>
+      <ActivityIndicator size={size} />
+      {loadingWordsElement}
+    </View>
+  );
+}
+
+// Prop Validations
+Spinner.propTypes = {
+  hasLabel: PropTypes.bool,
+  loadingItemsLabel: PropTypes.string,
+  size: PropTypes.string,
+};
+
+Spinner.defaultProps = {
+  hasLabel: false,
+  loadingItemsLabel: 'Items',
+  size: 'large',
+};
+
+export default Spinner;

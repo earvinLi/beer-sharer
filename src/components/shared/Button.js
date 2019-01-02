@@ -1,42 +1,24 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Text,
   TouchableOpacity,
 } from 'react-native';
 
-// Component Definition
-const Button = (props) => {
-  const {
-    children,
-    onPress,
-  } = props;
-
-  const {
-    buttonStyle,
-    textStyle,
-  } = styles;
-
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={buttonStyle}
-    >
-      <Text style={textStyle}>{children}</Text>
-    </TouchableOpacity>
-  );
-};
-
+// Local Variables
 const styles = {
-  buttonStyle: {
+  basicButtonStyle: {
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    borderColor: '#007aff',
-    borderRadius: 5,
-    borderWidth: 1,
     flex: 1,
     marginLeft: 5,
     marginRight: 5,
+  },
+  buttonBorderStyle: {
+    borderColor: '#007aff',
+    borderRadius: 5,
+    borderWidth: 1,
   },
   textStyle: {
     alignSelf: 'center',
@@ -49,4 +31,42 @@ const styles = {
   },
 };
 
-export { Button };
+// Component Definition
+function Button(props) {
+  const {
+    children,
+    hasBorder,
+    onPress,
+  } = props;
+
+  const {
+    basicButtonStyle,
+    buttonBorderStyle,
+    textStyle,
+  } = styles;
+
+  const buttonWithBorderStyle = { ...basicButtonStyle, ...buttonBorderStyle };
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={hasBorder ? buttonWithBorderStyle : basicButtonStyle}
+    >
+      <Text style={textStyle}>{children}</Text>
+    </TouchableOpacity>
+  );
+}
+
+// Prop Validations
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  hasBorder: PropTypes.bool,
+  onPress: PropTypes.func,
+};
+
+Button.defaultProps = {
+  hasBorder: true,
+  onPress: null,
+};
+
+export default Button;

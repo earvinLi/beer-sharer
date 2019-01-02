@@ -1,6 +1,6 @@
 // External Dependencies
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
 import {
@@ -8,34 +8,50 @@ import {
   // How to deal with the alpha order here :(
   LOGIN_USER,
   LOGIN_USER_FAIL,
-  LOGIN_USER_SUCCESS,
-} from '../actions/Types';
+  REACH_MAIN_APP_SUCCESS,
+} from './Types';
 
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
-const loginUserSuccess = (dispatch, user) => {
+const reachMainAppSuccess = (dispatch, toHomeNav, currentUserId) => {
   dispatch({
-    type: LOGIN_USER_SUCCESS,
-    payload: user,
+    type: REACH_MAIN_APP_SUCCESS,
+    payload: currentUserId,
   });
 
-  // Go to upper level route first
-  Actions.friendSection();
+  toHomeNav.navigate('Home');
+};
+
+export const loadApp = toAppNav => async (dispatch) => {
+  const currentUserId = await AsyncStorage.getItem('currentUserId');
+
+  if (currentUserId) return reachMainAppSuccess(dispatch, toAppNav, currentUserId);
+
+  return toAppNav.navigate('Auth');
 };
 
 export const loginInfoUpdate = ({ prop, value }) => ({
-   type: LOGIN_INFO_UPDATE,
-   payload: { prop, value },
+  type: LOGIN_INFO_UPDATE,
+  payload: { prop, value },
 });
 
-export const loginUser = ({ email, password }) => dispatch => {
+export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) => {
   dispatch({ type: LOGIN_USER });
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(user => loginUserSuccess(dispatch, user))
-    .catch(() => {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => loginUserSuccess(dispatch, user))
-        .catch(() => loginUserFail(dispatch));
-    });
+  // TODO: Simplify this ugliness of the following Try...Catch
+  try {
+    const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const currentUserId = loggedInUser.user.uid;
+
+    await AsyncStorage.setItem('currentUserId', currentUserId);
+
+    reachMainAppSuccess(dispatch, toHomeNav, currentUserId);
+  } catch (loggingErr) {
+    try {
+      const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      reachMainAppSuccess(dispatch, toHomeNav, createdUser);
+    } catch (creatingErr) {
+      loginUserFail(dispatch);
+    }
+  }
 };

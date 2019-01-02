@@ -13,31 +13,33 @@ import CardSection from './CardSection';
 
 // Local Variables
 const styles = {
-  alertContentStyle: {
-    flex: 1,
-    fontSize: 18,
-    lineHeight: 40,
-    textAlign: 'center',
-  },
   containerStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     flex: 1,
     justifyContent: 'center',
+    paddingLeft: 18,
+    paddingRight: 18,
     position: 'relative',
+  },
+  titleStyle: {
+    fontSize: 18,
+    lineHeight: 40,
   },
 };
 
 // Component Definition
-function Alert(props) {
+function DialogConfirm(props) {
   const {
-    alertContent,
+    acceptButtonText,
+    children,
+    title,
     isOpen,
     onAccept,
     onDecline,
   } = props;
 
   const {
-    alertContentStyle,
+    titleStyle,
     containerStyle,
   } = styles;
 
@@ -48,12 +50,15 @@ function Alert(props) {
       visible={isOpen}
     >
       <View style={containerStyle}>
-        <CardSection style={{ justifyContent: 'center' }}>
-          <Text style={alertContentStyle}>{alertContent}</Text>
+        <CardSection>
+          <Text style={titleStyle}>{title}</Text>
+        </CardSection>
+        <CardSection>
+          {children}
         </CardSection>
         <CardSection>
           <Button onPress={onDecline}>CANCEL</Button>
-          <Button onPress={onAccept}>OK</Button>
+          <Button onPress={onAccept}>{acceptButtonText || 'OK'}</Button>
         </CardSection>
       </View>
     </Modal>
@@ -61,15 +66,18 @@ function Alert(props) {
 }
 
 // Prop Validations
-Alert.propTypes = {
-  alertContent: PropTypes.string.isRequired,
+DialogConfirm.propTypes = {
+  acceptButtonText: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   onAccept: PropTypes.func.isRequired,
   onDecline: PropTypes.func.isRequired,
 };
 
-Alert.defaultProps = {
+DialogConfirm.defaultProps = {
+  acceptButtonText: '',
   isOpen: false,
 };
 
-export default Alert;
+export default DialogConfirm;

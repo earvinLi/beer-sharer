@@ -1,3 +1,8 @@
 {
-  "extends": "rallycoding"
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    # ".jsx" extension cannot be used with React Native 
+    "react/jsx-filename-extension": ["error", {"extensions": [".js", ".jsx"] }]
+  }
 }

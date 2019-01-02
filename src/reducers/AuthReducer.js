@@ -3,7 +3,7 @@ import {
   LOGIN_INFO_UPDATE,
   LOGIN_USER,
   LOGIN_USER_FAIL,
-  LOGIN_USER_SUCCESS,
+  REACH_MAIN_APP_SUCCESS,
 } from '../actions/Types';
 
 const INITIAL_STATE = {
@@ -22,8 +22,8 @@ export default (state = INITIAL_STATE, action) => {
     // TODO:  Generate a more clear error message
     case LOGIN_USER_FAIL:
       return { ...state, loginFailErrorText: 'Authentication Failed.', isLoading: false };
-    case LOGIN_USER_SUCCESS:
-      return { ...state, ...INITIAL_STATE, currentUserId: action.payload.user.uid };
+    case REACH_MAIN_APP_SUCCESS:
+      return { ...state, ...INITIAL_STATE, currentUserId: action.payload };
     default: return state;
   }
 };

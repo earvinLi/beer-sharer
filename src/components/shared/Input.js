@@ -1,4 +1,5 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Text,
@@ -6,38 +7,7 @@ import {
   View,
 } from 'react-native';
 
-// Component Definition
-const Input = (props) => {
-  const {
-    label,
-    // Name from material-ui
-    onChange,
-    placeholder,
-    secureTextEntry,
-    value,
-  } = props;
-
-  const {
-    containerStyle,
-    labelStyle,
-    inputStyle,
-  } = styles;
-
-  return (
-    <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
-      <TextInput
-        autoCorrect={false}
-        onChangeText={onChange}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        style={inputStyle}
-        value={value}
-      />
-    </View>
-  );
-};
-
+// Local Variables
 const styles = {
   containerStyle: {
     alignItems: 'center',
@@ -62,4 +32,59 @@ const styles = {
   },
 };
 
-export { Input };
+// Component Definition
+function Input(props) {
+  const {
+    autoCapitalize,
+    label,
+    // Name from material-ui
+    onChange,
+    placeholder,
+    secureTextEntry,
+    value,
+  } = props;
+
+  const {
+    containerStyle,
+    labelStyle,
+    inputStyle,
+  } = styles;
+
+  return (
+    <View style={containerStyle}>
+      {Boolean(label) && <Text style={labelStyle}>{label}</Text>}
+      <TextInput
+        autoCapitalize={autoCapitalize}
+        autoCorrect={false}
+        onChangeText={onChange}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        style={inputStyle}
+        value={value}
+      />
+    </View>
+  );
+}
+
+// Prop Validations
+Input.propTypes = {
+  autoCapitalize: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  secureTextEntry: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+};
+
+Input.defaultProps = {
+  autoCapitalize: 'sentences',
+  label: '',
+  onChange: null,
+  placeholder: '',
+  secureTextEntry: false,
+};
+
+export default Input;

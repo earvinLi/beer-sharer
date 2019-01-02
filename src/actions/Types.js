@@ -2,12 +2,16 @@
 export const LOGIN_INFO_UPDATE = 'LOGIN_INFO_UPDATE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const REACH_MAIN_APP_SUCCESS = 'REACH_MAIN_APP_SUCCESS';
 
-// Friend Add
-export const FRIEND_CREATE = 'FRIEND_CREATE';
-export const FRIEND_DELETE = 'FRIEND_DELETE';
-export const FRIEND_SAVE = 'FRIEND_SAVE';
-export const FRIENDS_FETCH = 'FRIENDS_FETCH';
-export const FRIENDS_FETCH_SUCCESS = 'FRIENDS_FETCH_SUCCESS';
-export const FRIEND_UPDATE = 'FRIEND_UPDATE';
+// Beer
+export const BEER_CREATE = 'BEER_CREATE';
+export const BEER_DELETE = 'BEER_DELETE';
+export const BEER_SAVE = 'BEER_SAVE';
+export const BEER_FETCH = 'BEERS_FETCH';
+export const BEER_FETCH_SUCCESS = 'BEERS_FETCH_SUCCESS';
+export const BEER_UPDATE = 'BEER_UPDATE';
+
+// Friend
+export const FRIEND_FETCH = 'FRIEND_FETCH';
+export const FRIEND_FETCH_SUCCESS = 'FRIEND_FETCH_SUCCESS';
