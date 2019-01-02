@@ -8,7 +8,7 @@ import {
 } from '../actions/Types';
 
 const INITIAL_STATE = {
-  fetchedFriends: [],
+  fetchedBeer: [],
   isFetching: false,
 };
 
@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
     case BEER_FETCH_SUCCESS:
       return {
         ...state,
-        fetchedFriends: _.map(action.payload, (val, uid) => ({ ...val, uid, key: uid })),
+        fetchedBeer: _.map(action.payload, (val, uid) => ({ ...val, uid, key: uid })),
         isFetching: false,
       };
     default: return state;

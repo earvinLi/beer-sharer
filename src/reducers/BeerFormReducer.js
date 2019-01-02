@@ -7,10 +7,10 @@ import {
 } from '../actions/Types';
 
 const INITIAL_STATE = {
-  favoriteStyle: '',
+  brewery: '',
+  id: '',
   name: '',
-  phone: '',
-  uid: '',
+  style: '',
 };
 
 export default (state = INITIAL_STATE, action) => {

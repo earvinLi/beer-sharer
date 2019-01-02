@@ -16,30 +16,33 @@ import {
 
 // Component Definition
 class BeerAdd extends Component {
-  onCreateButtonPress() {
+  onCreateButtonPress = () => {
     const {
-      favoriteStyle,
+      brewery,
       name,
+      navigation,
       onBeerCreate,
-      phone,
+      style,
     } = this.props;
 
-    onBeerCreate({ favoriteStyle: favoriteStyle || 'ipa', name, phone });
+    onBeerCreate({ brewery, name, style: style || 'ipa' });
+
+    navigation.navigate('BeerHome');
   }
 
   render() {
     const {
-      favoriteStyle,
+      brewery,
       name,
       onBeerUpdate,
-      phone,
+      style,
     } = this.props;
 
-    const beerStylesData = [
+    const beerStyleData = [
       { key: 'ipa', label: 'India Pale Ale', value: 'ipa' },
       { key: 'stout', label: 'Stout', value: 'stout' },
-      { key: 'apa', label: 'American Pale Ale', value: 'apa' },
       { key: 'tripel', label: 'Belgian (Tripel)', value: 'tripel' },
+      { key: 'apa', label: 'American Pale Ale', value: 'apa' },
       { key: 'bock', label: 'Bock', value: 'bock' },
       { key: 'pilsner', label: 'Pilsner (German Style)', value: 'pilsner' },
     ];
@@ -50,24 +53,24 @@ class BeerAdd extends Component {
           <Input
             label="Name"
             onChange={value => onBeerUpdate({ prop: 'name', value })}
-            placeholder="Ninkasi"
+            placeholder="Focal Banger"
             value={name}
           />
         </CardSection>
         <CardSection>
           <Input
-            label="Phone"
-            onChange={value => onBeerUpdate({ prop: 'phone', value })}
-            placeholder="413-523-2367"
-            value={phone}
+            label="Brewery"
+            onChange={value => onBeerUpdate({ prop: 'brewery', value })}
+            placeholder="The Alchemist"
+            value={brewery}
           />
         </CardSection>
         <CardSection style={{ flexDirection: 'column' }}>
           <NativePicker
-            onPick={value => onBeerUpdate({ prop: 'favoriteStyle', value })}
-            optionsToPick={beerStylesData}
-            pickedValue={favoriteStyle}
-            pickerLabel="Favorite Style"
+            onPick={value => onBeerUpdate({ prop: 'style', value })}
+            optionsToPick={beerStyleData}
+            pickedValue={style}
+            pickerLabel="Style"
           />
         </CardSection>
         <CardSection>
@@ -80,30 +83,31 @@ class BeerAdd extends Component {
 
 // Prop Validations
 BeerAdd.propTypes = {
-  favoriteStyle: PropTypes.string,
+  brewery: PropTypes.string,
   name: PropTypes.string,
+  navigation: PropTypes.shape({}).isRequired,
   onBeerCreate: PropTypes.func.isRequired,
   onBeerUpdate: PropTypes.func.isRequired,
-  phone: PropTypes.string,
+  style: PropTypes.string,
 };
 
 BeerAdd.defaultProps = {
-  favoriteStyle: '',
+  brewery: '',
   name: '',
-  phone: '',
+  style: '',
 };
 
 const mapStateToProps = (state) => {
   const {
-    favoriteStyle,
+    brewery,
     name,
-    phone,
+    style,
   } = state.beerForm;
 
   return {
-    favoriteStyle,
+    brewery,
     name,
-    phone,
+    style,
   };
 };
 

@@ -11,32 +11,32 @@ import {
   BEER_UPDATE,
 } from './Types';
 
-export const beerCreate = ({ favoriteStyle, name, phone }) => (dispatch, getState) => {
+export const beerCreate = ({ brewery, name, style }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
-  firebase.database().ref(`/users/${currentUserId}/friends`)
-    .push({ favoriteStyle, name, phone })
+  firebase.database().ref(`/users/${currentUserId}/beer`)
+    .push({ brewery, name, style })
     .then(() => dispatch({ type: BEER_CREATE }));
 };
 
-export const beerDelete = ({ uid }) => (dispatch, getState) => {
+export const beerDelete = ({ id }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
-  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
+  firebase.database().ref(`/users/${currentUserId}/beer/${id}`)
     .remove()
     .then(() => dispatch({ type: BEER_DELETE }));
 };
 
 export const beerSave = ({
-  favoriteStyle,
+  brewery,
+  id,
   name,
-  phone,
-  uid,
+  style,
 }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
-  firebase.database().ref(`/users/${currentUserId}/friends/${uid}`)
-    .set({ favoriteStyle, name, phone })
+  firebase.database().ref(`/users/${currentUserId}/beer/${id}`)
+    .set({ brewery, name, style })
     .then(() => dispatch({ type: BEER_SAVE }));
 };
 
@@ -45,7 +45,7 @@ export const beerFetch = () => (dispatch, getState) => {
 
   dispatch({ type: BEER_FETCH });
 
-  firebase.database().ref(`/users/${currentUserId}/friends`)
+  firebase.database().ref(`/users/${currentUserId}/beer`)
     .on('value', (snapshot) => {
       dispatch({
         type: BEER_FETCH_SUCCESS,
