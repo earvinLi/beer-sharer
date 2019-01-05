@@ -15,23 +15,29 @@ import FriendAdd from './components/Friend/FriendAdd';
 import FriendEdit from './components/Friend/FriendEdit';
 import FriendList from './components/Friend/FriendList';
 import LoginForm from './components/Auth/LoginForm';
+import Settings from './components/Settings';
 
 // Component Definition
-const BeerStack = createStackNavigator({
-  BeerHome: BeerList,
-  BeerAdd,
-  BeerEdit,
-});
-
 const FriendStack = createStackNavigator({
   FriendHome: FriendList,
   FriendAdd,
   FriendEdit,
 });
 
+const BeerStack = createStackNavigator({
+  BeerHome: BeerList,
+  BeerAdd,
+  BeerEdit,
+});
+
+const SettingsStack = createStackNavigator({
+  SettingsHome: Settings,
+});
+
 const HomeTab = createBottomTabNavigator({
   Friend: FriendStack,
   Beer: BeerStack,
+  Settings: SettingsStack,
 });
 
 const AppNavigation = createSwitchNavigator({
