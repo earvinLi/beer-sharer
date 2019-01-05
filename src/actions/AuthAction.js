@@ -9,8 +9,12 @@ import {
   LOGIN_USER,
   LOGIN_USER_FAIL,
   REACH_MAIN_APP_SUCCESS,
+  SIGN_OUT_USER_FAIL,
 } from './Types';
 
+
+// Sign In
+// TODO: Clean up and find a better way to init redux with a current user
 const loginUserFail = dispatch => dispatch({ type: LOGIN_USER_FAIL });
 
 const reachMainAppSuccess = (dispatch, toHomeNav, currentUserId) => {
@@ -54,4 +58,19 @@ export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) =>
       loginUserFail(dispatch);
     }
   }
+};
+
+// Sign Out
+export const signOutUser = ({ toAuthNav }) => async (dispatch) => {
+  await Promise.all([
+    firebase.auth().signOut(),
+    AsyncStorage.removeItem('currentUserId'),
+  ]).catch((signOutErr) => {
+    dispatch({
+      type: SIGN_OUT_USER_FAIL,
+      payload: signOutErr,
+    });
+  });
+
+  toAuthNav.navigate('Auth');
 };

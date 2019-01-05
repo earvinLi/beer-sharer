@@ -15,6 +15,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  // TODO: Need to handle the error when fail to sign out the user
   switch (action.type) {
     case LOGIN_INFO_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value };

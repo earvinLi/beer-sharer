@@ -3,6 +3,7 @@ export const LOGIN_INFO_UPDATE = 'LOGIN_INFO_UPDATE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const REACH_MAIN_APP_SUCCESS = 'REACH_MAIN_APP_SUCCESS';
+export const SIGN_OUT_USER_FAIL = 'SIGN_OUT_USER_FAIL';
 
 // Beer
 export const BEER_CREATE = 'BEER_CREATE';
