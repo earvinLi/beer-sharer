@@ -39,7 +39,9 @@ function Input(props) {
     label,
     // Name from material-ui
     onChange,
+    onSubmit,
     placeholder,
+    returnKeyType,
     secureTextEntry,
     value,
   } = props;
@@ -57,7 +59,9 @@ function Input(props) {
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
         onChangeText={onChange}
+        onSubmitEditing={onSubmit}
         placeholder={placeholder}
+        returnKeyType={returnKeyType}
         secureTextEntry={secureTextEntry}
         style={inputStyle}
         value={value}
@@ -71,7 +75,9 @@ Input.propTypes = {
   autoCapitalize: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
+  returnKeyType: PropTypes.string,
   secureTextEntry: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -83,7 +89,9 @@ Input.defaultProps = {
   autoCapitalize: 'sentences',
   label: '',
   onChange: null,
+  onSubmit: null,
   placeholder: '',
+  returnKeyType: '',
   secureTextEntry: false,
 };
 

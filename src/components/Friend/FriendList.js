@@ -13,7 +13,10 @@ import DialogConfirm from '../shared/DialogConfirm';
 import Input from '../shared/Input';
 import ListItem from '../shared/ListItem';
 import Spinner from '../shared/Spinner';
-import { friendFetch } from '../../actions/FriendAction';
+import {
+  friendFetch,
+  friendSearchInfoUpdate,
+} from '../../actions/FriendAction';
 
 // Local Variables
 const styles = {
@@ -66,8 +69,10 @@ class FriendList extends Component {
     const { isAlertOpen } = this.state;
 
     const {
+      emailToSearch,
       fetchedFriend,
       isFetching,
+      onFriendSearchInfoUpdate,
     } = this.props;
 
     return isFetching
@@ -86,7 +91,7 @@ class FriendList extends Component {
             renderItem={this.renderFriendItem}
           />
           <DialogConfirm
-            acceptButtonText="Add"
+            acceptButtonText="ADD"
             isOpen={isAlertOpen}
             onAccept={this.onAccept}
             onDecline={this.onDeclineButtonPress}
@@ -94,7 +99,11 @@ class FriendList extends Component {
           >
             <Input
               autoCapitalize="none"
+              onChange={value => onFriendSearchInfoUpdate({ prop: 'emailToSearch', value })}
+              onSubmit={() => { console.log(emailToSearch); }}
               placeholder="Enter an emaill to search"
+              returnKeyType="search"
+              value={emailToSearch}
             />
           </DialogConfirm>
         </View>
@@ -104,13 +113,16 @@ class FriendList extends Component {
 
 // Prop Validations
 FriendList.propTypes = {
+  emailToSearch: PropTypes.string,
   fetchedFriend: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
   onFriendFetch: PropTypes.func.isRequired,
+  onFriendSearchInfoUpdate: PropTypes.func.isRequired,
 };
 
 FriendList.defaultProps = {
+  emailToSearch: '',
   fetchedFriend: [],
   isFetching: false,
 };
@@ -121,7 +133,10 @@ const mapStateToProps = (state) => {
     isFetching,
   } = state.friend;
 
+  const { emailToSearch } = state.friendForm;
+
   return {
+    emailToSearch,
     fetchedFriend,
     isFetching,
   };
@@ -129,4 +144,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   onFriendFetch: friendFetch,
+  onFriendSearchInfoUpdate: friendSearchInfoUpdate,
 })(FriendList);
