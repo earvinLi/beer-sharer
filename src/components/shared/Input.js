@@ -91,7 +91,7 @@ Input.defaultProps = {
   onChange: null,
   onSubmit: null,
   placeholder: '',
-  returnKeyType: '',
+  returnKeyType: 'go',
   secureTextEntry: false,
 };
 

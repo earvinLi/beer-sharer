@@ -42,12 +42,18 @@ export const loginInfoUpdate = ({ prop, value }) => ({
 export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) => {
   dispatch({ type: LOGIN_USER });
 
-  // TODO: Simplify this ugliness of the following Try...Catch
+  // TODO: Simplify this ugliness of the following Try...Catch...
   try {
     const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password);
-    const currentUserId = loggedInUser.user.uid;
+    const {
+      email: currentUserEmail,
+      uid: currentUserId,
+    } = loggedInUser.user;
 
-    await AsyncStorage.setItem('currentUserId', currentUserId);
+    await Promise.all([
+      firebase.database().ref(`/users/${currentUserId}`).update({ email: currentUserEmail }),
+      AsyncStorage.setItem('currentUserId', currentUserId),
+    ]);
 
     reachMainAppSuccess(dispatch, toHomeNav, currentUserId);
   } catch (loggingErr) {
