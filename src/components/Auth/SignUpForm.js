@@ -28,8 +28,8 @@ const styles = {
 };
 
 // Component Definition
-class LoginForm extends Component {
-  static navigationOptions = { title: 'Beer Sharer' };
+class SignUpForm extends Component {
+  static navigationOptions = { title: 'Sign Up' };
 
   onLoginButtonPress = () => {
     const {
@@ -40,12 +40,6 @@ class LoginForm extends Component {
     } = this.props;
 
     onLoginUser({ email, password, toHomeNav: navigation });
-  }
-
-  onSignUpButtonPress = () => {
-    const { navigation: toSignUpNav } = this.props;
-
-    toSignUpNav.navigate('SignUp');
   }
 
   render() {
@@ -63,19 +57,9 @@ class LoginForm extends Component {
       </View>
     );
 
-    const buttonSection = isLoading
+    const createButton = isLoading
       ? <Spinner size="large" />
-      : (
-        <CardSection>
-          <Button onPress={this.onLoginButtonPress}>Login</Button>
-          <Button
-            hasBorder={false}
-            onPress={this.onSignUpButtonPress}
-          >
-            Not a user? Sign up!
-          </Button>
-        </CardSection>
-      );
+      : <Button onPress={this.onCreateButtonPress}>Create</Button>;
 
     return (
       <Card>
@@ -99,14 +83,14 @@ class LoginForm extends Component {
           />
         </CardSection>
         {loginFailErrorElement}
-        {buttonSection}
+        <CardSection>{createButton}</CardSection>
       </Card>
     );
   }
 }
 
 // Prop Validations
-LoginForm.propTypes = {
+SignUpForm.propTypes = {
   email: PropTypes.string,
   isLoading: PropTypes.bool,
   loginFailErrorText: PropTypes.string,
@@ -116,7 +100,7 @@ LoginForm.propTypes = {
   onLoginInfoUpdate: PropTypes.func.isRequired,
 };
 
-LoginForm.defaultProps = {
+SignUpForm.defaultProps = {
   email: '',
   isLoading: false,
   loginFailErrorText: '',
@@ -142,4 +126,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   onLoginInfoUpdate: loginInfoUpdate,
   onLoginUser: loginUser,
-})(LoginForm);
+})(SignUpForm);

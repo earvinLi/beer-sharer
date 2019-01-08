@@ -45,7 +45,7 @@ function Button(props) {
     textStyle,
   } = styles;
 
-  const buttonWithBorderStyle = { ...basicButtonStyle, ...buttonBorderStyle };
+  const buttonWithBorderStyle = [basicButtonStyle, buttonBorderStyle];
 
   return (
     <TouchableOpacity

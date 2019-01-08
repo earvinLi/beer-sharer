@@ -23,20 +23,20 @@ const styles = {
 function CardSection(props) {
   const {
     children,
-    style,
+    variantStyle,
   } = props;
 
-  return <View style={[styles.containerStyle, style]}>{children}</View>;
+  return <View style={[styles.containerStyle, variantStyle]}>{children}</View>;
 }
 
 // Prop Validations
 CardSection.propTypes = {
   children: PropTypes.node.isRequired,
-  style: ViewPropTypes.style,
+  variantStyle: ViewPropTypes.style,
 };
 
 CardSection.defaultProps = {
-  style: {},
+  variantStyle: {},
 };
 
 export default CardSection;
