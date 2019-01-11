@@ -8,15 +8,17 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
-import Button from '../shared/Button';
-import Card from '../shared/Card';
-import CardSection from '../shared/CardSection';
-import Input from '../shared/Input';
-import Spinner from '../shared/Spinner';
+import Button from '../SharedUnits/Button';
+import Card from '../SharedUnits/Card';
+import CardSection from '../SharedUnits/CardSection';
+import Input from '../SharedUnits/Input';
+import Spinner from '../SharedUnits/Spinner';
+
+// Local Dependencies
 import {
   loginInfoUpdate,
   loginUser,
-} from '../../actions/AuthAction';
+} from './actions/AuthAction';
 
 // Local Variables
 const styles = {

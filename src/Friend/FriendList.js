@@ -8,15 +8,17 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
-import Button from '../shared/Button';
-import DialogConfirm from '../shared/DialogConfirm';
-import Input from '../shared/Input';
-import ListItem from '../shared/ListItem';
-import Spinner from '../shared/Spinner';
+import Button from '../SharedUnits/Button';
+import DialogConfirm from '../SharedUnits/DialogConfirm';
+import Input from '../SharedUnits/Input';
+import ListItem from '../SharedUnits/ListItem';
+import Spinner from '../SharedUnits/Spinner';
+
+// Local Dependencies
 import {
   friendFetch,
   friendSearchInfoUpdate,
-} from '../../actions/FriendAction';
+} from './actions/FriendAction';
 
 // Local Variables
 const styles = {

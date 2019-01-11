@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {
   FRIEND_FETCH,
   FRIEND_FETCH_SUCCESS,
-} from '../actions/Types';
+} from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   fetchedFriend: [],

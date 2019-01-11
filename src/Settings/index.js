@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 
 // Internal Dependencies
-import ListItem from '../shared/ListItem';
-import { signOutUser } from '../../actions/AuthAction';
+import ListItem from '../SharedUnits/ListItem';
+import { signOutUser } from '../Auth/actions/AuthAction';
 
 // Local Variables
 const sectionData = [

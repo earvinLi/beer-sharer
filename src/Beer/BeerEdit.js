@@ -6,17 +6,19 @@ import { connect } from 'react-redux';
 import { text as onCommunicationsText } from 'react-native-communications';
 
 // Internal Dependencies
-import Alert from '../shared/Alert';
-import Button from '../shared/Button';
-import Card from '../shared/Card';
-import CardSection from '../shared/CardSection';
-import Input from '../shared/Input';
-import NativePicker from '../shared/NativePicker';
+import Alert from '../SharedUnits/Alert';
+import Button from '../SharedUnits/Button';
+import Card from '../SharedUnits/Card';
+import CardSection from '../SharedUnits/CardSection';
+import Input from '../SharedUnits/Input';
+import NativePicker from '../SharedUnits/NativePicker';
+
+// Local Dependencies
 import {
   beerDelete,
   beerSave,
   beerUpdate,
-} from '../../actions/BeerAction';
+} from './actions/BeerAction';
 
 // Component Definition
 class BeerEdit extends Component {

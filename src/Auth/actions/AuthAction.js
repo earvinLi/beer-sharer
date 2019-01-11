@@ -10,7 +10,7 @@ import {
   LOGIN_USER_FAIL,
   REACH_MAIN_APP_SUCCESS,
   SIGN_OUT_USER_FAIL,
-} from './Types';
+} from '../../App/ActionTypes';
 
 
 // Sign In

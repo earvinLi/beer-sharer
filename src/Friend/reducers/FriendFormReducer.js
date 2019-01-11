@@ -1,5 +1,5 @@
 // Internal Dependencies
-import { FRIEND_SEARCH_INFO_UPDATE } from '../actions/Types';
+import { FRIEND_SEARCH_INFO_UPDATE } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   emailToSearch: '',

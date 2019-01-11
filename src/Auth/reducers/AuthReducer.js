@@ -4,7 +4,7 @@ import {
   LOGIN_USER,
   LOGIN_USER_FAIL,
   REACH_MAIN_APP_SUCCESS,
-} from '../actions/Types';
+} from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   currentUserId: '',

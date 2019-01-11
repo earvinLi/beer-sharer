@@ -9,7 +9,7 @@ import {
   BEER_FETCH,
   BEER_FETCH_SUCCESS,
   BEER_UPDATE,
-} from './Types';
+} from '../../App/ActionTypes';
 
 export const beerCreate = ({ brewery, name, style }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {
   BEER_FETCH,
   BEER_FETCH_SUCCESS,
-} from '../actions/Types';
+} from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   fetchedBeer: [],

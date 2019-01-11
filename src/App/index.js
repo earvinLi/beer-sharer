@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 
 // Internal Dependencies
 import AppNavigation from './AppNavigation';
-import reducers from './reducers';
+import reducers from './AppReducer';
 import { fireBaseInitConfig } from './OuthConfig';
 
 // Component Definition

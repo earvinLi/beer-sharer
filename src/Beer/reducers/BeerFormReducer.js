@@ -4,7 +4,7 @@ import {
   BEER_DELETE,
   BEER_SAVE,
   BEER_UPDATE,
-} from '../actions/Types';
+} from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   brewery: '',

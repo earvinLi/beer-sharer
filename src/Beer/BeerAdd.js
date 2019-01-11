@@ -5,14 +5,16 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 // Internal Dependencies
-import Button from '../shared/Button';
-import CardSection from '../shared/CardSection';
-import Input from '../shared/Input';
-import NativePicker from '../shared/NativePicker';
+import Button from '../SharedUnits/Button';
+import CardSection from '../SharedUnits/CardSection';
+import Input from '../SharedUnits/Input';
+import NativePicker from '../SharedUnits/NativePicker';
+
+// Local Dependencies
 import {
   beerCreate,
   beerUpdate,
-} from '../../actions/BeerAction';
+} from './actions/BeerAction';
 
 // Component Definition
 class BeerAdd extends Component {

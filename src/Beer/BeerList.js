@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 
 // Internal Dependencies
-import Button from '../shared/Button';
-import ListItem from '../shared/ListItem';
-import Spinner from '../shared/Spinner';
-import { beerFetch } from '../../actions/BeerAction';
+import Button from '../SharedUnits/Button';
+import ListItem from '../SharedUnits/ListItem';
+import Spinner from '../SharedUnits/Spinner';
+
+// Local Dependencies
+import { beerFetch } from './actions/BeerAction';
 
 // Local Variables
 const styles = {

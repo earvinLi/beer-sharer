@@ -6,7 +6,7 @@ import {
   FRIEND_FETCH,
   FRIEND_FETCH_SUCCESS,
   FRIEND_SEARCH_INFO_UPDATE,
-} from './Types';
+} from '../../App/ActionTypes';
 
 export const friendFetch = () => (dispatch, getState) => {
   const { currentUserId } = getState().auth;

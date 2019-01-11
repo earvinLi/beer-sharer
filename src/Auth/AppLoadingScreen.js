@@ -5,8 +5,10 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 // Internal Dependencies
-import Spinner from '../shared/Spinner';
-import { loadApp } from '../../actions/AuthAction';
+import Spinner from '../SharedUnits/Spinner';
+
+// Local Dependencies
+import { loadApp } from './actions/AuthAction';
 
 // Local Variables
 const styles = {
