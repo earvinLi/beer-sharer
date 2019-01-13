@@ -1,5 +1,6 @@
 // External Dependencies
 import _ from 'lodash';
+import { combineReducers } from 'redux';
 
 // Internal Dependencies
 import {
@@ -7,12 +8,15 @@ import {
   FRIEND_FETCH_SUCCESS,
 } from '../../App/ActionTypes';
 
+// Local Dependencies
+import FriendAddDialogReducer from './FriendAddDialogReducer';
+
 const INITIAL_STATE = {
   fetchedFriend: [],
   isFetching: false,
 };
 
-export default (state = INITIAL_STATE, action) => {
+const friendReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FRIEND_FETCH: return { ...state, isFetching: true };
     case FRIEND_FETCH_SUCCESS:
@@ -24,3 +28,8 @@ export default (state = INITIAL_STATE, action) => {
     default: return state;
   }
 };
+
+export default combineReducers({
+  ...friendReducer,
+  friendAddDialog: FriendAddDialogReducer,
+});

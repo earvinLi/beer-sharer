@@ -5,8 +5,9 @@ import firebase from 'firebase';
 import {
   FRIEND_FETCH,
   FRIEND_FETCH_SUCCESS,
-  FRIEND_SEARCH_INFO_UPDATE,
 } from '../../App/ActionTypes';
+
+export const friendAdd = () => {};
 
 export const friendFetch = () => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
@@ -21,10 +22,3 @@ export const friendFetch = () => (dispatch, getState) => {
       });
     });
 };
-
-export const friendSearch = () => {};
-
-export const friendSearchInfoUpdate = ({ prop, value }) => ({
-  type: FRIEND_SEARCH_INFO_UPDATE,
-  payload: { prop, value },
-});

@@ -5,13 +5,11 @@ import { combineReducers } from 'redux';
 import AuthReducer from '../Auth/reducers/AuthReducer';
 import BeerFormReducer from '../Beer/reducers/BeerFormReducer';
 import BeerReducer from '../Beer/reducers/BeerReducer';
-import FriendFormReducer from '../Friend/reducers/FriendFormReducer';
-import FriendReducer from '../Friend/reducers/FriendReducer';
+import FriendReducer from '../Friend/reducers';
 
 export default combineReducers({
   auth: AuthReducer,
   beer: BeerReducer,
   beerForm: BeerFormReducer,
-  friend: FriendReducer,
-  friendForm: FriendFormReducer,
+  Friend: FriendReducer,
 });
