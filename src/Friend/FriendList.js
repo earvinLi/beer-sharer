@@ -14,7 +14,10 @@ import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
 import FriendAddDialog from './FriendAddDialog';
-import { friendFetch } from './actions/FriendAction';
+import {
+  friendAddDialogOpen,
+  friendFetch,
+} from './actions/FriendAction';
 
 // Local Variables
 const styles = {
@@ -49,7 +52,11 @@ class FriendList extends Component {
     onFriendFetch();
   }
 
-  onAddButtonPress = () => {};
+  onAddButtonPress = () => {
+    const { onFriendAddDialogOpen } = this.props;
+
+    return onFriendAddDialogOpen();
+  };
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
@@ -91,6 +98,7 @@ FriendList.propTypes = {
   fetchedFriend: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
+  onFriendAddDialogOpen: PropTypes.func.isRequired,
   onFriendFetch: PropTypes.func.isRequired,
 };
 
@@ -103,7 +111,7 @@ const mapStateToProps = (state) => {
   const {
     fetchedFriend,
     isFetching,
-  } = state.friend;
+  } = state.Friend.friendApiData;
 
   return {
     fetchedFriend,
@@ -112,5 +120,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  onFriendAddDialogOpen: friendAddDialogOpen,
   onFriendFetch: friendFetch,
 })(FriendList);

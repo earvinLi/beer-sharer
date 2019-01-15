@@ -8,13 +8,18 @@ import DialogConfirm from '../SharedUnits/DialogConfirm';
 import Input from '../SharedUnits/Input';
 
 // Local Dependencies
-import { friendSearchInfoUpdate } from './actions/FriendAction';
+import { friendAddDialogClose } from './actions/FriendAction';
+import { friendSearchInfoUpdate } from './actions/FriendSearchAction';
 
 // Component Definition
 class FriendAddDialog extends Component {
   onAcceptButtonPress = () => {};
 
-  onDeclineButtonPress = () => {};
+  onDeclineButtonPress = () => {
+    const { onFriendAddDialogClose } = this.props;
+
+    return onFriendAddDialogClose();
+  };
 
   render() {
     const {
@@ -48,6 +53,7 @@ class FriendAddDialog extends Component {
 FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
+  onFriendAddDialogClose: PropTypes.func.isRequired,
   onFriendSearchInfoUpdate: PropTypes.func.isRequired,
 };
 
@@ -57,18 +63,17 @@ FriendAddDialog.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
-    friendAddForm,
-    isFriendAddDialogOpen,
-  } = state.firend.friendAddDialog;
-
-  const { emailToSearch } = friendAddForm;
+    emailToSearch,
+    isOpen,
+  } = state.Friend.friendAddDialog;
 
   return {
     emailToSearch,
-    isFriendAddDialogOpen,
+    isFriendAddDialogOpen: isOpen,
   };
 };
 
 export default connect(mapStateToProps, {
+  onFriendAddDialogClose: friendAddDialogClose,
   onFriendSearchInfoUpdate: friendSearchInfoUpdate,
 })(FriendAddDialog);
