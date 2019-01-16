@@ -1,4 +1,5 @@
 // External Dependencies
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -68,7 +69,7 @@ class FriendList extends Component {
 
   render() {
     const {
-      fetchedFriend,
+      fetchFriendData,
       isFetching,
     } = this.props;
 
@@ -84,7 +85,7 @@ class FriendList extends Component {
       : (
         <View>
           <FlatList
-            data={fetchedFriend}
+            data={fetchFriendData}
             renderItem={this.renderFriendItem}
           />
           <FriendAddDialog />
@@ -95,7 +96,7 @@ class FriendList extends Component {
 
 // Prop Validations
 FriendList.propTypes = {
-  fetchedFriend: PropTypes.arrayOf(PropTypes.object),
+  fetchFriendData: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
   onFriendAddDialogOpen: PropTypes.func.isRequired,
@@ -103,7 +104,7 @@ FriendList.propTypes = {
 };
 
 FriendList.defaultProps = {
-  fetchedFriend: [],
+  fetchFriendData: [],
   isFetching: false,
 };
 
@@ -113,8 +114,14 @@ const mapStateToProps = (state) => {
     isFetching,
   } = state.Friend.friendApiData;
 
+  const fetchFriendData = _.map(fetchedFriend, (val, uid) => ({
+    ...val,
+    uid,
+    key: uid,
+  }));
+
   return {
-    fetchedFriend,
+    fetchFriendData,
     isFetching,
   };
 };
