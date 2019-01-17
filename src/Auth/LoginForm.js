@@ -65,19 +65,9 @@ class LoginForm extends Component {
       </View>
     );
 
-    const buttonSection = isLoading
+    const loginButton = isLoading
       ? <Spinner size="large" />
-      : (
-        <CardSection>
-          <Button onPress={this.onLoginButtonPress}>Login</Button>
-          <Button
-            hasBorder={false}
-            onPress={this.onSignUpButtonPress}
-          >
-            Not a user? Sign up!
-          </Button>
-        </CardSection>
-      );
+      : <Button onPress={this.onLoginButtonPress}>Login</Button>;
 
     return (
       <Card>
@@ -101,7 +91,15 @@ class LoginForm extends Component {
           />
         </CardSection>
         {loginFailErrorElement}
-        {buttonSection}
+        <CardSection>
+          {loginButton}
+          <Button
+            hasBorder={false}
+            onPress={this.onSignUpButtonPress}
+          >
+            Not a user? Sign up!
+          </Button>
+        </CardSection>
       </Card>
     );
   }
