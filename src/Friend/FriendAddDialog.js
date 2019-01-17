@@ -38,7 +38,7 @@ class FriendAddDialog extends Component {
       >
         <Input
           autoCapitalize="none"
-          onChange={value => onFriendSearchInfoUpdate({ prop: 'emailToSearch', value })}
+          onChange={value => onFriendSearchInfoUpdate('emailToSearch', value)}
           onSubmit={() => {}}
           placeholder="Enter an emaill to search"
           returnKeyType="search"

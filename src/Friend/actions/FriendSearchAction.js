@@ -2,13 +2,15 @@
 // import firebase from 'firebase';
 
 // Internal Dependencies
+import { createActionCreator } from '../../App/RootUtilities';
 import {
   FRIEND_SEARCH_INFO_UPDATE,
 } from '../../App/ActionTypes';
 
 export const friendSearch = () => {};
 
-export const friendSearchInfoUpdate = ({ prop, value }) => ({
-  type: FRIEND_SEARCH_INFO_UPDATE,
-  payload: { prop, value },
-});
+export const friendSearchInfoUpdate = createActionCreator(
+  FRIEND_SEARCH_INFO_UPDATE,
+  'prop',
+  'value',
+);

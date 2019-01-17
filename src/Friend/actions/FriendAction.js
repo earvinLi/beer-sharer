@@ -2,6 +2,7 @@
 import firebase from 'firebase';
 
 // Internal Dependencies
+import { createActionCreator } from '../../App/RootUtilities';
 import {
   FRIEND_ADD_DIALOG_CLOSE,
   FRIEND_ADD_DIALOG_OPEN,
@@ -11,9 +12,9 @@ import {
 
 export const friendAdd = () => {};
 
-export const friendAddDialogClose = () => ({ type: FRIEND_ADD_DIALOG_CLOSE });
+export const friendAddDialogClose = createActionCreator(FRIEND_ADD_DIALOG_CLOSE);
 
-export const friendAddDialogOpen = () => ({ type: FRIEND_ADD_DIALOG_OPEN });
+export const friendAddDialogOpen = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
 
 export const friendFetch = () => (dispatch, getState) => {
   const { currentUserId } = getState().auth;

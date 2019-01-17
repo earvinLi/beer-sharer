@@ -17,7 +17,7 @@ const openFriendAddDialog = state => ({ ...state, isOpen: true });
 
 const updateFriendSearchInfo = (state, action) => ({
   ...state,
-  [action.payload.prop]: action.payload.value,
+  [action.prop]: action.value,
 });
 
 export default createReducer(INITIAL_STATE, {
