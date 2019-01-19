@@ -49,9 +49,41 @@ class SignUpForm extends Component {
       email,
       isLoading,
       loginFailErrorText,
+      name,
       onLoginInfoUpdate,
       password,
     } = this.props;
+
+    const inputSections = [
+      {
+        label: 'Name',
+        prop: 'name',
+        placeholder: 'Ninkasi',
+        value: name,
+      },
+      {
+        label: 'Email',
+        prop: 'email',
+        placeholder: 'beer@home.com',
+        value: email,
+      },
+      {
+        label: 'Password',
+        prop: 'password',
+        placeholder: 'Please guess.',
+        value: password,
+      },
+    ].map(inputSection => (
+      <CardSection key={inputSection.label}>
+        <Input
+          autoCapitalize="none"
+          label={inputSection.label}
+          onChange={value => onLoginInfoUpdate({ prop: inputSection.prop, value })}
+          placeholder={inputSection.placeholder}
+          value={inputSection.value}
+        />
+      </CardSection>
+    ));
 
     const loginFailErrorElement = Boolean(loginFailErrorText) && (
       <View style={{ backgroundColor: 'white' }}>
@@ -65,25 +97,7 @@ class SignUpForm extends Component {
 
     return (
       <Card>
-        <CardSection>
-          <Input
-            autoCapitalize="none"
-            label="Email"
-            onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
-            placeholder="email@gmail.com"
-            value={email}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            autoCapitalize="none"
-            label="Password"
-            onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
-            placeholder="password"
-            secureTextEntry
-            value={password}
-          />
-        </CardSection>
+        {inputSections}
         {loginFailErrorElement}
         <CardSection>{createButton}</CardSection>
       </Card>
@@ -96,6 +110,7 @@ SignUpForm.propTypes = {
   email: PropTypes.string,
   isLoading: PropTypes.bool,
   loginFailErrorText: PropTypes.string,
+  name: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
   password: PropTypes.string,
   onLoginUser: PropTypes.func.isRequired,
@@ -106,6 +121,7 @@ SignUpForm.defaultProps = {
   email: '',
   isLoading: false,
   loginFailErrorText: '',
+  name: '',
   password: '',
 };
 
