@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 // Internal Dependencies
 import AppNavigation from './AppNavigation';
 import reducers from './AppReducer';
+import { callApiMiddleware } from './RootUtilities';
 import { fireBaseInitConfig } from './OuthConfig';
 
 // Component Definition
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, callApiMiddleware));
 
     return (
       <Provider store={store}>
