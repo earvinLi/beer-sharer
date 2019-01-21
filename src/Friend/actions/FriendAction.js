@@ -6,20 +6,20 @@ import { createActionCreator } from '../../App/RootUtilities';
 import {
   FRIEND_ADD_DIALOG_CLOSE,
   FRIEND_ADD_DIALOG_OPEN,
-  FRIEND_FETCH,
+  FRIEND_FETCH_REQUEST,
   FRIEND_FETCH_SUCCESS,
 } from '../../App/ActionTypes';
 
-export const friendAdd = () => {};
+export const addFriend = () => {};
 
-export const friendAddDialogClose = createActionCreator(FRIEND_ADD_DIALOG_CLOSE);
+export const closeFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_CLOSE);
 
-export const friendAddDialogOpen = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
+export const openFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
 
-export const friendFetch = () => (dispatch, getState) => {
+export const fetchFriend = () => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
 
-  dispatch({ type: FRIEND_FETCH });
+  dispatch({ type: FRIEND_FETCH_REQUEST });
 
   firebase.database().ref(`/users/${currentUserId}/friends`)
     .on('value', (snapshot) => {

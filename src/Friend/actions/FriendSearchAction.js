@@ -7,9 +7,9 @@ import {
   FRIEND_SEARCH_INFO_UPDATE,
 } from '../../App/ActionTypes';
 
-export const friendSearch = () => {};
+export const searchFriend = () => {};
 
-export const friendSearchInfoUpdate = createActionCreator(
+export const updateFriendSearchInfo = createActionCreator(
   FRIEND_SEARCH_INFO_UPDATE,
   'prop',
   'value',

@@ -11,17 +11,17 @@ const INITIAL_STATE = {
   isOpen: false,
 };
 
-const closeFriendAddDialog = state => ({ ...state, isOpen: false });
+const friendAddDialogClose = state => ({ ...state, isOpen: false });
 
-const openFriendAddDialog = state => ({ ...state, isOpen: true });
+const friendAddDialogOpen = state => ({ ...state, isOpen: true });
 
-const updateFriendSearchInfo = (state, action) => ({
+const friendSearchInfoUpdate = (state, action) => ({
   ...state,
   [action.prop]: action.value,
 });
 
 export default createReducer(INITIAL_STATE, {
-  [FRIEND_ADD_DIALOG_CLOSE]: closeFriendAddDialog,
-  [FRIEND_ADD_DIALOG_OPEN]: openFriendAddDialog,
-  [FRIEND_SEARCH_INFO_UPDATE]: updateFriendSearchInfo,
+  [FRIEND_ADD_DIALOG_CLOSE]: friendAddDialogClose,
+  [FRIEND_ADD_DIALOG_OPEN]: friendAddDialogOpen,
+  [FRIEND_SEARCH_INFO_UPDATE]: friendSearchInfoUpdate,
 });

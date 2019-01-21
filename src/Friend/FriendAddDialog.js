@@ -8,37 +8,37 @@ import DialogConfirm from '../SharedUnits/DialogConfirm';
 import Input from '../SharedUnits/Input';
 
 // Local Dependencies
-import { friendAddDialogClose } from './actions/FriendAction';
-import { friendSearchInfoUpdate } from './actions/FriendSearchAction';
+import { closeFriendAddDialog } from './actions/FriendAction';
+import { updateFriendSearchInfo } from './actions/FriendSearchAction';
 
 // Component Definition
 class FriendAddDialog extends Component {
-  onAcceptButtonPress = () => {};
+  onPressAcceptButton = () => {};
 
-  onDeclineButtonPress = () => {
-    const { onFriendAddDialogClose } = this.props;
+  onPressDeclineButton = () => {
+    const { onCloseFriendAddDialog } = this.props;
 
-    return onFriendAddDialogClose();
+    return onCloseFriendAddDialog();
   };
 
   render() {
     const {
       emailToSearch,
       isFriendAddDialogOpen,
-      onFriendSearchInfoUpdate,
+      onUpdateFriendSearchInfo,
     } = this.props;
 
     return (
       <DialogConfirm
         acceptButtonText="ADD"
         isOpen={isFriendAddDialogOpen}
-        onAccept={this.onAcceptButtonPress}
-        onDecline={this.onDeclineButtonPress}
+        onAccept={this.onPressAcceptButton}
+        onDecline={this.onPressDeclineButton}
         title="Search User"
       >
         <Input
           autoCapitalize="none"
-          onChange={value => onFriendSearchInfoUpdate('emailToSearch', value)}
+          onChange={value => onUpdateFriendSearchInfo('emailToSearch', value)}
           onSubmit={() => {}}
           placeholder="Enter an emaill to search"
           returnKeyType="search"
@@ -53,8 +53,8 @@ class FriendAddDialog extends Component {
 FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
-  onFriendAddDialogClose: PropTypes.func.isRequired,
-  onFriendSearchInfoUpdate: PropTypes.func.isRequired,
+  onCloseFriendAddDialog: PropTypes.func.isRequired,
+  onUpdateFriendSearchInfo: PropTypes.func.isRequired,
 };
 
 FriendAddDialog.defaultProps = {
@@ -74,6 +74,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onFriendAddDialogClose: friendAddDialogClose,
-  onFriendSearchInfoUpdate: friendSearchInfoUpdate,
+  onCloseFriendAddDialog: closeFriendAddDialog,
+  onUpdateFriendSearchInfo: updateFriendSearchInfo,
 })(FriendAddDialog);

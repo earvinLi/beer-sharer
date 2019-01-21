@@ -16,8 +16,8 @@ import Spinner from '../SharedUnits/Spinner';
 // Local Dependencies
 import FriendAddDialog from './FriendAddDialog';
 import {
-  friendAddDialogOpen,
-  friendFetch,
+  openFriendAddDialog,
+  fetchFriend,
 } from './actions/FriendAction';
 
 // Local Variables
@@ -35,7 +35,7 @@ class FriendList extends Component {
     headerRight: (
       <Button
         hasBorder={false}
-        onPress={navigation.getParam('onAddButtonPress')}
+        onPress={navigation.getParam('onPressAddButton')}
       >
         Add
       </Button>
@@ -45,18 +45,18 @@ class FriendList extends Component {
   componentDidMount() {
     const {
       navigation,
-      onFriendFetch,
+      onFetchFriend,
     } = this.props;
 
-    navigation.setParams({ onAddButtonPress: this.onAddButtonPress });
+    navigation.setParams({ onPressAddButton: this.onPressAddButton });
 
-    onFriendFetch();
+    onFetchFriend();
   }
 
-  onAddButtonPress = () => {
-    const { onFriendAddDialogOpen } = this.props;
+  onPressAddButton = () => {
+    const { onOpenFriendAddDialog } = this.props;
 
-    return onFriendAddDialogOpen();
+    return onOpenFriendAddDialog();
   };
 
   renderFriendItem = ({ item: friend }) => (
@@ -69,7 +69,7 @@ class FriendList extends Component {
 
   render() {
     const {
-      fetchFriendData,
+      fetchedFriendData,
       isFetching,
     } = this.props;
 
@@ -85,7 +85,7 @@ class FriendList extends Component {
       : (
         <View>
           <FlatList
-            data={fetchFriendData}
+            data={fetchedFriendData}
             renderItem={this.renderFriendItem}
           />
           <FriendAddDialog />
@@ -96,15 +96,15 @@ class FriendList extends Component {
 
 // Prop Validations
 FriendList.propTypes = {
-  fetchFriendData: PropTypes.arrayOf(PropTypes.object),
+  fetchedFriendData: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
-  onFriendAddDialogOpen: PropTypes.func.isRequired,
-  onFriendFetch: PropTypes.func.isRequired,
+  onFetchFriend: PropTypes.func.isRequired,
+  onOpenFriendAddDialog: PropTypes.func.isRequired,
 };
 
 FriendList.defaultProps = {
-  fetchFriendData: [],
+  fetchedFriendData: [],
   isFetching: false,
 };
 
@@ -114,19 +114,19 @@ const mapStateToProps = (state) => {
     isFetching,
   } = state.Friend.friendApiData;
 
-  const fetchFriendData = _.map(fetchedFriend, (val, uid) => ({
+  const fetchedFriendData = _.map(fetchedFriend, (val, uid) => ({
     ...val,
     uid,
     key: uid,
   }));
 
   return {
-    fetchFriendData,
+    fetchedFriendData,
     isFetching,
   };
 };
 
 export default connect(mapStateToProps, {
-  onFriendAddDialogOpen: friendAddDialogOpen,
-  onFriendFetch: friendFetch,
+  onOpenFriendAddDialog: openFriendAddDialog,
+  onFetchFriend: fetchFriend,
 })(FriendList);
