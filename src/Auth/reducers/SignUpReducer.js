@@ -1,4 +1,5 @@
 // Internal Dependencies
+import { createReducer } from '../../App/RootUtilities';
 import {
   REACH_MAIN_APP_SUCCESS,
   SIGN_UP_INFO_UPDATE,
@@ -10,21 +11,38 @@ const INITIAL_STATE = {
   currentUserId: '',
   email: '',
   isLoading: false,
-  loginFailErrorText: '',
+  name: '',
+  signUpFailErrorText: '',
   password: '',
 };
 
-export default (state = INITIAL_STATE, action) => {
-  // TODO: Need to handle the error when fail to sign out the user
-  switch (action.type) {
-    case SIGN_UP_INFO_UPDATE:
-      return { ...state, [action.payload.prop]: action.payload.value };
-    case SIGN_UP_USER_REQUEST: return { ...state, loginFailErrorText: '', isLoading: true };
-    // TODO:  Generate a more clear error message
-    case SIGN_UP_USER_FAIL:
-      return { ...state, loginFailErrorText: 'Authentication Failed.', isLoading: false };
-    case REACH_MAIN_APP_SUCCESS:
-      return { ...state, ...INITIAL_STATE, currentUserId: action.payload };
-    default: return state;
-  }
-};
+const updateSignUpInfo = (state, action) => ({
+  ...state,
+  [action.prop]: action.value,
+});
+
+const signUpUserRequest = state => ({
+  ...state,
+  isLoading: true,
+  signUpFailErrorText: '',
+});
+
+const reachMainAppSuccess = (state, action) => ({
+  ...state,
+  ...INITIAL_STATE,
+  currentUserId: action.currentUserId,
+});
+
+// TODO: Display a more clear error text
+const signUpUserFail = state => ({
+  ...state,
+  isLoading: true,
+  signUpFailErrorText: 'Authentication Failed.',
+});
+
+export default createReducer(INITIAL_STATE, {
+  [SIGN_UP_INFO_UPDATE]: updateSignUpInfo,
+  [SIGN_UP_USER_REQUEST]: signUpUserRequest,
+  [REACH_MAIN_APP_SUCCESS]: reachMainAppSuccess,
+  [SIGN_UP_USER_FAIL]: signUpUserFail,
+});

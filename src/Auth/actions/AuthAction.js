@@ -6,7 +6,7 @@ import { AsyncStorage } from 'react-native';
 import {
   LOGIN_INFO_UPDATE,
   // How to deal with the alpha order here :(
-  LOGIN_USER,
+  LOGIN_USER_REQUEST,
   LOGIN_USER_FAIL,
   REACH_MAIN_APP_SUCCESS,
   SIGN_OUT_USER_FAIL,
@@ -40,7 +40,7 @@ export const loginInfoUpdate = ({ prop, value }) => ({
 });
 
 export const loginUser = ({ email, password, toHomeNav }) => async (dispatch) => {
-  dispatch({ type: LOGIN_USER });
+  dispatch({ type: LOGIN_USER_REQUEST });
 
   // TODO: Simplify this ugliness of the following Try...Catch...
   try {
