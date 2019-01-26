@@ -16,9 +16,9 @@ import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
 import {
-  loginInfoUpdate,
-  loginUser,
-} from './actions/AuthAction';
+  signUpUser,
+  updateSignUpInfo,
+} from './actions/SignUpAction';
 
 // Local Variables
 const styles = {
@@ -33,25 +33,26 @@ const styles = {
 class SignUpForm extends Component {
   static navigationOptions = { title: 'Sign Up' };
 
-  onLoginButtonPress = () => {
+  onPressSignUpButton = () => {
     const {
       email,
+      name,
       navigation,
-      onLoginUser,
+      onSignUpUser,
       password,
     } = this.props;
 
-    onLoginUser({ email, password, toHomeNav: navigation });
+    onSignUpUser(email, name, navigation, password);
   }
 
   render() {
     const {
       email,
-      isLoading,
-      loginFailErrorText,
+      isSigningUp,
       name,
-      onLoginInfoUpdate,
+      onUpdateSignUpInfo,
       password,
+      signUpFailErrorText,
     } = this.props;
 
     const inputSections = [
@@ -73,33 +74,34 @@ class SignUpForm extends Component {
         placeholder: 'Please guess.',
         value: password,
       },
-    ].map(inputSection => (
+    ].map((inputSection, sectionIndex) => (
       <CardSection key={inputSection.label}>
         <Input
           autoCapitalize="none"
           label={inputSection.label}
-          onChange={value => onLoginInfoUpdate({ prop: inputSection.prop, value })}
+          onChange={value => onUpdateSignUpInfo(inputSection.prop, value)}
           placeholder={inputSection.placeholder}
+          secureTextEntry={sectionIndex === 2}
           value={inputSection.value}
         />
       </CardSection>
     ));
 
-    const loginFailErrorElement = Boolean(loginFailErrorText) && (
+    const signUpFailErrorElement = Boolean(signUpFailErrorText) && (
       <View style={{ backgroundColor: 'white' }}>
-        <Text style={styles.errorTextStyle}>{loginFailErrorText}</Text>
+        <Text style={styles.errorTextStyle}>{signUpFailErrorText}</Text>
       </View>
     );
 
-    const createButton = isLoading
+    const signUpButton = isSigningUp
       ? <Spinner size="large" />
-      : <Button onPress={this.onCreateButtonPress}>Create</Button>;
+      : <Button onPress={this.onPressSignUpButton}>Sign Up</Button>;
 
     return (
       <Card>
         {inputSections}
-        {loginFailErrorElement}
-        <CardSection>{createButton}</CardSection>
+        {signUpFailErrorElement}
+        <CardSection>{signUpButton}</CardSection>
       </Card>
     );
   }
@@ -108,40 +110,42 @@ class SignUpForm extends Component {
 // Prop Validations
 SignUpForm.propTypes = {
   email: PropTypes.string,
-  isLoading: PropTypes.bool,
-  loginFailErrorText: PropTypes.string,
+  isSigningUp: PropTypes.bool,
   name: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
   password: PropTypes.string,
-  onLoginUser: PropTypes.func.isRequired,
-  onLoginInfoUpdate: PropTypes.func.isRequired,
+  signUpFailErrorText: PropTypes.string,
+  onSignUpUser: PropTypes.func.isRequired,
+  onUpdateSignUpInfo: PropTypes.func.isRequired,
 };
 
 SignUpForm.defaultProps = {
   email: '',
-  isLoading: false,
-  loginFailErrorText: '',
+  isSigningUp: false,
   name: '',
   password: '',
+  signUpFailErrorText: '',
 };
 
 const mapStateToProps = (state) => {
   const {
     email,
-    isLoading,
-    loginFailErrorText,
+    isSigningUp,
+    name,
     password,
-  } = state.auth;
+    signUpFailErrorText,
+  } = state.Auth.signUpForm;
 
   return {
     email,
-    isLoading,
-    loginFailErrorText,
+    isSigningUp,
+    name,
     password,
+    signUpFailErrorText,
   };
 };
 
 export default connect(mapStateToProps, {
-  onLoginInfoUpdate: loginInfoUpdate,
-  onLoginUser: loginUser,
+  onSignUpUser: signUpUser,
+  onUpdateSignUpInfo: updateSignUpInfo,
 })(SignUpForm);
