@@ -17,11 +17,11 @@ export const closeFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_CLOSE)
 export const openFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
 
 export const fetchFriend = () => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
+  const { accountId } = getState().Auth.account;
 
   dispatch({ type: FRIEND_FETCH_REQUEST });
 
-  firebase.database().ref(`/users/${currentUserId}/friends`)
+  firebase.database().ref(`/users/${accountId}/friends`)
     .on('value', (snapshot) => {
       dispatch({
         type: FRIEND_FETCH_SUCCESS,
