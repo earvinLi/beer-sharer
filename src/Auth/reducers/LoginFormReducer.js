@@ -2,46 +2,41 @@
 import { createReducer } from '../../App/RootUtilities';
 import {
   LOGIN_INFO_UPDATE,
-  LOGIN_USER_REQUEST,
   LOGIN_USER_FAIL,
-  REACH_MAIN_APP_SUCCESS,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
 } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
-  currentUserId: '',
   email: '',
-  isLoading: false,
+  isLoggingin: false,
   loginFailErrorText: '',
   password: '',
 };
 
-const updateLoginInfo = (state, action) => ({
+const loginInfoUpdate = (state, action) => ({
   ...state,
   [action.prop]: action.value,
 });
 
 const loginUserRequest = state => ({
   ...state,
-  isLoading: true,
+  isLoggingin: true,
   loginFailErrorText: '',
 });
 
-const reachMainAppSuccess = (state, action) => ({
-  ...state,
-  ...INITIAL_STATE,
-  currentUserId: action.currentUserId,
-});
+const loginUserSuccess = () => ({ ...INITIAL_STATE });
 
 // TODO: Display a more clear error text
 const loginUserFail = state => ({
   ...state,
-  isLoading: true,
+  isLoggingin: false,
   loginFailErrorText: 'Authentication Failed.',
 });
 
 export default createReducer(INITIAL_STATE, {
-  [LOGIN_INFO_UPDATE]: updateLoginInfo,
-  [LOGIN_USER_REQUEST]: loginUserRequest,
-  [REACH_MAIN_APP_SUCCESS]: reachMainAppSuccess,
+  [LOGIN_INFO_UPDATE]: loginInfoUpdate,
   [LOGIN_USER_FAIL]: loginUserFail,
+  [LOGIN_USER_REQUEST]: loginUserRequest,
+  [LOGIN_USER_SUCCESS]: loginUserSuccess,
 });

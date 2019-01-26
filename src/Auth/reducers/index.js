@@ -2,10 +2,12 @@
 import { combineReducers } from 'redux';
 
 // Internal Dependencies
-import LoginReducer from './LoginReducer';
-import SignUpReducer from './SignUpReducer';
+import AccountReducer from './AccountReducer';
+import LoginFormReducer from './LoginFormReducer';
+import SignUpFormReducer from './SignUpFormReducer';
 
 export default combineReducers({
-  loginForm: LoginReducer,
-  signUpForm: SignUpReducer,
+  account: AccountReducer,
+  loginForm: LoginFormReducer,
+  signUpForm: SignUpFormReducer,
 });
