@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
-import { loadApp } from './actions/AuthAction';
+import { initApp } from './actions/InitAction';
 
 // Local Variables
 const styles = {
@@ -18,18 +18,20 @@ const styles = {
   },
 };
 
-class AuthLoadingScreen extends Component {
+class AppLoadingScreen extends Component {
   componentDidMount() {
     const {
-      navigation: toAppNav,
-      onLoadApp,
+      navigation,
+      onInitApp,
     } = this.props;
 
-    onLoadApp(toAppNav);
+    onInitApp(navigation);
   }
 
   render() {
-    return (
+    const { isInitializing } = this.props;
+
+    return isInitializing && (
       <View style={styles.spinnerContainerStyle}>
         <Spinner
           hasLabel
@@ -41,11 +43,22 @@ class AuthLoadingScreen extends Component {
 }
 
 // Prop Validations
-AuthLoadingScreen.propTypes = {
+AppLoadingScreen.propTypes = {
+  isInitializing: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
-  onLoadApp: PropTypes.func.isRequired,
+  onInitApp: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
-  onLoadApp: loadApp,
-})(AuthLoadingScreen);
+AppLoadingScreen.defaultProps = {
+  isInitializing: false,
+};
+
+const mapStateToProps = (state) => {
+  const { isInitializing } = state.Auth.account;
+
+  return { isInitializing };
+};
+
+export default connect(mapStateToProps, {
+  onInitApp: initApp,
+})(AppLoadingScreen);
