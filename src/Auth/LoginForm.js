@@ -16,9 +16,9 @@ import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
 import {
-  loginInfoUpdate,
   loginUser,
-} from './actions/AuthAction';
+  updateLoginInfo,
+} from './actions/LoginAction';
 
 // Local Variables
 const styles = {
@@ -41,7 +41,7 @@ class LoginForm extends Component {
       password,
     } = this.props;
 
-    onLoginUser({ email, password, toHomeNav: navigation });
+    onLoginUser(email, password, navigation);
   }
 
   onSignUpButtonPress = () => {
@@ -53,9 +53,9 @@ class LoginForm extends Component {
   render() {
     const {
       email,
-      isLoading,
+      isLoggingin,
       loginFailErrorText,
-      onLoginInfoUpdate,
+      onUpdateLoginInfo,
       password,
     } = this.props;
 
@@ -65,19 +65,9 @@ class LoginForm extends Component {
       </View>
     );
 
-    const buttonSection = isLoading
+    const loginButton = isLoggingin
       ? <Spinner size="large" />
-      : (
-        <CardSection>
-          <Button onPress={this.onLoginButtonPress}>Login</Button>
-          <Button
-            hasBorder={false}
-            onPress={this.onSignUpButtonPress}
-          >
-            Not a user? Sign up!
-          </Button>
-        </CardSection>
-      );
+      : <Button onPress={this.onLoginButtonPress}>Login</Button>;
 
     return (
       <Card>
@@ -85,7 +75,7 @@ class LoginForm extends Component {
           <Input
             autoCapitalize="none"
             label="Email"
-            onChange={value => onLoginInfoUpdate({ prop: 'email', value })}
+            onChange={value => onUpdateLoginInfo('email', value)}
             placeholder="email@gmail.com"
             value={email}
           />
@@ -94,14 +84,22 @@ class LoginForm extends Component {
           <Input
             autoCapitalize="none"
             label="Password"
-            onChange={value => onLoginInfoUpdate({ prop: 'password', value })}
+            onChange={value => onUpdateLoginInfo('password', value)}
             placeholder="password"
             secureTextEntry
             value={password}
           />
         </CardSection>
         {loginFailErrorElement}
-        {buttonSection}
+        <CardSection>
+          {loginButton}
+          <Button
+            hasBorder={false}
+            onPress={this.onSignUpButtonPress}
+          >
+            Not a user? Sign up!
+          </Button>
+        </CardSection>
       </Card>
     );
   }
@@ -110,17 +108,17 @@ class LoginForm extends Component {
 // Prop Validations
 LoginForm.propTypes = {
   email: PropTypes.string,
-  isLoading: PropTypes.bool,
+  isLoggingin: PropTypes.bool,
   loginFailErrorText: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
   password: PropTypes.string,
   onLoginUser: PropTypes.func.isRequired,
-  onLoginInfoUpdate: PropTypes.func.isRequired,
+  onUpdateLoginInfo: PropTypes.func.isRequired,
 };
 
 LoginForm.defaultProps = {
   email: '',
-  isLoading: false,
+  isLoggingin: false,
   loginFailErrorText: '',
   password: '',
 };
@@ -128,20 +126,20 @@ LoginForm.defaultProps = {
 const mapStateToProps = (state) => {
   const {
     email,
-    isLoading,
+    isLoggingin,
     loginFailErrorText,
     password,
-  } = state.auth;
+  } = state.Auth.loginForm;
 
   return {
     email,
-    isLoading,
+    isLoggingin,
     loginFailErrorText,
     password,
   };
 };
 
 export default connect(mapStateToProps, {
-  onLoginInfoUpdate: loginInfoUpdate,
+  onUpdateLoginInfo: updateLoginInfo,
   onLoginUser: loginUser,
 })(LoginForm);

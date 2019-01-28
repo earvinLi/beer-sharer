@@ -1,4 +1,5 @@
 // External Dependencies
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -9,15 +10,14 @@ import {
 
 // Internal Dependencies
 import Button from '../SharedUnits/Button';
-import DialogConfirm from '../SharedUnits/DialogConfirm';
-import Input from '../SharedUnits/Input';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
+import FriendAddDialog from './FriendAddDialog';
 import {
-  friendFetch,
-  friendSearchInfoUpdate,
+  openFriendAddDialog,
+  fetchFriend,
 } from './actions/FriendAction';
 
 // Local Variables
@@ -35,29 +35,29 @@ class FriendList extends Component {
     headerRight: (
       <Button
         hasBorder={false}
-        onPress={navigation.getParam('onAddButtonPress')}
+        onPress={navigation.getParam('onPressAddButton')}
       >
         Add
       </Button>
     ),
   });
 
-  state = { isAlertOpen: false };
-
   componentDidMount() {
     const {
       navigation,
-      onFriendFetch,
+      onFetchFriend,
     } = this.props;
 
-    navigation.setParams({ onAddButtonPress: this.onAddButtonPress });
+    navigation.setParams({ onPressAddButton: this.onPressAddButton });
 
-    onFriendFetch();
+    onFetchFriend();
   }
 
-  onAddButtonPress = () => this.setState({ isAlertOpen: true });
+  onPressAddButton = () => {
+    const { onOpenFriendAddDialog } = this.props;
 
-  onDeclineButtonPress = () => this.setState({ isAlertOpen: false });
+    return onOpenFriendAddDialog();
+  };
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
@@ -68,13 +68,9 @@ class FriendList extends Component {
   );
 
   render() {
-    const { isAlertOpen } = this.state;
-
     const {
-      emailToSearch,
-      fetchedFriend,
+      fetchedFriendData,
       isFetching,
-      onFriendSearchInfoUpdate,
     } = this.props;
 
     return isFetching
@@ -89,25 +85,10 @@ class FriendList extends Component {
       : (
         <View>
           <FlatList
-            data={fetchedFriend}
+            data={fetchedFriendData}
             renderItem={this.renderFriendItem}
           />
-          <DialogConfirm
-            acceptButtonText="ADD"
-            isOpen={isAlertOpen}
-            onAccept={this.onAccept}
-            onDecline={this.onDeclineButtonPress}
-            title="Search User"
-          >
-            <Input
-              autoCapitalize="none"
-              onChange={value => onFriendSearchInfoUpdate({ prop: 'emailToSearch', value })}
-              onSubmit={() => { console.log(emailToSearch); }}
-              placeholder="Enter an emaill to search"
-              returnKeyType="search"
-              value={emailToSearch}
-            />
-          </DialogConfirm>
+          <FriendAddDialog />
         </View>
       );
   }
@@ -115,17 +96,15 @@ class FriendList extends Component {
 
 // Prop Validations
 FriendList.propTypes = {
-  emailToSearch: PropTypes.string,
-  fetchedFriend: PropTypes.arrayOf(PropTypes.object),
+  fetchedFriendData: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
-  onFriendFetch: PropTypes.func.isRequired,
-  onFriendSearchInfoUpdate: PropTypes.func.isRequired,
+  onFetchFriend: PropTypes.func.isRequired,
+  onOpenFriendAddDialog: PropTypes.func.isRequired,
 };
 
 FriendList.defaultProps = {
-  emailToSearch: '',
-  fetchedFriend: [],
+  fetchedFriendData: [],
   isFetching: false,
 };
 
@@ -133,18 +112,21 @@ const mapStateToProps = (state) => {
   const {
     fetchedFriend,
     isFetching,
-  } = state.friend;
+  } = state.Friend.friendApiData;
 
-  const { emailToSearch } = state.friendForm;
+  const fetchedFriendData = _.map(fetchedFriend, (val, uid) => ({
+    ...val,
+    uid,
+    key: uid,
+  }));
 
   return {
-    emailToSearch,
-    fetchedFriend,
+    fetchedFriendData,
     isFetching,
   };
 };
 
 export default connect(mapStateToProps, {
-  onFriendFetch: friendFetch,
-  onFriendSearchInfoUpdate: friendSearchInfoUpdate,
+  onOpenFriendAddDialog: openFriendAddDialog,
+  onFetchFriend: fetchFriend,
 })(FriendList);

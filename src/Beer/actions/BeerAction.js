@@ -41,11 +41,11 @@ export const beerSave = ({
 };
 
 export const beerFetch = () => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
+  const { accountId } = getState().Auth.account;
 
   dispatch({ type: BEER_FETCH });
 
-  firebase.database().ref(`/users/${currentUserId}/beer`)
+  firebase.database().ref(`/users/${accountId}/beer`)
     .on('value', (snapshot) => {
       dispatch({
         type: BEER_FETCH_SUCCESS,

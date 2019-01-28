@@ -1,6 +1,5 @@
 // External Dependencies
-import firebase from 'firebase';
-import React, { Component } from 'react';
+import React from 'react';
 import ReduxThunk from 'redux-thunk';
 import {
   applyMiddleware,
@@ -8,26 +7,20 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 
-// Internal Dependencies
+// Local Dependencies
 import AppNavigation from './AppNavigation';
 import reducers from './AppReducer';
-import { fireBaseInitConfig } from './OuthConfig';
+import { callApiMiddleware } from './RootUtilities';
 
 // Component Definition
-class App extends Component {
-  componentDidMount() {
-    firebase.initializeApp(fireBaseInitConfig);
-  }
+function App() {
+  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, callApiMiddleware));
 
-  render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-
-    return (
-      <Provider store={store}>
-        <AppNavigation />
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
+  );
 }
 
 export default App;

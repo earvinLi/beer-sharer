@@ -6,7 +6,7 @@ import { FlatList } from 'react-native';
 
 // Internal Dependencies
 import ListItem from '../SharedUnits/ListItem';
-import { signOutUser } from '../Auth/actions/AuthAction';
+import { signOutUser } from '../Auth/actions/SignOutAction';
 
 // Local Variables
 const sectionData = [
@@ -24,7 +24,7 @@ class Settings extends Component {
       onSignOutUser,
     } = this.props;
 
-    return onSignOutUser({ toAuthNav: navigation });
+    return onSignOutUser(navigation);
   }
 
   renderSectionItem = ({ item: section }) => {

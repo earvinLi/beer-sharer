@@ -2,18 +2,26 @@
 import firebase from 'firebase';
 
 // Internal Dependencies
+import { createActionCreator } from '../../App/RootUtilities';
 import {
-  FRIEND_FETCH,
+  FRIEND_ADD_DIALOG_CLOSE,
+  FRIEND_ADD_DIALOG_OPEN,
+  FRIEND_FETCH_REQUEST,
   FRIEND_FETCH_SUCCESS,
-  FRIEND_SEARCH_INFO_UPDATE,
 } from '../../App/ActionTypes';
 
-export const friendFetch = () => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
+export const addFriend = () => {};
 
-  dispatch({ type: FRIEND_FETCH });
+export const closeFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_CLOSE);
 
-  firebase.database().ref(`/users/${currentUserId}/friends`)
+export const openFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
+
+export const fetchFriend = () => (dispatch, getState) => {
+  const { accountId } = getState().Auth.account;
+
+  dispatch({ type: FRIEND_FETCH_REQUEST });
+
+  firebase.database().ref(`/users/${accountId}/friends`)
     .on('value', (snapshot) => {
       dispatch({
         type: FRIEND_FETCH_SUCCESS,
@@ -21,10 +29,3 @@ export const friendFetch = () => (dispatch, getState) => {
       });
     });
 };
-
-export const friendSearch = () => {};
-
-export const friendSearchInfoUpdate = ({ prop, value }) => ({
-  type: FRIEND_SEARCH_INFO_UPDATE,
-  payload: { prop, value },
-});

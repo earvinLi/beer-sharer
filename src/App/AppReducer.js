@@ -2,16 +2,14 @@
 import { combineReducers } from 'redux';
 
 // Internal Dependencies
-import AuthReducer from '../Auth/reducers/AuthReducer';
+import AuthReducer from '../Auth/reducers';
 import BeerFormReducer from '../Beer/reducers/BeerFormReducer';
 import BeerReducer from '../Beer/reducers/BeerReducer';
-import FriendFormReducer from '../Friend/reducers/FriendFormReducer';
-import FriendReducer from '../Friend/reducers/FriendReducer';
+import FriendReducer from '../Friend/reducers';
 
 export default combineReducers({
-  auth: AuthReducer,
+  Auth: AuthReducer,
   beer: BeerReducer,
   beerForm: BeerFormReducer,
-  friend: FriendReducer,
-  friendForm: FriendFormReducer,
+  Friend: FriendReducer,
 });
