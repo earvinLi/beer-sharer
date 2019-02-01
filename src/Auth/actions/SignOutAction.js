@@ -4,18 +4,23 @@ import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
-import { SIGN_OUT_USER_FAIL } from '../../App/ActionTypes';
+import {
+  SIGN_OUT_USER_FAIL,
+  SIGN_OUT_USER_REQUEST,
+} from '../../App/ActionTypes';
 
 const signOutUserFail = createActionCreator(SIGN_OUT_USER_FAIL, 'signOutFailError');
 
 export const clearCache = () => {};
 
-export const signOutUser = async (navigation) => {
-  // TODO: Actions must be plain objects?
+export const signOutUser = navigation => async (dispatch) => {
+  // Solvce: This action must be a plain object
+  // and the unhandled promise rejection of the second await
+  dispatch({ type: SIGN_OUT_USER_REQUEST });
+
   await firebase.auth().signOut()
     .catch(signOutFailError => signOutUserFail(signOutFailError));
 
-  // TODO: Unhandled promise rejection?
   await AsyncStorage.removeItem('accountId');
 
   navigation.navigate('Auth');
