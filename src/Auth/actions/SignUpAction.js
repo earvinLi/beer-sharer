@@ -20,10 +20,7 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
   return navigation.navigate('Home');
 };
 
-const signUpUserFail = createActionCreator(
-  SIGN_UP_USER_FAIL,
-  'signUpFailError',
-);
+const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
 const saveSignedUpUser = async (accountId, email, name) => {
   await firebase.database().ref(`users/${accountId}`).set({

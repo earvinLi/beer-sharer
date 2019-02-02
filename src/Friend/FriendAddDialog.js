@@ -9,7 +9,10 @@ import Input from '../SharedUnits/Input';
 
 // Local Dependencies
 import { closeFriendAddDialog } from './actions/FriendAction';
-import { updateFriendSearchInfo } from './actions/FriendSearchAction';
+import {
+  searchFriend,
+  updateFriendSearchInfo,
+} from './actions/FriendSearchAction';
 
 // Component Definition
 class FriendAddDialog extends Component {
@@ -21,10 +24,17 @@ class FriendAddDialog extends Component {
     return onCloseFriendAddDialog();
   };
 
+  onPressSearchButton = () => {
+    const { onSearchFriend } = this.props;
+
+    return onSearchFriend();
+  };
+
   render() {
     const {
       emailToSearch,
       isFriendAddDialogOpen,
+      // onSearchFriend,
       onUpdateFriendSearchInfo,
     } = this.props;
 
@@ -32,14 +42,14 @@ class FriendAddDialog extends Component {
       <DialogConfirm
         acceptButtonText="ADD"
         isOpen={isFriendAddDialogOpen}
-        onAccept={this.onPressAcceptButton}
+        onAccept={this.onPressSearchButton}
         onDecline={this.onPressDeclineButton}
         title="Search User"
       >
         <Input
           autoCapitalize="none"
           onChange={value => onUpdateFriendSearchInfo('emailToSearch', value)}
-          onSubmit={() => {}}
+          onSubmit={this.onPressSearchButton}
           placeholder="Enter an emaill to search"
           returnKeyType="search"
           value={emailToSearch}
@@ -54,6 +64,7 @@ FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
   onCloseFriendAddDialog: PropTypes.func.isRequired,
+  onSearchFriend: PropTypes.func.isRequired,
   onUpdateFriendSearchInfo: PropTypes.func.isRequired,
 };
 
@@ -75,5 +86,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   onCloseFriendAddDialog: closeFriendAddDialog,
+  onSearchFriend: searchFriend,
   onUpdateFriendSearchInfo: updateFriendSearchInfo,
 })(FriendAddDialog);
