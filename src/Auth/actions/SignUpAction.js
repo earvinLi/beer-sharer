@@ -24,8 +24,9 @@ const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError')
 
 const saveSignedUpUser = async (accountId, email, name) => {
   await firebase.database().ref(`users/${accountId}`).set({
-    username: name,
     email,
+    userId: accountId,
+    username: name,
   })
     .catch(saveUserFailError => signUpUserFail(saveUserFailError));
 };
