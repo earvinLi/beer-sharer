@@ -23,11 +23,14 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
 const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
 const saveSignedUpUser = async (accountId, email, name) => {
-  await firebase.database().ref(`users/${accountId}`).set({
-    email,
-    userId: accountId,
-    username: name,
-  })
+  const encodedEmail = window.btoa(email);
+  const userRef = firebase.database().ref('/user');
+  const updateData = {
+    [`users/${accountId}`]: { email, name },
+    [`emailToUid/${encodedEmail}`]: accountId,
+  };
+
+  await userRef.update(updateData)
     .catch(saveUserFailError => signUpUserFail(saveUserFailError));
 };
 
