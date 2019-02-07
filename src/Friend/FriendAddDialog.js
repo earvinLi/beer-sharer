@@ -25,16 +25,18 @@ class FriendAddDialog extends Component {
   };
 
   onPressSearchButton = () => {
-    const { onSearchFriend } = this.props;
+    const {
+      emailToSearch,
+      onSearchFriend,
+    } = this.props;
 
-    return onSearchFriend();
+    return onSearchFriend(emailToSearch);
   };
 
   render() {
     const {
       emailToSearch,
       isFriendAddDialogOpen,
-      // onSearchFriend,
       onUpdateFriendSearchInfo,
     } = this.props;
 

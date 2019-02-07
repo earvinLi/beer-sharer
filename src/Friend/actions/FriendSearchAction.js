@@ -15,10 +15,16 @@ const searchFriendFail = createActionCreator(FRIEND_SEARCH_FAIL, 'searchFriendFa
 export const searchFriend = email => async (dispatch) => {
   dispatch({ type: FRIEND_SEARCH_REQUEST });
 
-  const userRef = firebase.database().ref('users');
-  const userSnapshot = await userRef.orderByChild('email').equalTo(email)
+  const encodedEmail = window.btoa(email);
+  const userRef = firebase.database().ref('/user');
+
+  const uidSnapshot = await userRef.child(`/emailToUid/${encodedEmail}`)
     .once('value')
-    .catch(searchFriendFailError => searchFriendFail(searchFriendFailError));
+    .catch(getUidFailError => searchFriendFail(getUidFailError));
+
+  const userSnapshot = await userRef.child(`/users/${uidSnapshot.val()}`)
+    .once('value')
+    .catch(getUserFailError => searchFriendFail(getUserFailError));
 
   dispatch({
     type: FRIEND_SEARCH_SUCCESS,
