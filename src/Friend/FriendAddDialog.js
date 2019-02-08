@@ -2,6 +2,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  Text,
+  View,
+} from 'react-native';
 
 // Internal Dependencies
 import DialogConfirm from '../SharedUnits/DialogConfirm';
@@ -38,6 +42,7 @@ class FriendAddDialog extends Component {
       emailToSearch,
       isFriendAddDialogOpen,
       onUpdateFriendSearchInfo,
+      userFound,
     } = this.props;
 
     return (
@@ -56,6 +61,10 @@ class FriendAddDialog extends Component {
           returnKeyType="search"
           value={emailToSearch}
         />
+        <View>
+          <Text>{userFound.name}</Text>
+          <Text>{userFound.email}</Text>
+        </View>
       </DialogConfirm>
     );
   }
@@ -68,21 +77,27 @@ FriendAddDialog.propTypes = {
   onCloseFriendAddDialog: PropTypes.func.isRequired,
   onSearchFriend: PropTypes.func.isRequired,
   onUpdateFriendSearchInfo: PropTypes.func.isRequired,
+  userFound: PropTypes.shape({}),
 };
 
 FriendAddDialog.defaultProps = {
   emailToSearch: '',
+  userFound: {},
 };
 
 const mapStateToProps = (state) => {
   const {
     emailToSearch,
     isOpen,
+    isSearching,
+    userFound,
   } = state.Friend.friendAddDialog;
 
   return {
     emailToSearch,
     isFriendAddDialogOpen: isOpen,
+    isSearching,
+    userFound,
   };
 };
 
