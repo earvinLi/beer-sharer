@@ -9,7 +9,6 @@ import {
 // Local Variables
 const styles = {
   basicButtonStyle: {
-    alignSelf: 'stretch',
     backgroundColor: '#fff',
     flex: 1,
     marginLeft: 5,

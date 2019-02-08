@@ -13,13 +13,21 @@ import CardSection from './CardSection';
 
 // Local Variables
 const styles = {
-  containerStyle: {
+  buttonContainerStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  dialogContainerStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     flex: 1,
     justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
     position: 'relative',
+  },
+  supplementaryActionContainerStyle: {
+    flex: 1,
   },
   titleStyle: {
     fontSize: 18,
@@ -32,15 +40,18 @@ function DialogConfirm(props) {
   const {
     acceptButtonText,
     children,
-    title,
     isOpen,
     onAccept,
     onDecline,
+    supplementaryAction,
+    title,
   } = props;
 
   const {
+    buttonContainerStyle,
+    dialogContainerStyle,
+    supplementaryActionContainerStyle,
     titleStyle,
-    containerStyle,
   } = styles;
 
   return (
@@ -49,7 +60,7 @@ function DialogConfirm(props) {
       transparent
       visible={isOpen}
     >
-      <View style={containerStyle}>
+      <View style={dialogContainerStyle}>
         <CardSection>
           <Text style={titleStyle}>{title}</Text>
         </CardSection>
@@ -57,8 +68,23 @@ function DialogConfirm(props) {
           {children}
         </CardSection>
         <CardSection>
-          <Button onPress={onDecline}>CANCEL</Button>
-          <Button onPress={onAccept}>{acceptButtonText || 'OK'}</Button>
+          <View style={supplementaryActionContainerStyle}>
+            {supplementaryAction}
+          </View>
+          <View style={buttonContainerStyle}>
+            <Button
+              hasBorder={false}
+              onPress={onDecline}
+            >
+              CANCEL
+            </Button>
+            <Button
+              hasBorder={false}
+              onPress={onAccept}
+            >
+              {acceptButtonText || 'OK'}
+            </Button>
+          </View>
         </CardSection>
       </View>
     </Modal>
@@ -69,15 +95,17 @@ function DialogConfirm(props) {
 DialogConfirm.propTypes = {
   acceptButtonText: PropTypes.string,
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   onAccept: PropTypes.func.isRequired,
   onDecline: PropTypes.func.isRequired,
+  supplementaryAction: PropTypes.node,
+  title: PropTypes.string.isRequired,
 };
 
 DialogConfirm.defaultProps = {
   acceptButtonText: '',
   isOpen: false,
+  supplementaryAction: null,
 };
 
 export default DialogConfirm;
