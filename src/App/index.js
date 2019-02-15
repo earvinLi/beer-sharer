@@ -12,10 +12,11 @@ import AppNavigation from './AppNavigation';
 import reducers from './AppReducer';
 import { callApiMiddleware } from './RootUtilities';
 
+// Local Variables
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, callApiMiddleware));
+
 // Component Definition
 function App() {
-  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, callApiMiddleware));
-
   return (
     <Provider store={store}>
       <AppNavigation />
