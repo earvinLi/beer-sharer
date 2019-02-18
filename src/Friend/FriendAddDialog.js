@@ -1,15 +1,14 @@
 // External Dependencies
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Text,
-  View,
-} from 'react-native';
 
 // Internal Dependencies
 import DialogConfirm from '../SharedUnits/DialogConfirm';
+import EmptyState from '../SharedUnits/EmptyState';
 import Input from '../SharedUnits/Input';
+import ListItem from '../SharedUnits/ListItem';
 
 // Local Dependencies
 import { closeFriendAddDialog } from './actions/FriendAction';
@@ -17,6 +16,13 @@ import {
   searchFriend,
   updateFriendSearchInfo,
 } from './actions/FriendSearchAction';
+
+// Local Variables
+const styles = {
+  inputStyle: {
+    maxHeight: 42,
+  },
+};
 
 // Component Definition
 class FriendAddDialog extends Component {
@@ -45,6 +51,24 @@ class FriendAddDialog extends Component {
       userFound,
     } = this.props;
 
+    const resultSection = Object.keys(userFound).length
+      ? (
+        <ListItem />
+      )
+      : (
+        <EmptyState
+          secondaryText="To search a user,
+          please enter an email in the field above and press Search."
+          supplementaryIcon={(
+            <MaterialCommunityIcons
+              color="#bdbdbd"
+              name="account-search"
+              size={48}
+            />
+          )}
+        />
+      );
+
     return (
       <DialogConfirm
         acceptButtonText="ADD"
@@ -60,11 +84,9 @@ class FriendAddDialog extends Component {
           placeholder="Enter an emaill to search"
           returnKeyType="search"
           value={emailToSearch}
+          variantStyle={styles.inputStyle}
         />
-        <View>
-          <Text>{userFound.name}</Text>
-          <Text>{userFound.email}</Text>
-        </View>
+        {resultSection}
       </DialogConfirm>
     );
   }

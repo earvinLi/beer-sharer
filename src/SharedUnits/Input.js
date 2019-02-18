@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
 // Local Variables
@@ -13,7 +14,7 @@ const styles = {
     alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
-    height: 40,
+    height: 42,
   },
   labelStyle: {
     flex: 1,
@@ -37,13 +38,14 @@ function Input(props) {
   const {
     autoCapitalize,
     label,
-    // Name from material-ui
+    // Name from Material-UI
     onChange,
     onSubmit,
     placeholder,
     returnKeyType,
     secureTextEntry,
     value,
+    variantStyle,
   } = props;
 
   const {
@@ -53,7 +55,7 @@ function Input(props) {
   } = styles;
 
   return (
-    <View style={containerStyle}>
+    <View style={[containerStyle, variantStyle]}>
       {Boolean(label) && <Text style={labelStyle}>{label}</Text>}
       <TextInput
         autoCapitalize={autoCapitalize}
@@ -83,6 +85,7 @@ Input.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  variantStyle: ViewPropTypes.style,
 };
 
 Input.defaultProps = {
@@ -93,6 +96,7 @@ Input.defaultProps = {
   placeholder: '',
   returnKeyType: 'go',
   secureTextEntry: false,
+  variantStyle: {},
 };
 
 export default Input;

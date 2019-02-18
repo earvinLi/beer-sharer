@@ -18,6 +18,11 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
+  contentContainerStyle: {
+    flexDirection: 'column',
+    height: 180,
+    padding: 0,
+  },
   dialogContainerStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     flex: 1,
@@ -49,6 +54,7 @@ function DialogConfirm(props) {
 
   const {
     buttonContainerStyle,
+    contentContainerStyle,
     dialogContainerStyle,
     supplementaryActionContainerStyle,
     titleStyle,
@@ -64,7 +70,7 @@ function DialogConfirm(props) {
         <CardSection>
           <Text style={titleStyle}>{title}</Text>
         </CardSection>
-        <CardSection>
+        <CardSection variantStyle={contentContainerStyle}>
           {children}
         </CardSection>
         <CardSection>
