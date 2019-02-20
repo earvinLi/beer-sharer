@@ -2,19 +2,34 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
+  Image,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
-// Local Dependencies
-import CardSection from './CardSection';
-
 // Local Variables
 const styles = {
-  titleStyle: {
+  containerStyle: {
+    flexDirection: 'row',
+    marginLeft: 21,
+  },
+  imageStyle: {
+    borderRadius: 21,
+    height: 42,
+    width: 42,
+  },
+  primaryTitleStyle: {
     fontSize: 18,
-    paddingLeft: 15,
+  },
+  secondaryTitleStyle: {
+    color: '#d3d3d3',
+    fontSize: 15,
+  },
+  titleContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 21,
   },
 };
 
@@ -22,16 +37,30 @@ const styles = {
 function ListItem(props) {
   const {
     onPress,
-    title,
+    primaryTitle,
+    secondaryTitle,
   } = props;
+
+  const {
+    containerStyle,
+    imageStyle,
+    primaryTitleStyle,
+    secondaryTitleStyle,
+    titleContainerStyle,
+  } = styles;
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       {/* <TouchableWithoutFeedback /> needs <View />!!! */}
-      <View>
-        <CardSection>
-          <Text style={styles.titleStyle}>{title}</Text>
-        </CardSection>
+      <View style={containerStyle}>
+        <Image
+          source={{ uri: 'https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg' }}
+          style={imageStyle}
+        />
+        <View style={titleContainerStyle}>
+          <Text style={primaryTitleStyle}>{primaryTitle}</Text>
+          <Text style={secondaryTitleStyle}>{secondaryTitle}</Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -40,11 +69,13 @@ function ListItem(props) {
 // Prop Validations
 ListItem.propTypes = {
   onPress: PropTypes.func,
-  title: PropTypes.string.isRequired,
+  primaryTitle: PropTypes.string.isRequired,
+  secondaryTitle: PropTypes.string,
 };
 
 ListItem.defaultProps = {
   onPress: null,
+  secondaryTitle: '',
 };
 
 export default ListItem;
