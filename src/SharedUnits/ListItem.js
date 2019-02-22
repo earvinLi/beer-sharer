@@ -12,7 +12,7 @@ import {
 const styles = {
   containerStyle: {
     flexDirection: 'row',
-    marginLeft: 21,
+    margin: 12,
   },
   imageStyle: {
     borderRadius: 21,

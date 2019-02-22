@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import {
   Text,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
 // Local Variables
 const styles = {
   containerStyle: {
-    backgroundColor: '#f5f5f5',
-    flex: 1,
     justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
@@ -31,6 +30,7 @@ function EmptyState(props) {
   const {
     secondaryText,
     supplementaryIcon,
+    variantStyle,
   } = props;
 
   const {
@@ -40,7 +40,7 @@ function EmptyState(props) {
   } = styles;
 
   return (
-    <View style={containerStyle}>
+    <View style={[containerStyle, variantStyle]}>
       <View style={supplementaryIconContainerStyle}>
         {supplementaryIcon}
       </View>
@@ -55,10 +55,12 @@ function EmptyState(props) {
 EmptyState.propTypes = {
   secondaryText: PropTypes.string.isRequired,
   supplementaryIcon: PropTypes.node,
+  variantStyle: ViewPropTypes.style,
 };
 
 EmptyState.defaultProps = {
   supplementaryIcon: null,
+  variantStyle: {},
 };
 
 export default EmptyState;

@@ -20,7 +20,6 @@ const styles = {
   },
   contentContainerStyle: {
     flexDirection: 'column',
-    height: 180,
     padding: 0,
   },
   dialogContainerStyle: {
@@ -36,7 +35,7 @@ const styles = {
   },
   titleStyle: {
     fontSize: 18,
-    lineHeight: 40,
+    lineHeight: 42,
   },
 };
 

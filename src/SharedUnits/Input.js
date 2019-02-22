@@ -19,17 +19,17 @@ const styles = {
   labelStyle: {
     flex: 1,
     fontSize: 18,
-    paddingLeft: 20,
+    paddingLeft: 21,
   },
   inputStyle: {
     color: '#000',
     flex: 2,
     fontSize: 18,
-    height: 20,
-    lineHeight: 23,
-    paddingLeft: 5,
-    paddingRight: 5,
-    width: 100,
+    height: 21,
+    lineHeight: 24,
+    paddingLeft: 12,
+    paddingRight: 12,
+    width: 96,
   },
 };
 
