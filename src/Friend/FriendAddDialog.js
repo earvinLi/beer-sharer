@@ -19,8 +19,13 @@ import {
 
 // Local Variables
 const styles = {
+  emptyStateStyle: {
+    height: 114,
+  },
   inputStyle: {
-    maxHeight: 42,
+    borderBottomColor: '#f5f5f5',
+    borderBottomWidth: 1,
+    flex: 0,
   },
 };
 
@@ -51,9 +56,17 @@ class FriendAddDialog extends Component {
       userFound,
     } = this.props;
 
+    const {
+      emptyStateStyle,
+      inputStyle,
+    } = styles;
+
     const resultSection = Object.keys(userFound).length
       ? (
-        <ListItem />
+        <ListItem
+          primaryTitle={userFound.name}
+          secondaryTitle={userFound.email}
+        />
       )
       : (
         <EmptyState
@@ -66,6 +79,7 @@ class FriendAddDialog extends Component {
               size={48}
             />
           )}
+          variantStyle={emptyStateStyle}
         />
       );
 
@@ -84,7 +98,7 @@ class FriendAddDialog extends Component {
           placeholder="Enter an emaill to search"
           returnKeyType="search"
           value={emailToSearch}
-          variantStyle={styles.inputStyle}
+          variantStyle={inputStyle}
         />
         {resultSection}
       </DialogConfirm>
