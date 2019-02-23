@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   userFound: {},
 };
 
-const friendAddDialogClose = state => ({ ...state, isOpen: false });
+const friendAddDialogClose = state => ({ ...state, ...INITIAL_STATE });
 
 const friendAddDialogOpen = state => ({ ...state, isOpen: true });
 
@@ -28,6 +28,7 @@ const friendSearchRequest = state => ({ ...state, isSearching: true });
 
 const friendSearchSuccess = (state, action) => ({
   ...state,
+  isSearching: false,
   userFound: action.userFound,
 });
 
