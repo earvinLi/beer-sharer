@@ -60,10 +60,7 @@ class FriendsList extends Component {
     return isFetching
       ? (
         <View style={styles.spinnerContainerStyle}>
-          <Spinner
-            hasLabel
-            loadingItemsLabel="beer"
-          />
+          <Spinner loadingText="Loading beer ..." />
         </View>
       )
       : (

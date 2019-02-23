@@ -33,10 +33,7 @@ class AppLoadingScreen extends Component {
 
     return isInitializing && (
       <View style={styles.spinnerContainerStyle}>
-        <Spinner
-          hasLabel
-          loadingItemsLabel="Beer Sharer"
-        />
+        <Spinner loadingText="Loading Beer Sharer ..." />
       </View>
     );
   }

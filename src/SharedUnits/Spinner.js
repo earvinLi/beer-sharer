@@ -5,62 +5,56 @@ import {
   ActivityIndicator,
   Text,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
 // Local Variables
 const styles = {
-  loadingWordsStyle: {
-    fontSize: 18,
-    paddingTop: 12,
-  },
-  spinnerStyle: {
+  containerStyle: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+  },
+  loadingTextStyle: {
+    fontSize: 18,
+    paddingTop: 12,
   },
 };
 
 // Component Definition
 function Spinner(props) {
   const {
-    hasLabel,
-    loadingItemsLabel,
+    loadingText,
     size,
+    variantStyle,
   } = props;
 
   const {
-    loadingWordsStyle,
-    spinnerStyle,
+    containerStyle,
+    loadingTextStyle,
   } = styles;
 
-  const loadingWordsElement = hasLabel
-    && (
-      <Text style={loadingWordsStyle}>
-        Loading&nbsp;
-        {loadingItemsLabel}
-        ...
-      </Text>
-    );
-
   return (
-    <View style={spinnerStyle}>
+    <View style={[containerStyle, variantStyle]}>
       <ActivityIndicator size={size} />
-      {loadingWordsElement}
+      <Text style={loadingTextStyle}>
+        {loadingText}
+      </Text>
     </View>
   );
 }
 
 // Prop Validations
 Spinner.propTypes = {
-  hasLabel: PropTypes.bool,
-  loadingItemsLabel: PropTypes.string,
+  loadingText: PropTypes.string,
   size: PropTypes.string,
+  variantStyle: ViewPropTypes.style,
 };
 
 Spinner.defaultProps = {
-  hasLabel: false,
-  loadingItemsLabel: 'Items',
+  loadingText: '',
   size: 'large',
+  variantStyle: {},
 };
 
 export default Spinner;
