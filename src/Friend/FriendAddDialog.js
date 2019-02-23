@@ -9,6 +9,7 @@ import DialogConfirm from '../SharedUnits/DialogConfirm';
 import EmptyState from '../SharedUnits/EmptyState';
 import Input from '../SharedUnits/Input';
 import ListItem from '../SharedUnits/ListItem';
+import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
 import { closeFriendAddDialog } from './actions/FriendAction';
@@ -26,6 +27,10 @@ const styles = {
     borderBottomColor: '#f5f5f5',
     borderBottomWidth: 1,
     flex: 0,
+  },
+  spinnerStyle: {
+    flex: 0,
+    height: 114,
   },
 };
 
@@ -48,20 +53,27 @@ class FriendAddDialog extends Component {
     return onSearchFriend(emailToSearch);
   };
 
-  render() {
+  renderResultSection = () => {
     const {
-      emailToSearch,
-      isFriendAddDialogOpen,
-      onUpdateFriendSearchInfo,
+      isSearching,
       userFound,
     } = this.props;
 
     const {
       emptyStateStyle,
-      inputStyle,
+      spinnerStyle,
     } = styles;
 
-    const resultSection = Object.keys(userFound).length
+    if (isSearching) {
+      return (
+        <Spinner
+          loadingText="Searching ..."
+          variantStyle={spinnerStyle}
+        />
+      );
+    }
+
+    return Object.keys(userFound).length
       ? (
         <ListItem
           primaryTitle={userFound.name}
@@ -82,6 +94,14 @@ class FriendAddDialog extends Component {
           variantStyle={emptyStateStyle}
         />
       );
+  };
+
+  render() {
+    const {
+      emailToSearch,
+      isFriendAddDialogOpen,
+      onUpdateFriendSearchInfo,
+    } = this.props;
 
     return (
       <DialogConfirm
@@ -98,9 +118,9 @@ class FriendAddDialog extends Component {
           placeholder="Enter an emaill to search"
           returnKeyType="search"
           value={emailToSearch}
-          variantStyle={inputStyle}
+          variantStyle={styles.inputStyle}
         />
-        {resultSection}
+        {this.renderResultSection()}
       </DialogConfirm>
     );
   }
@@ -110,6 +130,7 @@ class FriendAddDialog extends Component {
 FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
+  isSearching: PropTypes.bool,
   onCloseFriendAddDialog: PropTypes.func.isRequired,
   onSearchFriend: PropTypes.func.isRequired,
   onUpdateFriendSearchInfo: PropTypes.func.isRequired,
@@ -118,6 +139,7 @@ FriendAddDialog.propTypes = {
 
 FriendAddDialog.defaultProps = {
   emailToSearch: '',
+  isSearching: false,
   userFound: {},
 };
 
