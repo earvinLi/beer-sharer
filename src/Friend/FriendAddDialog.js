@@ -53,6 +53,7 @@ class FriendAddDialog extends Component {
     return onSearchFriend(emailToSearch);
   };
 
+  // TODO: Make resizing look better by adding an animation effect
   renderResultSection = () => {
     const {
       isSearching,
@@ -76,6 +77,7 @@ class FriendAddDialog extends Component {
     return Object.keys(userFound).length
       ? (
         <ListItem
+          image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
           primaryTitle={userFound.name}
           secondaryTitle={userFound.email}
         />

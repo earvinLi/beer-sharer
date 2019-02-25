@@ -36,6 +36,7 @@ const styles = {
 // Component Definition
 function ListItem(props) {
   const {
+    image,
     onPress,
     primaryTitle,
     secondaryTitle,
@@ -54,7 +55,7 @@ function ListItem(props) {
       {/* <TouchableWithoutFeedback /> needs <View />!!! */}
       <View style={containerStyle}>
         <Image
-          source={{ uri: 'https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg' }}
+          source={{ uri: image }}
           style={imageStyle}
         />
         <View style={titleContainerStyle}>
@@ -68,12 +69,14 @@ function ListItem(props) {
 
 // Prop Validations
 ListItem.propTypes = {
+  image: PropTypes.string,
   onPress: PropTypes.func,
   primaryTitle: PropTypes.string.isRequired,
   secondaryTitle: PropTypes.string,
 };
 
 ListItem.defaultProps = {
+  image: '',
   onPress: null,
   secondaryTitle: '',
 };
