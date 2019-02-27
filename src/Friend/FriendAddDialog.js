@@ -14,6 +14,10 @@ import Spinner from '../SharedUnits/Spinner';
 // Local Dependencies
 import { closeFriendAddDialog } from './actions/FriendAction';
 import {
+  addFriend,
+  selectFriend,
+} from './actions/FriendAddAction';
+import {
   searchFriend,
   updateFriendSearchInfo,
 } from './actions/FriendSearchAction';
@@ -27,6 +31,11 @@ const styles = {
     borderBottomColor: '#f5f5f5',
     borderBottomWidth: 1,
     flex: 0,
+  },
+  listItemStyle: {
+    borderColor: '#007aff',
+    borderRadius: 5,
+    borderWidth: 1,
   },
   spinnerStyle: {
     flex: 0,
@@ -56,12 +65,15 @@ class FriendAddDialog extends Component {
   // TODO: Make resizing look better by adding an animation effect
   renderResultSection = () => {
     const {
+      friendFound,
+      friendSelected,
       isSearching,
-      userFound,
+      onSelectFriend,
     } = this.props;
 
     const {
       emptyStateStyle,
+      listItemStyle,
       spinnerStyle,
     } = styles;
 
@@ -74,12 +86,16 @@ class FriendAddDialog extends Component {
       );
     }
 
-    return Object.keys(userFound).length
+    return Object.keys(friendFound).length
       ? (
         <ListItem
           image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
-          primaryTitle={userFound.name}
-          secondaryTitle={userFound.email}
+          // TODO: Change to not define a function inside 'return'
+          // TODO: Changes needed when multiple friends found
+          onPress={() => onSelectFriend(friendFound)}
+          primaryTitle={friendFound.name}
+          secondaryTitle={friendFound.email}
+          variantStyle={Object.keys(friendSelected).length && listItemStyle}
         />
       )
       : (
@@ -131,38 +147,48 @@ class FriendAddDialog extends Component {
 // Prop Validations
 FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
+  friendFound: PropTypes.shape({}),
+  friendSelected: PropTypes.shape({}),
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool,
   onCloseFriendAddDialog: PropTypes.func.isRequired,
   onSearchFriend: PropTypes.func.isRequired,
+  onSelectFriend: PropTypes.func.isRequired,
   onUpdateFriendSearchInfo: PropTypes.func.isRequired,
-  userFound: PropTypes.shape({}),
 };
 
 FriendAddDialog.defaultProps = {
   emailToSearch: '',
+  friendFound: {},
+  friendSelected: {},
   isSearching: false,
-  userFound: {},
 };
 
 const mapStateToProps = (state) => {
   const {
     emailToSearch,
+    // friendFound,
+    friendSelected,
     isOpen,
     isSearching,
-    userFound,
   } = state.Friend.friendAddDialog;
 
   return {
     emailToSearch,
+    friendFound: {
+      email: 'beer@home.com',
+      name: 'Earvin',
+    },
+    friendSelected,
     isFriendAddDialogOpen: isOpen,
     isSearching,
-    userFound,
   };
 };
 
 export default connect(mapStateToProps, {
+  onAddFriend: addFriend,
   onCloseFriendAddDialog: closeFriendAddDialog,
   onSearchFriend: searchFriend,
+  onSelectFriend: selectFriend,
   onUpdateFriendSearchInfo: updateFriendSearchInfo,
 })(FriendAddDialog);

@@ -28,7 +28,7 @@ export const searchFriend = email => async (dispatch) => {
 
   dispatch({
     type: FRIEND_SEARCH_SUCCESS,
-    userFound: userSnapshot.val(),
+    friendFound: userSnapshot.val(),
   });
 };
 

@@ -6,6 +6,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
 // Local Variables
@@ -13,6 +14,7 @@ const styles = {
   containerStyle: {
     flexDirection: 'row',
     margin: 12,
+    padding: 6,
   },
   imageStyle: {
     borderRadius: 21,
@@ -40,6 +42,7 @@ function ListItem(props) {
     onPress,
     primaryTitle,
     secondaryTitle,
+    variantStyle,
   } = props;
 
   const {
@@ -53,7 +56,7 @@ function ListItem(props) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       {/* <TouchableWithoutFeedback /> needs <View />!!! */}
-      <View style={containerStyle}>
+      <View style={[containerStyle, variantStyle]}>
         <Image
           source={{ uri: image }}
           style={imageStyle}
@@ -73,12 +76,14 @@ ListItem.propTypes = {
   onPress: PropTypes.func,
   primaryTitle: PropTypes.string.isRequired,
   secondaryTitle: PropTypes.string,
+  variantStyle: ViewPropTypes.style,
 };
 
 ListItem.defaultProps = {
   image: '',
   onPress: null,
   secondaryTitle: '',
+  variantStyle: {},
 };
 
 export default ListItem;
