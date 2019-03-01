@@ -19,7 +19,10 @@ const styles = {
     borderRadius: 5,
     borderWidth: 1,
   },
-  textStyle: {
+  buttonDisabledStyle: {
+    color: '#d3d3d3',
+  },
+  textBasicStyle: {
     alignSelf: 'center',
     color: '#007aff',
     fontSize: 16,
@@ -34,6 +37,7 @@ const styles = {
 function Button(props) {
   const {
     children,
+    disabled,
     hasBorder,
     onPress,
   } = props;
@@ -41,15 +45,20 @@ function Button(props) {
   const {
     basicButtonStyle,
     buttonBorderStyle,
-    textStyle,
+    buttonDisabledStyle,
+    textBasicStyle,
   } = styles;
 
-  const buttonWithBorderStyle = [basicButtonStyle, buttonBorderStyle];
+  const buttonStyle = [basicButtonStyle];
+  if (hasBorder) buttonStyle.push(buttonBorderStyle);
+
+  const textStyle = [textBasicStyle];
+  if (disabled) textStyle.push(buttonDisabledStyle);
 
   return (
     <TouchableOpacity
-      onPress={onPress}
-      style={hasBorder ? buttonWithBorderStyle : basicButtonStyle}
+      onPress={disabled ? null : onPress}
+      style={buttonStyle}
     >
       <Text style={textStyle}>{children}</Text>
     </TouchableOpacity>
@@ -59,11 +68,13 @@ function Button(props) {
 // Prop Validations
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
   hasBorder: PropTypes.bool,
   onPress: PropTypes.func,
 };
 
 Button.defaultProps = {
+  disabled: false,
   hasBorder: true,
   onPress: null,
 };

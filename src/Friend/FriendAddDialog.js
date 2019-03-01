@@ -68,7 +68,7 @@ class FriendAddDialog extends Component {
   renderResultSection = () => {
     const {
       friendFound,
-      friendSelected,
+      hasSelected,
       isSearching,
       onSelectFriend,
     } = this.props;
@@ -97,7 +97,7 @@ class FriendAddDialog extends Component {
           onPress={() => onSelectFriend(friendFound)}
           primaryTitle={friendFound.name}
           secondaryTitle={friendFound.email}
-          variantStyle={Object.keys(friendSelected).length && listItemStyle}
+          variantStyle={hasSelected && listItemStyle}
         />
       )
       : (
@@ -119,12 +119,14 @@ class FriendAddDialog extends Component {
   render() {
     const {
       emailToSearch,
+      hasSelected,
       isFriendAddDialogOpen,
       onUpdateFriendSearchInfo,
     } = this.props;
 
     return (
       <DialogConfirm
+        acceptButtonDisabled={!hasSelected}
         acceptButtonText="ADD"
         isOpen={isFriendAddDialogOpen}
         onAccept={this.onPressSearchButton}
@@ -151,6 +153,7 @@ FriendAddDialog.propTypes = {
   emailToSearch: PropTypes.string,
   friendFound: PropTypes.shape({}),
   friendSelected: PropTypes.shape({}),
+  hasSelected: PropTypes.bool,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool,
   onCloseFriendAddDialog: PropTypes.func.isRequired,
@@ -163,6 +166,7 @@ FriendAddDialog.defaultProps = {
   emailToSearch: '',
   friendFound: {},
   friendSelected: {},
+  hasSelected: false,
   isSearching: false,
 };
 
@@ -182,6 +186,7 @@ const mapStateToProps = (state) => {
       name: 'Earvin',
     },
     friendSelected,
+    hasSelected: Boolean(Object.keys(friendSelected).length),
     isFriendAddDialogOpen: isOpen,
     isSearching,
   };

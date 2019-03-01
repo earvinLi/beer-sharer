@@ -42,6 +42,7 @@ const styles = {
 // Component Definition
 function DialogConfirm(props) {
   const {
+    acceptButtonDisabled,
     acceptButtonText,
     children,
     isOpen,
@@ -84,6 +85,7 @@ function DialogConfirm(props) {
               CANCEL
             </Button>
             <Button
+              disabled={acceptButtonDisabled}
               hasBorder={false}
               onPress={onAccept}
             >
@@ -98,6 +100,7 @@ function DialogConfirm(props) {
 
 // Prop Validations
 DialogConfirm.propTypes = {
+  acceptButtonDisabled: PropTypes.bool,
   acceptButtonText: PropTypes.string,
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool,
@@ -108,6 +111,7 @@ DialogConfirm.propTypes = {
 };
 
 DialogConfirm.defaultProps = {
+  acceptButtonDisabled: false,
   acceptButtonText: '',
   isOpen: false,
   supplementaryAction: null,
