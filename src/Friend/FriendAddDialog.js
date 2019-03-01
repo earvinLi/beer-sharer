@@ -35,7 +35,9 @@ const styles = {
   listItemStyle: {
     borderColor: '#007aff',
     borderRadius: 5,
-    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderWidth: 2,
+    margin: 10,
   },
   spinnerStyle: {
     flex: 0,
