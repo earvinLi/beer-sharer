@@ -37,9 +37,12 @@ function Spinner(props) {
   return (
     <View style={[containerStyle, variantStyle]}>
       <ActivityIndicator size={size} />
-      <Text style={loadingTextStyle}>
-        {loadingText}
-      </Text>
+      {/* TODO: Change not to use Boolean? */}
+      {Boolean(loadingText) && (
+        <Text style={loadingTextStyle}>
+          {loadingText}
+        </Text>
+      )}
     </View>
   );
 }

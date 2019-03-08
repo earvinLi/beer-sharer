@@ -47,7 +47,14 @@ const styles = {
 
 // Component Definition
 class FriendAddDialog extends Component {
-  onPressAcceptButton = () => {};
+  onPressAcceptButton = () => {
+    const {
+      friendSelected,
+      onAddFriend,
+    } = this.props;
+
+    return onAddFriend(friendSelected);
+  };
 
   onPressDeclineButton = () => {
     const { onCloseFriendAddDialog } = this.props;
@@ -120,6 +127,7 @@ class FriendAddDialog extends Component {
     const {
       emailToSearch,
       hasSelected,
+      isAdding,
       isFriendAddDialogOpen,
       onUpdateFriendSearchInfo,
     } = this.props;
@@ -128,8 +136,9 @@ class FriendAddDialog extends Component {
       <DialogConfirm
         acceptButtonDisabled={!hasSelected}
         acceptButtonText="ADD"
+        isAccepting={isAdding}
         isOpen={isFriendAddDialogOpen}
-        onAccept={this.onPressSearchButton}
+        onAccept={this.onPressAcceptButton}
         onDecline={this.onPressDeclineButton}
         title="Search User"
       >
@@ -154,8 +163,10 @@ FriendAddDialog.propTypes = {
   friendFound: PropTypes.shape({}),
   friendSelected: PropTypes.shape({}),
   hasSelected: PropTypes.bool,
+  isAdding: PropTypes.bool,
   isFriendAddDialogOpen: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool,
+  onAddFriend: PropTypes.func.isRequired,
   onCloseFriendAddDialog: PropTypes.func.isRequired,
   onSearchFriend: PropTypes.func.isRequired,
   onSelectFriend: PropTypes.func.isRequired,
@@ -167,6 +178,7 @@ FriendAddDialog.defaultProps = {
   friendFound: {},
   friendSelected: {},
   hasSelected: false,
+  isAdding: false,
   isSearching: false,
 };
 
@@ -175,6 +187,7 @@ const mapStateToProps = (state) => {
     emailToSearch,
     // friendFound,
     friendSelected,
+    isAdding,
     isOpen,
     isSearching,
   } = state.Friend.friendAddDialog;
@@ -187,6 +200,7 @@ const mapStateToProps = (state) => {
     },
     friendSelected,
     hasSelected: Boolean(Object.keys(friendSelected).length),
+    isAdding,
     isFriendAddDialogOpen: isOpen,
     isSearching,
   };

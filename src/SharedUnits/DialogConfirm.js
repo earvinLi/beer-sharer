@@ -10,6 +10,7 @@ import {
 // Local Dependencies
 import Button from './Button';
 import CardSection from './CardSection';
+import Spinner from './Spinner';
 
 // Local Variables
 const styles = {
@@ -30,6 +31,10 @@ const styles = {
     paddingRight: 18,
     position: 'relative',
   },
+  spinnerStyle: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
   supplementaryActionContainerStyle: {
     flex: 1,
   },
@@ -45,6 +50,7 @@ function DialogConfirm(props) {
     acceptButtonDisabled,
     acceptButtonText,
     children,
+    isAccepting,
     isOpen,
     onAccept,
     onDecline,
@@ -56,9 +62,27 @@ function DialogConfirm(props) {
     buttonContainerStyle,
     contentContainerStyle,
     dialogContainerStyle,
+    spinnerStyle,
     supplementaryActionContainerStyle,
     titleStyle,
   } = styles;
+
+  const acceptButton = isAccepting
+    ? (
+      <Spinner
+        size="small"
+        variantStyle={spinnerStyle}
+      />
+    )
+    : (
+      <Button
+        disabled={acceptButtonDisabled}
+        hasBorder={false}
+        onPress={onAccept}
+      >
+        {acceptButtonText || 'OK'}
+      </Button>
+    );
 
   return (
     <Modal
@@ -84,13 +108,7 @@ function DialogConfirm(props) {
             >
               CANCEL
             </Button>
-            <Button
-              disabled={acceptButtonDisabled}
-              hasBorder={false}
-              onPress={onAccept}
-            >
-              {acceptButtonText || 'OK'}
-            </Button>
+            {acceptButton}
           </View>
         </CardSection>
       </View>
@@ -103,6 +121,7 @@ DialogConfirm.propTypes = {
   acceptButtonDisabled: PropTypes.bool,
   acceptButtonText: PropTypes.string,
   children: PropTypes.node.isRequired,
+  isAccepting: PropTypes.bool,
   isOpen: PropTypes.bool,
   onAccept: PropTypes.func.isRequired,
   onDecline: PropTypes.func.isRequired,
@@ -113,6 +132,7 @@ DialogConfirm.propTypes = {
 DialogConfirm.defaultProps = {
   acceptButtonDisabled: false,
   acceptButtonText: '',
+  isAccepting: false,
   isOpen: false,
   supplementaryAction: null,
 };
