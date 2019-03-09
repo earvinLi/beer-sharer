@@ -61,9 +61,11 @@ class FriendList extends Component {
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
-      // TODO: Change to not declare a function inside render
+      image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
+      // TODO: Change not to declare a function inside 'render'
       onPress={() => {}}
-      title={friend.name}
+      primaryTitle={friend.name}
+      secondaryTitle={friend.email}
     />
   );
 
