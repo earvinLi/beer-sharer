@@ -17,9 +17,9 @@ export const closeFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_CLOSE)
 export const openFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
 
 export const fetchFriend = () => (dispatch, getState) => {
-  const { accountId } = getState().Auth.account;
-
   dispatch({ type: FRIEND_FETCH_REQUEST });
+
+  const { accountId } = getState().Auth.account;
 
   firebase.database().ref(`/user/users/${accountId}/friends`)
     .on('value', (snapshot) => {

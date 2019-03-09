@@ -99,7 +99,7 @@ class FriendAddDialog extends Component {
       ? (
         <ListItem
           image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
-          // TODO: Change to not define a function inside 'return'
+          // TODO: Change not to declare a function inside 'return'
           // TODO: Changes needed when multiple friends found
           onPress={() => onSelectFriend(friendFound)}
           primaryTitle={friendFound.name}
@@ -185,7 +185,7 @@ FriendAddDialog.defaultProps = {
 const mapStateToProps = (state) => {
   const {
     emailToSearch,
-    // friendFound,
+    friendFound,
     friendSelected,
     isAdding,
     isOpen,
@@ -194,10 +194,7 @@ const mapStateToProps = (state) => {
 
   return {
     emailToSearch,
-    friendFound: {
-      email: 'beer@home.com',
-      name: 'Earvin',
-    },
+    friendFound,
     friendSelected,
     hasSelected: Boolean(Object.keys(friendSelected).length),
     isAdding,
