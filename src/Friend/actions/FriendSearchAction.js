@@ -1,4 +1,5 @@
 // External Dependencies
+import base64 from 'base-64';
 import firebase from 'firebase';
 
 // Internal Dependencies
@@ -15,7 +16,7 @@ const searchFriendFail = createActionCreator(FRIEND_SEARCH_FAIL, 'searchFriendFa
 export const searchFriend = email => async (dispatch) => {
   dispatch({ type: FRIEND_SEARCH_REQUEST });
 
-  const encodedEmail = window.btoa(email);
+  const encodedEmail = base64.encode(email);
   const userRef = firebase.database().ref('/user');
 
   const uidSnapshot = await userRef.child(`/emailToUid/${encodedEmail}`)

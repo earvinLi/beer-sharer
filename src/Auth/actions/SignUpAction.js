@@ -1,4 +1,5 @@
 // External Dependencies
+import base64 from 'base-64';
 import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
 
@@ -23,7 +24,7 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
 const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
 const saveSignedUpUser = async (accountId, email, name) => {
-  const encodedEmail = window.btoa(email);
+  const encodedEmail = base64.encode(email);
   const userRef = firebase.database().ref('/user');
   const updateData = {
     [`users/${accountId}`]: { email, name },
