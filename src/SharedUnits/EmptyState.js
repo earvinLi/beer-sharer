@@ -7,7 +7,12 @@ import {
   ViewPropTypes,
 } from 'react-native';
 
+// Internal Dependencies
+import { grey } from '../App/Theme';
+
 // Local Variables
+const { grey500 } = grey;
+
 const styles = {
   containerStyle: {
     justifyContent: 'center',
@@ -16,7 +21,7 @@ const styles = {
   },
   secondaryTextStyle: {
     alignSelf: 'center',
-    color: '#9e9e9e',
+    color: grey500,
     fontSize: 15,
     textAlign: 'center',
   },

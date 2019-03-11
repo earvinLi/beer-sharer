@@ -6,7 +6,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+// Internal Dependencies
+import { blue } from '../App/Theme';
+
 // Local Variables
+const { blue700 } = blue;
+
 const styles = {
   basicButtonStyle: {
     backgroundColor: '#fff',
@@ -15,7 +20,7 @@ const styles = {
     marginRight: 5,
   },
   buttonBorderStyle: {
-    borderColor: '#007aff',
+    borderColor: blue700,
     borderRadius: 5,
     borderWidth: 1,
   },
@@ -24,7 +29,7 @@ const styles = {
   },
   textBasicStyle: {
     alignSelf: 'center',
-    color: '#007aff',
+    color: blue700,
     fontSize: 16,
     // Why string not a num :(
     fontWeight: '600',

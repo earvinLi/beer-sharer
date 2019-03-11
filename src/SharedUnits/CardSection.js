@@ -6,12 +6,17 @@ import {
   ViewPropTypes,
 } from 'react-native';
 
+// Internal Dependencies
+import { grey } from '../App/Theme';
+
 // Local Variables
+const { grey300 } = grey;
+
 const styles = {
   containerStyle: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderColor: '#ddd',
+    borderColor: grey300,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     padding: 5,

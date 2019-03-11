@@ -10,30 +10,40 @@ import EmptyState from '../SharedUnits/EmptyState';
 import Input from '../SharedUnits/Input';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
+import {
+  blue,
+  grey,
+} from '../App/Theme';
 
 // Local Dependencies
-import { closeFriendAddDialog } from './actions/FriendAction';
 import {
   addFriend,
   selectFriend,
 } from './actions/FriendAddAction';
+import { closeFriendAddDialog } from './actions/FriendAction';
 import {
   searchFriend,
   updateFriendSearchInfo,
 } from './actions/FriendSearchAction';
 
 // Local Variables
+const { blue700 } = blue;
+const {
+  grey100,
+  grey400,
+} = grey;
+
 const styles = {
   emptyStateStyle: {
     height: 114,
   },
   inputStyle: {
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: grey100,
     borderBottomWidth: 1,
     flex: 0,
   },
   listItemStyle: {
-    borderColor: '#007aff',
+    borderColor: blue700,
     borderRadius: 5,
     borderStyle: 'dashed',
     borderWidth: 2,
@@ -113,7 +123,7 @@ class FriendAddDialog extends Component {
           please enter an email in the field above and press Search."
           supplementaryIcon={(
             <MaterialCommunityIcons
-              color="#bdbdbd"
+              color={grey400}
               name="account-search"
               size={48}
             />
