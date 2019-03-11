@@ -57,10 +57,13 @@ function ListItem(props) {
     <TouchableWithoutFeedback onPress={onPress}>
       {/* <TouchableWithoutFeedback /> needs <View />!!! */}
       <View style={[containerStyle, variantStyle]}>
-        <Image
-          source={{ uri: image }}
-          style={imageStyle}
-        />
+        {/* TODO: Change not to use Boolean? */}
+        {Boolean(image) && (
+          <Image
+            source={{ uri: image }}
+            style={imageStyle}
+          />
+        )}
         <View style={titleContainerStyle}>
           <Text style={primaryTitleStyle}>{primaryTitle}</Text>
           <Text style={secondaryTitleStyle}>{secondaryTitle}</Text>

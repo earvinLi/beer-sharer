@@ -12,6 +12,7 @@ import {
 import Button from '../SharedUnits/Button';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
+import { grey } from '../App/Theme';
 
 // Local Dependencies
 import FriendAddDialog from './FriendAddDialog';
@@ -21,7 +22,13 @@ import {
 } from './actions/FriendAction';
 
 // Local Variables
+const { grey200 } = grey;
+
 const styles = {
+  listItemStyle: {
+    borderBottomColor: grey200,
+    borderBottomWidth: 1,
+  },
   spinnerContainerStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -66,6 +73,7 @@ class FriendList extends Component {
       onPress={() => {}}
       primaryTitle={friend.name}
       secondaryTitle={friend.email}
+      variantStyle={styles.listItemStyle}
     />
   );
 
