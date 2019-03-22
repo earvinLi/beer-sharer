@@ -13,12 +13,14 @@ export const SIGN_UP_USER_SUCCESS = 'SIGN_UP_USER_SUCCESS';
 export const SIGN_UP_USER_FAIL = 'SIGN_UP_USER_FAIL';
 
 // Beer
-export const BEER_CREATE = 'BEER_CREATE';
+export const BEER_ADD_FAIL = 'BEER_ADD_FAIL';
+export const BEER_ADD_REQUEST = 'BEER_ADD_REQUEST';
+export const BEER_ADD_SUCCESS = 'BEER_ADD_SUCCESS';
 export const BEER_DELETE = 'BEER_DELETE';
+export const BEER_INFO_UPDATE = 'BEER_INFO_UPDATE';
 export const BEER_SAVE = 'BEER_SAVE';
 export const BEER_FETCH = 'BEERS_FETCH';
 export const BEER_FETCH_SUCCESS = 'BEERS_FETCH_SUCCESS';
-export const BEER_UPDATE = 'BEER_UPDATE';
 
 // Friend
 export const FRIEND_ADD_FAIL = 'FRIEND_ADD_FAIL';

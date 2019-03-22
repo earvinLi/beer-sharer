@@ -12,9 +12,9 @@ import NativePicker from '../SharedUnits/NativePicker';
 
 // Local Dependencies
 import {
-  beerCreate,
-  beerUpdate,
-} from './actions/BeerAction';
+  addBeer,
+  updateBeerInfo,
+} from './actions/BeerAddAction';
 
 // Component Definition
 class BeerAdd extends Component {
@@ -114,6 +114,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onBeerCreate: beerCreate,
-  onBeerUpdate: beerUpdate,
+  onAddBeer: addBeer,
+  onUpdateBeerInfo: updateBeerInfo,
 })(BeerAdd);

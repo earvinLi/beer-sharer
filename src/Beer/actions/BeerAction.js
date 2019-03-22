@@ -3,21 +3,11 @@ import firebase from 'firebase';
 
 // Internal Dependencies
 import {
-  BEER_CREATE,
   BEER_DELETE,
   BEER_SAVE,
   BEER_FETCH,
   BEER_FETCH_SUCCESS,
-  BEER_UPDATE,
 } from '../../App/ActionTypes';
-
-export const beerCreate = ({ brewery, name, style }) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
-
-  firebase.database().ref(`/users/${currentUserId}/beer`)
-    .push({ brewery, name, style })
-    .then(() => dispatch({ type: BEER_CREATE }));
-};
 
 export const beerDelete = ({ id }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
@@ -53,8 +43,3 @@ export const beerFetch = () => (dispatch, getState) => {
       });
     });
 };
-
-export const beerUpdate = ({ prop, value }) => ({
-  type: BEER_UPDATE,
-  payload: { prop, value },
-});
