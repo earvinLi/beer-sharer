@@ -20,8 +20,9 @@ export const fetchFriend = () => (dispatch, getState) => {
   dispatch({ type: FRIEND_FETCH_REQUEST });
 
   const { accountId } = getState().Auth.account;
+  const accountRef = firebase.database().ref(`/user/users/${accountId}`);
 
-  firebase.database().ref(`/user/users/${accountId}/friends`)
+  accountRef.child('friends')
     .on('value', (snapshot) => {
       dispatch({
         type: FRIEND_FETCH_SUCCESS,

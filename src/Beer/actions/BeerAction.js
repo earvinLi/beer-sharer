@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import {
   BEER_DELETE,
   BEER_SAVE,
-  BEER_FETCH,
+  BEER_FETCH_REQUEST,
   BEER_FETCH_SUCCESS,
 } from '../../App/ActionTypes';
 
@@ -30,12 +30,13 @@ export const beerSave = ({
     .then(() => dispatch({ type: BEER_SAVE }));
 };
 
-export const beerFetch = () => (dispatch, getState) => {
+export const fetchBeer = () => (dispatch, getState) => {
+  dispatch({ type: BEER_FETCH_REQUEST });
+
   const { accountId } = getState().Auth.account;
+  const accountRef = firebase.database().ref(`/user/users/${accountId}`);
 
-  dispatch({ type: BEER_FETCH });
-
-  firebase.database().ref(`/users/${accountId}/beer`)
+  accountRef.child('beer')
     .on('value', (snapshot) => {
       dispatch({
         type: BEER_FETCH_SUCCESS,

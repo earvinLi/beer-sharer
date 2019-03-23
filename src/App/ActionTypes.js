@@ -19,7 +19,7 @@ export const BEER_ADD_SUCCESS = 'BEER_ADD_SUCCESS';
 export const BEER_DELETE = 'BEER_DELETE';
 export const BEER_INFO_UPDATE = 'BEER_INFO_UPDATE';
 export const BEER_SAVE = 'BEER_SAVE';
-export const BEER_FETCH = 'BEERS_FETCH';
+export const BEER_FETCH_REQUEST = 'BEERS_FETCH_REQUEST';
 export const BEER_FETCH_SUCCESS = 'BEERS_FETCH_SUCCESS';
 
 // Friend

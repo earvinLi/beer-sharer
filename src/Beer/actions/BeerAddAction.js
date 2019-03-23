@@ -18,7 +18,7 @@ export const addBeer = ({ brewery, name, style }) => async (dispatch, getState) 
   const { accountId } = getState().Auth.account;
   const accountRef = firebase.database().ref(`/user/users/${accountId}`);
 
-  await accountRef.child('beers')
+  await accountRef.child('beer')
     .push({ brewery, name, style })
     .catch(beerAddFailError => addBeerFail(beerAddFailError));
 

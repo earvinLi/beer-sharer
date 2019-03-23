@@ -13,7 +13,7 @@ import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
 
 // Local Dependencies
-import { beerFetch } from './actions/BeerAction';
+import { fetchBeer } from './actions/BeerAction';
 
 // Local Variables
 const styles = {
@@ -38,9 +38,9 @@ class FriendsList extends Component {
   });
 
   componentDidMount() {
-    const { onBeerFetch } = this.props;
+    const { onFetchBeer } = this.props;
 
-    onBeerFetch();
+    onFetchBeer();
   }
 
   renderBeerItem = ({ item: beer }) => (
@@ -76,7 +76,7 @@ class FriendsList extends Component {
 FriendsList.propTypes = {
   fetchedBeer: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
-  onBeerFetch: PropTypes.func.isRequired,
+  onFetchBeer: PropTypes.func.isRequired,
 };
 
 FriendsList.defaultProps = {
@@ -97,5 +97,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onBeerFetch: beerFetch,
+  onFetchBeer: fetchBeer,
 })(FriendsList);
