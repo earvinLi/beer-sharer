@@ -14,7 +14,7 @@ const friendFetchRequest = state => ({ ...state, isFetching: true });
 
 const friendFetchSuccess = (state, action) => ({
   ...state,
-  fetchedFriend: action.payload,
+  fetchedFriend: action.fetchedFriend,
   isFetching: false,
 });
 

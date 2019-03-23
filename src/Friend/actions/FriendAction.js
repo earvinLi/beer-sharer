@@ -26,7 +26,7 @@ export const fetchFriend = () => (dispatch, getState) => {
     .on('value', (snapshot) => {
       dispatch({
         type: FRIEND_FETCH_SUCCESS,
-        payload: snapshot.val(),
+        fetchedFriend: snapshot.val(),
       });
     });
 };

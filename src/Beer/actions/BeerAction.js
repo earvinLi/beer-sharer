@@ -40,7 +40,7 @@ export const fetchBeer = () => (dispatch, getState) => {
     .on('value', (snapshot) => {
       dispatch({
         type: BEER_FETCH_SUCCESS,
-        payload: snapshot.val(),
+        fetchedBeer: snapshot.val(),
       });
     });
 };
