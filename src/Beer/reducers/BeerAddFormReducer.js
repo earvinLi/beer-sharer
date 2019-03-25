@@ -1,25 +1,30 @@
 // Internal Dependencies
+import { createReducer } from '../../App/RootUtilities';
 import {
-  BEER_CREATE,
-  BEER_DELETE,
-  BEER_SAVE,
-  BEER_UPDATE,
+  BEER_ADD_REQUEST,
+  BEER_ADD_SUCCESS,
+  BEER_INFO_UPDATE,
 } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   brewery: '',
   id: '',
+  isAdding: false,
   name: '',
   style: '',
 };
 
-export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case BEER_CREATE: return INITIAL_STATE;
-    case BEER_DELETE: return INITIAL_STATE;
-    case BEER_SAVE: return INITIAL_STATE;
-    case BEER_UPDATE:
-      return { ...state, [action.payload.prop]: action.payload.value };
-    default: return state;
-  }
-};
+const beerInfoUpdate = (state, action) => ({
+  ...state,
+  [action.prop]: action.value,
+});
+
+const beerAddRequest = state => ({ ...state, isAdding: true });
+
+const beerAddSuccess = state => ({ ...state, ...INITIAL_STATE });
+
+export default createReducer(INITIAL_STATE, {
+  [BEER_ADD_REQUEST]: beerAddRequest,
+  [BEER_ADD_SUCCESS]: beerAddSuccess,
+  [BEER_INFO_UPDATE]: beerInfoUpdate,
+});

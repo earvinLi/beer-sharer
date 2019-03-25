@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
     brewery,
     name,
     style,
-  } = state.beerForm;
+  } = state.Beer.beerAddForm;
 
   return {
     brewery,
