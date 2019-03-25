@@ -1,4 +1,5 @@
 // External Dependencies
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ const styles = {
 };
 
 // Component Definition
-class FriendsList extends Component {
+class BeerList extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Finest Liquids',
     headerRight: (
@@ -73,13 +74,13 @@ class FriendsList extends Component {
 }
 
 // Prop Validations
-FriendsList.propTypes = {
+BeerList.propTypes = {
   fetchedBeer: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   onFetchBeer: PropTypes.func.isRequired,
 };
 
-FriendsList.defaultProps = {
+BeerList.defaultProps = {
   fetchedBeer: [],
   isFetching: false,
 };
@@ -88,14 +89,20 @@ const mapStateToProps = (state) => {
   const {
     fetchedBeer,
     isFetching,
-  } = state.beer;
+  } = state.Beer.beerApiData;
+
+  const fetchedBeerData = _.map(fetchedBeer, (val, uid) => ({
+    ...val,
+    uid,
+    key: uid,
+  }));
 
   return {
-    fetchedBeer,
+    fetchedBeerData,
     isFetching,
   };
 };
 
 export default connect(mapStateToProps, {
   onFetchBeer: fetchBeer,
-})(FriendsList);
+})(BeerList);

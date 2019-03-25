@@ -1,6 +1,3 @@
-// External Dependencies
-import _ from 'lodash';
-
 // Internal Dependencies
 import { createReducer } from '../../App/RootUtilities';
 import {
@@ -17,7 +14,7 @@ const beerFetchRequest = state => ({ ...state, isFetching: true });
 
 const beerFetchSuccess = (state, action) => ({
   ...state,
-  fetchedBeer: _.map(action.fetchedBeer, (val, uid) => ({ ...val, uid, key: uid })),
+  fetchedBeer: action.fetchedBeer,
   isFetching: false,
 });
 
