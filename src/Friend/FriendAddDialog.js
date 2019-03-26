@@ -57,29 +57,39 @@ const styles = {
 
 // Component Definition
 class FriendAddDialog extends Component {
-  onPressAcceptButton = () => {
+  constructor(props) {
+    super(props);
+
+    // Idea from https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1
+    // Solve mockability, inheritance and performance issues
+    this.onPressAcceptButton = this.onPressAcceptButton.bind(this);
+    this.onPressDeclineButton = this.onPressDeclineButton.bind(this);
+    this.onPressSearchButton = this.onPressSearchButton.bind(this);
+  }
+
+  onPressAcceptButton() {
     const {
       friendSelected,
       onAddFriend,
     } = this.props;
 
     return onAddFriend(friendSelected);
-  };
+  }
 
-  onPressDeclineButton = () => {
+  onPressDeclineButton() {
     const { onCloseFriendAddDialog } = this.props;
 
     return onCloseFriendAddDialog();
-  };
+  }
 
-  onPressSearchButton = () => {
+  onPressSearchButton() {
     const {
       emailToSearch,
       onSearchFriend,
     } = this.props;
 
     return onSearchFriend(emailToSearch);
-  };
+  }
 
   // TODO: Make resizing look better by adding an animation effect
   renderResultSection = () => {

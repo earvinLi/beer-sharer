@@ -33,7 +33,14 @@ const styles = {
 class LoginForm extends Component {
   static navigationOptions = { title: 'Beer Sharer' };
 
-  onLoginButtonPress = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressLoginButton = this.onPressLoginButton.bind(this);
+    this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+  }
+
+  onPressLoginButton() {
     const {
       email,
       navigation,
@@ -44,7 +51,7 @@ class LoginForm extends Component {
     onLoginUser(email, password, navigation);
   }
 
-  onSignUpButtonPress = () => {
+  onPressSignUpButton() {
     const { navigation: toSignUpNav } = this.props;
 
     toSignUpNav.navigate('SignUp');

@@ -18,7 +18,13 @@ import {
 
 // Component Definition
 class BeerAdd extends Component {
-  onCreateButtonPress = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressAddButton = this.onPressAddButton.bind(this);
+  }
+
+  onPressAddButton() {
     const {
       brewery,
       name,

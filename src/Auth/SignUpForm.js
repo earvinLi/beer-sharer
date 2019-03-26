@@ -33,7 +33,13 @@ const styles = {
 class SignUpForm extends Component {
   static navigationOptions = { title: 'Sign Up' };
 
-  onPressSignUpButton = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+  }
+
+  onPressSignUpButton() {
     const {
       email,
       name,
