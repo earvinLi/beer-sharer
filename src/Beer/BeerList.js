@@ -12,12 +12,19 @@ import {
 import Button from '../SharedUnits/Button';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
+import { grey } from '../App/Theme';
 
 // Local Dependencies
 import { fetchBeer } from './actions/BeerAction';
 
 // Local Variables
+const { grey200 } = grey;
+
 const styles = {
+  listItemStyle: {
+    borderBottomColor: grey200,
+    borderBottomWidth: 1,
+  },
   spinnerContainerStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -46,15 +53,18 @@ class BeerList extends Component {
 
   renderBeerItem = ({ item: beer }) => (
     <ListItem
+      image="https://s3.amazonaws.com/beer-sharer/img/focal-banger-o.jpg"
       // TODO: Change to not declare a function inside render
       onPress={() => {}}
-      title={beer.name}
+      primaryTitle={beer.name}
+      secondaryTitle={beer.brewery}
+      variantStyle={styles.listItemStyle}
     />
   );
 
   render() {
     const {
-      fetchedBeer,
+      fetchedBeerData,
       isFetching,
     } = this.props;
 
@@ -66,7 +76,7 @@ class BeerList extends Component {
       )
       : (
         <FlatList
-          data={fetchedBeer}
+          data={fetchedBeerData}
           renderItem={this.renderBeerItem}
         />
       );
@@ -75,13 +85,13 @@ class BeerList extends Component {
 
 // Prop Validations
 BeerList.propTypes = {
-  fetchedBeer: PropTypes.arrayOf(PropTypes.object),
+  fetchedBeerData: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
   onFetchBeer: PropTypes.func.isRequired,
 };
 
 BeerList.defaultProps = {
-  fetchedBeer: [],
+  fetchedBeerData: [],
   isFetching: false,
 };
 

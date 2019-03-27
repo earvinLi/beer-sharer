@@ -89,7 +89,7 @@ class BeerAdd extends Component {
           />
         </CardSection>
         <CardSection>
-          <Button onPress={this.onCreateButtonPress}>Create</Button>
+          <Button onPress={this.onPressAddButton}>Create</Button>
         </CardSection>
       </View>
     );

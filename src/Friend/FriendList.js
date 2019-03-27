@@ -68,7 +68,7 @@ class FriendList extends Component {
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
-      image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
+      image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel.jpg"
       // TODO: Change not to declare a function inside 'render'
       onPress={() => {}}
       primaryTitle={friend.name}
