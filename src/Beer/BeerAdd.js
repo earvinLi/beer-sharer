@@ -16,6 +16,13 @@ import {
   updateBeerInfo,
 } from './actions/BeerAddAction';
 
+// Local Variables
+const styles = {
+  pickerContainerStyle: {
+    flexDirection: 'column',
+  },
+};
+
 // Component Definition
 class BeerAdd extends Component {
   constructor(props) {
@@ -56,7 +63,7 @@ class BeerAdd extends Component {
     ];
 
     return (
-      <View style={{ paddingTop: 36 }}>
+      <View>
         <CardSection>
           <Input
             label="Name"
@@ -73,7 +80,7 @@ class BeerAdd extends Component {
             value={brewery}
           />
         </CardSection>
-        <CardSection style={{ flexDirection: 'column' }}>
+        <CardSection variantStyle={styles.pickerContainerStyle}>
           <NativePicker
             onPick={value => onUpdateBeerInfo('style', value)}
             optionsToPick={beerStyleData}
