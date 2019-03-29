@@ -1,6 +1,7 @@
 // External Dependencies
 import base64 from 'base-64';
 import firebase from 'firebase';
+import { Auth as cognitoAuth } from 'aws-amplify';
 import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
@@ -43,6 +44,14 @@ export const updateSignUpInfo = createActionCreator(
 
 export const signUpUser = (email, name, navigation, password) => async (dispatch) => {
   dispatch({ type: SIGN_UP_USER_REQUEST });
+
+  cognitoAuth.signUp({
+    username: name,
+    password,
+    attributes: {
+      email,
+    },
+  });
 
   const signedUpUser = await firebase.auth().createUserWithEmailAndPassword(email, password)
     .catch(signUpFailError => signUpUserFail(signUpFailError));

@@ -56,7 +56,7 @@ buck-out/
 *.jsbundle
 
 # Outh
-OuthConfig.js
+Configs.js
 
 # Fonts
 *.ttf

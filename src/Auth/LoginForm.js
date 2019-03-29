@@ -74,7 +74,7 @@ class LoginForm extends Component {
 
     const loginButton = isLoggingin
       ? <Spinner size="large" />
-      : <Button onPress={this.onLoginButtonPress}>Login</Button>;
+      : <Button onPress={this.onPressLoginButton}>Login</Button>;
 
     return (
       <Card>
@@ -102,7 +102,7 @@ class LoginForm extends Component {
           {loginButton}
           <Button
             hasBorder={false}
-            onPress={this.onSignUpButtonPress}
+            onPress={this.onPressSignUpButton}
           >
             Not a user? Sign up!
           </Button>

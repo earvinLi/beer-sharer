@@ -1,9 +1,13 @@
 // External Dependencies
+import Amplify from 'aws-amplify';
 import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
-import { fireBaseInitConfig } from './OuthConfig';
+import {
+  cognitoInitConfig,
+  fireBaseInitConfig,
+} from '../../App/Configs';
 import {
   APP_INIT_REQUEST,
   APP_INIT_SUCCESS,
@@ -13,6 +17,8 @@ export const saveAccount = () => {};
 
 export const initApp = navigation => async (dispatch) => {
   dispatch({ type: APP_INIT_REQUEST });
+
+  Amplify.configure(cognitoInitConfig);
 
   await firebase.initializeApp(fireBaseInitConfig);
 
