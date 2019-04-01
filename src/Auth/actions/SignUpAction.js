@@ -45,18 +45,24 @@ export const updateSignUpInfo = createActionCreator(
 export const signUpUser = (email, name, navigation, password) => async (dispatch) => {
   dispatch({ type: SIGN_UP_USER_REQUEST });
 
-  cognitoAuth.signUp({
-    username: name,
-    password,
+  const cognitoSignUp = cognitoAuth.signUp({
     attributes: {
       email,
     },
+    password,
+    username: name,
   });
 
-  const signedUpUser = await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .catch(signUpFailError => signUpUserFail(signUpFailError));
+  const firebaseSignUp = firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  const { uid: accountId } = signedUpUser.user;
+  const [cognitoSignedUpUser, firebaseSignedUpUser] = await Promise.all([
+    cognitoSignUp.catch(cognitoSignUpFailError => signUpUserFail(cognitoSignUpFailError)),
+    firebaseSignUp.catch(firebaseSignUpFailError => signUpUserFail(firebaseSignUpFailError)),
+  ]);
+
+  console.log(cognitoSignedUpUser);
+
+  const { uid: accountId } = firebaseSignedUpUser.user;
 
   await AsyncStorage.setItem('accountId', accountId);
 
