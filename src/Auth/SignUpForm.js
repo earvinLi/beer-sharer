@@ -42,31 +42,31 @@ class SignUpForm extends Component {
   onPressSignUpButton() {
     const {
       email,
-      name,
       navigation,
       onSignUpUser,
       password,
+      username,
     } = this.props;
 
-    onSignUpUser(email, name, navigation, password);
+    onSignUpUser(email, navigation, password, username);
   }
 
   render() {
     const {
       email,
       isSigningUp,
-      name,
       onUpdateSignUpInfo,
       password,
       signUpFailErrorText,
+      username,
     } = this.props;
 
     const inputSections = [
       {
-        label: 'Name',
-        prop: 'name',
+        label: 'Username',
+        prop: 'username',
         placeholder: 'Ninkasi',
-        value: name,
+        value: username,
       },
       {
         label: 'Email',
@@ -117,37 +117,37 @@ class SignUpForm extends Component {
 SignUpForm.propTypes = {
   email: PropTypes.string,
   isSigningUp: PropTypes.bool,
-  name: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
   password: PropTypes.string,
   signUpFailErrorText: PropTypes.string,
   onSignUpUser: PropTypes.func.isRequired,
   onUpdateSignUpInfo: PropTypes.func.isRequired,
+  username: PropTypes.string,
 };
 
 SignUpForm.defaultProps = {
   email: '',
   isSigningUp: false,
-  name: '',
   password: '',
   signUpFailErrorText: '',
+  username: '',
 };
 
 const mapStateToProps = (state) => {
   const {
     email,
     isSigningUp,
-    name,
     password,
     signUpFailErrorText,
+    username,
   } = state.Auth.signUpForm;
 
   return {
     email,
     isSigningUp,
-    name,
     password,
     signUpFailErrorText,
+    username,
   };
 };
 

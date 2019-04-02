@@ -1,8 +1,8 @@
 // External Dependencies
 import base64 from 'base-64';
 import firebase from 'firebase';
-import { Auth as cognitoAuth } from 'aws-amplify';
 import { AsyncStorage } from 'react-native';
+import { Auth as cognitoAuth } from 'aws-amplify';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
@@ -24,11 +24,11 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
 
 const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
-const saveSignedUpUser = async (accountId, email, name) => {
+const saveSignedUpUser = async (accountId, email, username) => {
   const encodedEmail = base64.encode(email);
   const userRef = firebase.database().ref('/user');
   const updateData = {
-    [`users/${accountId}`]: { email, name },
+    [`users/${accountId}`]: { email, username },
     [`emailToUid/${encodedEmail}`]: accountId,
   };
 
@@ -42,7 +42,7 @@ export const updateSignUpInfo = createActionCreator(
   'value',
 );
 
-export const signUpUser = (email, name, navigation, password) => async (dispatch) => {
+export const signUpUser = (email, navigation, password, username) => async (dispatch) => {
   dispatch({ type: SIGN_UP_USER_REQUEST });
 
   const cognitoSignUp = cognitoAuth.signUp({
@@ -50,7 +50,7 @@ export const signUpUser = (email, name, navigation, password) => async (dispatch
       email,
     },
     password,
-    username: name,
+    username,
   });
 
   const firebaseSignUp = firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -66,7 +66,7 @@ export const signUpUser = (email, name, navigation, password) => async (dispatch
 
   await AsyncStorage.setItem('accountId', accountId);
 
-  await saveSignedUpUser(accountId, email, name);
+  await saveSignedUpUser(accountId, email, username);
 
   return signUpUserSuccess(accountId, dispatch, navigation);
 };

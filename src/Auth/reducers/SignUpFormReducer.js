@@ -10,9 +10,9 @@ import {
 const INITIAL_STATE = {
   email: '',
   isSigningUp: false,
-  name: '',
   signUpFailErrorText: '',
   password: '',
+  username: '',
 };
 
 const signUpInfoUpdate = (state, action) => ({
