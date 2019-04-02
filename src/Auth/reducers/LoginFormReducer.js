@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   isLoggingin: false,
   loginFailErrorText: '',
   password: '',
+  username: '',
 };
 
 const loginInfoUpdate = (state, action) => ({
