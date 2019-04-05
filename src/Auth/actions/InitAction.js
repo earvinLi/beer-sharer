@@ -1,5 +1,5 @@
 // External Dependencies
-import Amplify from 'aws-amplify';
+import Amplify, { Storage as s3Storage } from 'aws-amplify';
 import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
 
@@ -14,7 +14,13 @@ import {
   APP_INIT_SUCCESS,
 } from '../../App/ActionTypes';
 
-export const saveAccount = () => {};
+export const setS3Config = (bucketName, accessLevel) => {
+  s3Storage.configure({
+    ...s3InitConfig,
+    bucket: bucketName,
+    level: accessLevel,
+  });
+};
 
 export const initApp = navigation => async (dispatch) => {
   dispatch({ type: APP_INIT_REQUEST });
