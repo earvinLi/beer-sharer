@@ -8,6 +8,7 @@ import {
 } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
+  avatar: null,
   email: '',
   isSigningUp: false,
   signUpFailErrorText: '',

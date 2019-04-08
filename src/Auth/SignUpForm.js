@@ -1,8 +1,10 @@
 // External Dependencies
+import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Image,
   Text,
   View,
 } from 'react-native';
@@ -27,6 +29,10 @@ const styles = {
     color: 'red',
     fontSize: 20,
   },
+  avatarPickerLabelStyle: {
+    fontSize: 18,
+    paddingLeft: 20,
+  },
 };
 
 // Component Definition
@@ -36,7 +42,22 @@ class SignUpForm extends Component {
   constructor(props) {
     super(props);
 
+    this.onPressBrowseButton = this.onPressBrowseButton.bind(this);
     this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+  }
+
+  onPressBrowseButton() {
+    const { onUpdateSignUpInfo } = this.props;
+
+    const browseOption = {
+      noData: true,
+    };
+
+    ImagePicker.launchImageLibrary(browseOption, (response) => {
+      if (response.uri) return onUpdateSignUpInfo('avatar', response);
+
+      return null;
+    });
   }
 
   onPressSignUpButton() {
@@ -48,11 +69,12 @@ class SignUpForm extends Component {
       username,
     } = this.props;
 
-    onSignUpUser(email, navigation, password, username);
+    return onSignUpUser(email, navigation, password, username);
   }
 
   render() {
     const {
+      avatar,
       email,
       isSigningUp,
       onUpdateSignUpInfo,
@@ -60,6 +82,11 @@ class SignUpForm extends Component {
       signUpFailErrorText,
       username,
     } = this.props;
+
+    const {
+      avatarPickerLabelStyle,
+      errorTextStyle,
+    } = styles;
 
     const inputSections = [
       {
@@ -95,7 +122,7 @@ class SignUpForm extends Component {
 
     const signUpFailErrorElement = Boolean(signUpFailErrorText) && (
       <View style={{ backgroundColor: 'white' }}>
-        <Text style={styles.errorTextStyle}>{signUpFailErrorText}</Text>
+        <Text style={errorTextStyle}>{signUpFailErrorText}</Text>
       </View>
     );
 
@@ -106,6 +133,16 @@ class SignUpForm extends Component {
     return (
       <Card>
         {inputSections}
+        <CardSection>
+          <Text style={avatarPickerLabelStyle}>Avatar:</Text>
+          {avatar && (
+            <Image
+              style={{ height: 100, width: 100 }}
+              source={{ uri: avatar.uri }}
+            />
+          )}
+          <Button onPress={this.onPressBrowseButton}>Browse</Button>
+        </CardSection>
         {signUpFailErrorElement}
         <CardSection>{signUpButton}</CardSection>
       </Card>
@@ -115,6 +152,7 @@ class SignUpForm extends Component {
 
 // Prop Validations
 SignUpForm.propTypes = {
+  avatar: PropTypes.shape({}),
   email: PropTypes.string,
   isSigningUp: PropTypes.bool,
   navigation: PropTypes.shape({}).isRequired,
@@ -126,6 +164,7 @@ SignUpForm.propTypes = {
 };
 
 SignUpForm.defaultProps = {
+  avatar: null,
   email: '',
   isSigningUp: false,
   password: '',
@@ -135,6 +174,7 @@ SignUpForm.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
+    avatar,
     email,
     isSigningUp,
     password,
@@ -143,6 +183,7 @@ const mapStateToProps = (state) => {
   } = state.Auth.signUpForm;
 
   return {
+    avatar,
     email,
     isSigningUp,
     password,
