@@ -24,14 +24,21 @@ import {
 
 // Local Variables
 const styles = {
+  avatarPickerImageStyle: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: 100,
+  },
+  avatarPickerLabelStyle: {
+    fontSize: 18,
+    paddingBottom: 9,
+    paddingLeft: 21,
+    paddingTop: 9,
+  },
   errorTextStyle: {
     alignSelf: 'center',
     color: 'red',
     fontSize: 20,
-  },
-  avatarPickerLabelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
   },
 };
 
@@ -84,6 +91,7 @@ class SignUpForm extends Component {
     } = this.props;
 
     const {
+      avatarPickerImageStyle,
       avatarPickerLabelStyle,
       errorTextStyle,
     } = styles;
@@ -133,15 +141,23 @@ class SignUpForm extends Component {
     return (
       <Card>
         {inputSections}
-        <CardSection>
-          <Text style={avatarPickerLabelStyle}>Avatar:</Text>
+        <CardSection variantStyle={{ flexDirection: 'column' }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={avatarPickerLabelStyle}>Avatar</Text>
+            <Button
+              hasBorder={false}
+              onPress={this.onPressBrowseButton}
+              variantStyle={{ marginLeft: 12 }}
+            >
+              Browse for Uploading
+            </Button>
+          </View>
           {avatar && (
             <Image
-              style={{ height: 100, width: 100 }}
+              style={avatarPickerImageStyle}
               source={{ uri: avatar.uri }}
             />
           )}
-          <Button onPress={this.onPressBrowseButton}>Browse</Button>
         </CardSection>
         {signUpFailErrorElement}
         <CardSection>{signUpButton}</CardSection>

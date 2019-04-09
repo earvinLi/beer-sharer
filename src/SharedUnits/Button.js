@@ -4,6 +4,7 @@ import React from 'react';
 import {
   Text,
   TouchableOpacity,
+  ViewPropTypes,
 } from 'react-native';
 
 // Internal Dependencies
@@ -45,6 +46,7 @@ function Button(props) {
     disabled,
     hasBorder,
     onPress,
+    variantStyle,
   } = props;
 
   const {
@@ -54,7 +56,7 @@ function Button(props) {
     textBasicStyle,
   } = styles;
 
-  const buttonStyle = [basicButtonStyle];
+  const buttonStyle = [basicButtonStyle, variantStyle];
   if (hasBorder) buttonStyle.push(buttonBorderStyle);
 
   const textStyle = [textBasicStyle];
@@ -76,12 +78,14 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   hasBorder: PropTypes.bool,
   onPress: PropTypes.func,
+  variantStyle: ViewPropTypes.style,
 };
 
 Button.defaultProps = {
   disabled: false,
   hasBorder: true,
   onPress: null,
+  variantStyle: {},
 };
 
 export default Button;
