@@ -2,6 +2,8 @@
 import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { Storage as s3Storage } from 'aws-amplify';
 import { connect } from 'react-redux';
 import {
   Image,
@@ -51,6 +53,7 @@ class SignUpForm extends Component {
 
     this.onPressBrowseButton = this.onPressBrowseButton.bind(this);
     this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+    this.onPressUploadButton = this.onPressUploadButton.bind(this);
   }
 
   onPressBrowseButton() {
@@ -77,6 +80,25 @@ class SignUpForm extends Component {
     } = this.props;
 
     return onSignUpUser(email, navigation, password, username);
+  }
+
+  async onPressUploadButton() {
+    const { avatar } = this.props;
+
+    console.log('avatar: ', avatar);
+
+    const avatarUri = 'file:///Users/earvinli/Desktop/img/BeerSharer/img/focal-banger-o.jpg';
+
+    const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
+    Buffer.from(readFiledAvatar, 'base64');
+
+    const uploadedAvatar = await s3Storage.put(
+      `userAvatar/${avatar.fileName}`,
+      Buffer,
+      { contentType: avatar.type },
+    );
+
+    console.log('uploadedAvatar: ', uploadedAvatar);
   }
 
   render() {
@@ -160,6 +182,9 @@ class SignUpForm extends Component {
           )}
         </CardSection>
         {signUpFailErrorElement}
+        <CardSection>
+          <Button onPress={this.onPressUploadButton}>Upload</Button>
+        </CardSection>
         <CardSection>{signUpButton}</CardSection>
       </Card>
     );
