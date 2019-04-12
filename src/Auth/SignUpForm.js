@@ -84,17 +84,17 @@ class SignUpForm extends Component {
 
   async onPressUploadButton() {
     const { avatar } = this.props;
+    // TODO: If a user's OS is Android, we need a different form of the uri
+    const avatarUri = avatar.uri.replace('file://', '');
+    const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
+    const buffedAvatar = Buffer.from(readFiledAvatar, 'base64');
 
     console.log('avatar: ', avatar);
-
-    const avatarUri = 'file:///Users/earvinli/Desktop/img/BeerSharer/img/focal-banger-o.jpg';
-
-    const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
-    Buffer.from(readFiledAvatar, 'base64');
+    console.log('Buffed Avatar: ', buffedAvatar);
 
     const uploadedAvatar = await s3Storage.put(
       `userAvatar/${avatar.fileName}`,
-      Buffer,
+      buffedAvatar,
       { contentType: avatar.type },
     );
 
