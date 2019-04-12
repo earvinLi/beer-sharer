@@ -12,6 +12,9 @@ import AppNavigation from './AppNavigation';
 import reducers from './AppReducer';
 import { callApiMiddleware } from './RootUtilities';
 
+// Global Variables
+import './Globals';
+
 // Local Variables
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, callApiMiddleware));
 
