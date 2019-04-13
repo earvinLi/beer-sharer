@@ -2,8 +2,6 @@
 import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import RNFetchBlob from 'react-native-fetch-blob';
-import { Storage as s3Storage } from 'aws-amplify';
 import { connect } from 'react-redux';
 import {
   Image,
@@ -53,7 +51,6 @@ class SignUpForm extends Component {
 
     this.onPressBrowseButton = this.onPressBrowseButton.bind(this);
     this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
-    this.onPressUploadButton = this.onPressUploadButton.bind(this);
   }
 
   onPressBrowseButton() {
@@ -72,6 +69,7 @@ class SignUpForm extends Component {
 
   onPressSignUpButton() {
     const {
+      avatar,
       email,
       navigation,
       onSignUpUser,
@@ -79,26 +77,7 @@ class SignUpForm extends Component {
       username,
     } = this.props;
 
-    return onSignUpUser(email, navigation, password, username);
-  }
-
-  async onPressUploadButton() {
-    const { avatar } = this.props;
-    // TODO: If a user's OS is Android, we need a different form of the uri
-    const avatarUri = avatar.uri.replace('file://', '');
-    const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
-    const buffedAvatar = Buffer.from(readFiledAvatar, 'base64');
-
-    console.log('avatar: ', avatar);
-    console.log('Buffed Avatar: ', buffedAvatar);
-
-    const uploadedAvatar = await s3Storage.put(
-      `userAvatar/${avatar.fileName}`,
-      buffedAvatar,
-      { contentType: avatar.type },
-    );
-
-    console.log('uploadedAvatar: ', uploadedAvatar);
+    return onSignUpUser(avatar, email, navigation, password, username);
   }
 
   render() {
@@ -182,9 +161,6 @@ class SignUpForm extends Component {
           )}
         </CardSection>
         {signUpFailErrorElement}
-        <CardSection>
-          <Button onPress={this.onPressUploadButton}>Upload</Button>
-        </CardSection>
         <CardSection>{signUpButton}</CardSection>
       </Card>
     );

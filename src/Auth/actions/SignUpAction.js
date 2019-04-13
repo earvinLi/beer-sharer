@@ -1,8 +1,12 @@
 // External Dependencies
 import base64 from 'base-64';
 import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { AsyncStorage } from 'react-native';
-import { Auth as cognitoAuth } from 'aws-amplify';
+import {
+  Auth as cognitoAuth,
+  Storage as s3Storage,
+} from 'aws-amplify';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
@@ -42,7 +46,7 @@ export const updateSignUpInfo = createActionCreator(
   'value',
 );
 
-export const signUpUser = (email, navigation, password, username) => async (dispatch) => {
+export const signUpUser = (avatar, email, navigation, password, username) => async (dispatch) => {
   dispatch({ type: SIGN_UP_USER_REQUEST });
 
   const cognitoSignUp = cognitoAuth.signUp({
@@ -61,6 +65,19 @@ export const signUpUser = (email, navigation, password, username) => async (disp
   ]);
 
   console.log(cognitoSignedUpUser);
+
+  // TODO: If a user's OS is Android, we need a different form of the uri
+  const avatarUri = avatar.uri.replace('file://', '');
+  const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
+  const buffedAvatar = Buffer.from(readFiledAvatar, 'base64');
+
+  const uploadedAvatar = await s3Storage.put(
+    `userAvatar/${username}`,
+    buffedAvatar,
+    { contentType: avatar.type },
+  );
+
+  console.log(uploadedAvatar);
 
   const { uid: accountId } = firebaseSignedUpUser.user;
 
