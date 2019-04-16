@@ -19,9 +19,10 @@ const appInitSuccess = (state, action) => ({
   isInitializing: false,
 });
 
-const loginUserSuccess = action => ({ accountId: action.accountId });
+// Param 'state' is initialized with the default value, INITIAL_STATE
+const loginUserSuccess = (state, action) => ({ accountId: action.accountId });
 
-const signUpUserSuccess = action => ({ accountId: action.accountId });
+const signUpUserSuccess = (state, action) => ({ accountId: action.accountId });
 
 export default createReducer(INITIAL_STATE, {
   [APP_INIT_REQUEST]: appInitRequest,

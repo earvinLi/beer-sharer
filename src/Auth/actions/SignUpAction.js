@@ -1,6 +1,12 @@
 // External Dependencies
+import base64 from 'base-64';
 import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { AsyncStorage } from 'react-native';
+import {
+  Auth as cognitoAuth,
+  Storage as s3Storage,
+} from 'aws-amplify';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
@@ -20,16 +26,17 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
   return navigation.navigate('Home');
 };
 
-const signUpUserFail = createActionCreator(
-  SIGN_UP_USER_FAIL,
-  'signUpFailError',
-);
+const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
-const saveSignedUpUser = async (accountId, email, name) => {
-  await firebase.database().ref(`users/${accountId}`).set({
-    username: name,
-    email,
-  })
+const saveSignedUpUser = async (accountId, email, username) => {
+  const encodedEmail = base64.encode(email);
+  const userRef = firebase.database().ref('/user');
+  const updateData = {
+    [`users/${accountId}`]: { email, username },
+    [`emailToUid/${encodedEmail}`]: accountId,
+  };
+
+  await userRef.update(updateData)
     .catch(saveUserFailError => signUpUserFail(saveUserFailError));
 };
 
@@ -39,17 +46,44 @@ export const updateSignUpInfo = createActionCreator(
   'value',
 );
 
-export const signUpUser = (email, name, navigation, password) => async (dispatch) => {
+export const signUpUser = (avatar, email, navigation, password, username) => async (dispatch) => {
   dispatch({ type: SIGN_UP_USER_REQUEST });
 
-  const signedUpUser = await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .catch(signUpFailError => signUpUserFail(signUpFailError));
+  const cognitoSignUp = cognitoAuth.signUp({
+    attributes: {
+      email,
+    },
+    password,
+    username,
+  });
 
-  const { uid: accountId } = signedUpUser.user;
+  const firebaseSignUp = firebase.auth().createUserWithEmailAndPassword(email, password);
+
+  const [cognitoSignedUpUser, firebaseSignedUpUser] = await Promise.all([
+    cognitoSignUp.catch(cognitoSignUpFailError => signUpUserFail(cognitoSignUpFailError)),
+    firebaseSignUp.catch(firebaseSignUpFailError => signUpUserFail(firebaseSignUpFailError)),
+  ]);
+
+  console.log(cognitoSignedUpUser);
+
+  // TODO: If a user's OS is Android, we need a different form of the uri
+  const avatarUri = avatar.uri.replace('file://', '');
+  const readFiledAvatar = await RNFetchBlob.fs.readFile(avatarUri, 'base64');
+  const buffedAvatar = Buffer.from(readFiledAvatar, 'base64');
+
+  const uploadedAvatar = await s3Storage.put(
+    `userAvatar/${username}`,
+    buffedAvatar,
+    { contentType: avatar.type },
+  );
+
+  console.log(uploadedAvatar);
+
+  const { uid: accountId } = firebaseSignedUpUser.user;
 
   await AsyncStorage.setItem('accountId', accountId);
 
-  await saveSignedUpUser(accountId, email, name);
+  await saveSignedUpUser(accountId, email, username);
 
   return signUpUserSuccess(accountId, dispatch, navigation);
 };

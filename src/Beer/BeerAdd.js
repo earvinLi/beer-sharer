@@ -12,22 +12,35 @@ import NativePicker from '../SharedUnits/NativePicker';
 
 // Local Dependencies
 import {
-  beerCreate,
-  beerUpdate,
-} from './actions/BeerAction';
+  addBeer,
+  updateBeerInfo,
+} from './actions/BeerAddAction';
+
+// Local Variables
+const styles = {
+  pickerContainerStyle: {
+    flexDirection: 'column',
+  },
+};
 
 // Component Definition
 class BeerAdd extends Component {
-  onCreateButtonPress = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressAddButton = this.onPressAddButton.bind(this);
+  }
+
+  onPressAddButton() {
     const {
       brewery,
       name,
       navigation,
-      onBeerCreate,
+      onAddBeer,
       style,
     } = this.props;
 
-    onBeerCreate({ brewery, name, style: style || 'ipa' });
+    onAddBeer({ brewery, name, style: style || 'ipa' });
 
     navigation.navigate('BeerHome');
   }
@@ -36,7 +49,7 @@ class BeerAdd extends Component {
     const {
       brewery,
       name,
-      onBeerUpdate,
+      onUpdateBeerInfo,
       style,
     } = this.props;
 
@@ -50,11 +63,11 @@ class BeerAdd extends Component {
     ];
 
     return (
-      <View style={{ paddingTop: 36 }}>
+      <View>
         <CardSection>
           <Input
             label="Name"
-            onChange={value => onBeerUpdate({ prop: 'name', value })}
+            onChange={value => onUpdateBeerInfo('name', value)}
             placeholder="Focal Banger"
             value={name}
           />
@@ -62,21 +75,21 @@ class BeerAdd extends Component {
         <CardSection>
           <Input
             label="Brewery"
-            onChange={value => onBeerUpdate({ prop: 'brewery', value })}
+            onChange={value => onUpdateBeerInfo('brewery', value)}
             placeholder="The Alchemist"
             value={brewery}
           />
         </CardSection>
-        <CardSection style={{ flexDirection: 'column' }}>
+        <CardSection variantStyle={styles.pickerContainerStyle}>
           <NativePicker
-            onPick={value => onBeerUpdate({ prop: 'style', value })}
+            onPick={value => onUpdateBeerInfo('style', value)}
             optionsToPick={beerStyleData}
             pickedValue={style}
             pickerLabel="Style"
           />
         </CardSection>
         <CardSection>
-          <Button onPress={this.onCreateButtonPress}>Create</Button>
+          <Button onPress={this.onPressAddButton}>Create</Button>
         </CardSection>
       </View>
     );
@@ -88,8 +101,8 @@ BeerAdd.propTypes = {
   brewery: PropTypes.string,
   name: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
-  onBeerCreate: PropTypes.func.isRequired,
-  onBeerUpdate: PropTypes.func.isRequired,
+  onAddBeer: PropTypes.func.isRequired,
+  onUpdateBeerInfo: PropTypes.func.isRequired,
   style: PropTypes.string,
 };
 
@@ -104,7 +117,7 @@ const mapStateToProps = (state) => {
     brewery,
     name,
     style,
-  } = state.beerForm;
+  } = state.Beer.beerAddForm;
 
   return {
     brewery,
@@ -114,6 +127,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onBeerCreate: beerCreate,
-  onBeerUpdate: beerUpdate,
+  onAddBeer: addBeer,
+  onUpdateBeerInfo: updateBeerInfo,
 })(BeerAdd);

@@ -6,9 +6,25 @@ import { FlatList } from 'react-native';
 
 // Internal Dependencies
 import ListItem from '../SharedUnits/ListItem';
+import { grey } from '../App/Theme';
 import { signOutUser } from '../Auth/actions/SignOutAction';
 
 // Local Variables
+const { grey200 } = grey;
+
+const styles = {
+  listItemStyle: {
+    borderBottomColor: grey200,
+    borderBottomWidth: 1,
+    // Not clean
+    // TODO: Figure out settings of 'margin' and 'padding'
+    marginBottom: 12,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 12,
+  },
+};
+
 const sectionData = [
   { key: 'Sign Out', name: 'Sign Out' },
 ];
@@ -36,8 +52,9 @@ class Settings extends Component {
 
     return (
       <ListItem
-        title={section.name}
         onPress={onPress}
+        primaryTitle={section.name}
+        variantStyle={styles.listItemStyle}
       />
     );
   }

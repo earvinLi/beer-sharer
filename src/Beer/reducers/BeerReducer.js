@@ -1,9 +1,7 @@
-// External Dependencies
-import _ from 'lodash';
-
 // Internal Dependencies
+import { createReducer } from '../../App/RootUtilities';
 import {
-  BEER_FETCH,
+  BEER_FETCH_REQUEST,
   BEER_FETCH_SUCCESS,
 } from '../../App/ActionTypes';
 
@@ -12,15 +10,15 @@ const INITIAL_STATE = {
   isFetching: false,
 };
 
-export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case BEER_FETCH: return { ...state, isFetching: true };
-    case BEER_FETCH_SUCCESS:
-      return {
-        ...state,
-        fetchedBeer: _.map(action.payload, (val, uid) => ({ ...val, uid, key: uid })),
-        isFetching: false,
-      };
-    default: return state;
-  }
-};
+const beerFetchRequest = state => ({ ...state, isFetching: true });
+
+const beerFetchSuccess = (state, action) => ({
+  ...state,
+  fetchedBeer: action.fetchedBeer,
+  isFetching: false,
+});
+
+export default createReducer(INITIAL_STATE, {
+  [BEER_FETCH_REQUEST]: beerFetchRequest,
+  [BEER_FETCH_SUCCESS]: beerFetchSuccess,
+});

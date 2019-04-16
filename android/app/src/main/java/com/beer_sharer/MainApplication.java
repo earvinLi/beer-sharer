@@ -3,6 +3,10 @@ package com.beer_sharer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.amazonaws.RNAWSCognitoPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -24,6 +28,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new ImagePickerPackage(),
+            new RNAWSCognitoPackage(),
+            new VectorIconsPackage(),
             new RNGestureHandlerPackage()
       );
     }

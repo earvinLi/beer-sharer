@@ -1,4 +1,5 @@
 // External Dependencies
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -11,12 +12,19 @@ import {
 import Button from '../SharedUnits/Button';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
+import { grey } from '../App/Theme';
 
 // Local Dependencies
-import { beerFetch } from './actions/BeerAction';
+import { fetchBeer } from './actions/BeerAction';
 
 // Local Variables
+const { grey200 } = grey;
+
 const styles = {
+  listItemStyle: {
+    borderBottomColor: grey200,
+    borderBottomWidth: 1,
+  },
   spinnerContainerStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -24,7 +32,7 @@ const styles = {
 };
 
 // Component Definition
-class FriendsList extends Component {
+class BeerList extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Finest Liquids',
     headerRight: (
@@ -38,37 +46,37 @@ class FriendsList extends Component {
   });
 
   componentDidMount() {
-    const { onBeerFetch } = this.props;
+    const { onFetchBeer } = this.props;
 
-    onBeerFetch();
+    onFetchBeer();
   }
 
   renderBeerItem = ({ item: beer }) => (
     <ListItem
+      image="https://s3.amazonaws.com/beer-sharer/img/focal-banger-o.jpg"
       // TODO: Change to not declare a function inside render
       onPress={() => {}}
-      title={beer.name}
+      primaryTitle={beer.name}
+      secondaryTitle={beer.brewery}
+      variantStyle={styles.listItemStyle}
     />
   );
 
   render() {
     const {
-      fetchedBeer,
+      fetchedBeerData,
       isFetching,
     } = this.props;
 
     return isFetching
       ? (
         <View style={styles.spinnerContainerStyle}>
-          <Spinner
-            hasLabel
-            loadingItemsLabel="beer"
-          />
+          <Spinner loadingText="Loading beer ..." />
         </View>
       )
       : (
         <FlatList
-          data={fetchedBeer}
+          data={fetchedBeerData}
           renderItem={this.renderBeerItem}
         />
       );
@@ -76,14 +84,14 @@ class FriendsList extends Component {
 }
 
 // Prop Validations
-FriendsList.propTypes = {
-  fetchedBeer: PropTypes.arrayOf(PropTypes.object),
+BeerList.propTypes = {
+  fetchedBeerData: PropTypes.arrayOf(PropTypes.object),
   isFetching: PropTypes.bool,
-  onBeerFetch: PropTypes.func.isRequired,
+  onFetchBeer: PropTypes.func.isRequired,
 };
 
-FriendsList.defaultProps = {
-  fetchedBeer: [],
+BeerList.defaultProps = {
+  fetchedBeerData: [],
   isFetching: false,
 };
 
@@ -91,14 +99,20 @@ const mapStateToProps = (state) => {
   const {
     fetchedBeer,
     isFetching,
-  } = state.beer;
+  } = state.Beer.beerApiData;
+
+  const fetchedBeerData = _.map(fetchedBeer, (val, uid) => ({
+    ...val,
+    uid,
+    key: uid,
+  }));
 
   return {
-    fetchedBeer,
+    fetchedBeerData,
     isFetching,
   };
 };
 
 export default connect(mapStateToProps, {
-  onBeerFetch: beerFetch,
-})(FriendsList);
+  onFetchBeer: fetchBeer,
+})(BeerList);

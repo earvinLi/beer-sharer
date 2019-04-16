@@ -4,25 +4,33 @@ import React from 'react';
 import {
   Text,
   TouchableOpacity,
+  ViewPropTypes,
 } from 'react-native';
 
+// Internal Dependencies
+import { blue } from '../App/Theme';
+
 // Local Variables
+const { blue700 } = blue;
+
 const styles = {
   basicButtonStyle: {
-    alignSelf: 'stretch',
     backgroundColor: '#fff',
     flex: 1,
     marginLeft: 5,
     marginRight: 5,
   },
   buttonBorderStyle: {
-    borderColor: '#007aff',
+    borderColor: blue700,
     borderRadius: 5,
     borderWidth: 1,
   },
-  textStyle: {
+  buttonDisabledStyle: {
+    color: '#d3d3d3',
+  },
+  textBasicStyle: {
     alignSelf: 'center',
-    color: '#007aff',
+    color: blue700,
     fontSize: 16,
     // Why string not a num :(
     fontWeight: '600',
@@ -35,22 +43,29 @@ const styles = {
 function Button(props) {
   const {
     children,
+    disabled,
     hasBorder,
     onPress,
+    variantStyle,
   } = props;
 
   const {
     basicButtonStyle,
     buttonBorderStyle,
-    textStyle,
+    buttonDisabledStyle,
+    textBasicStyle,
   } = styles;
 
-  const buttonWithBorderStyle = [basicButtonStyle, buttonBorderStyle];
+  const buttonStyle = [basicButtonStyle, variantStyle];
+  if (hasBorder) buttonStyle.push(buttonBorderStyle);
+
+  const textStyle = [textBasicStyle];
+  if (disabled) textStyle.push(buttonDisabledStyle);
 
   return (
     <TouchableOpacity
-      onPress={onPress}
-      style={hasBorder ? buttonWithBorderStyle : basicButtonStyle}
+      onPress={disabled ? null : onPress}
+      style={buttonStyle}
     >
       <Text style={textStyle}>{children}</Text>
     </TouchableOpacity>
@@ -60,13 +75,17 @@ function Button(props) {
 // Prop Validations
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
   hasBorder: PropTypes.bool,
   onPress: PropTypes.func,
+  variantStyle: ViewPropTypes.style,
 };
 
 Button.defaultProps = {
+  disabled: false,
   hasBorder: true,
   onPress: null,
+  variantStyle: {},
 };
 
 export default Button;

@@ -1,6 +1,7 @@
 // External Dependencies
 import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
+import { Auth as cognitoAuth } from 'aws-amplify';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
@@ -29,13 +30,25 @@ export const updateLoginInfo = createActionCreator(
   'value',
 );
 
-export const loginUser = (email, password, navigation) => async (dispatch) => {
+// TODO: Change all related 'login' to 'signIn'
+export const loginUser = (email, password, navigation, username) => async (dispatch) => {
   dispatch({ type: LOGIN_USER_REQUEST });
 
-  const loggedInUser = await firebase.auth().signInWithEmailAndPassword(email, password)
-    .catch(loginFailError => loginUserFail(loginFailError));
+  const cognitoSignIn = cognitoAuth.signIn({
+    username,
+    password,
+  });
 
-  const { uid: accountId } = loggedInUser.user;
+  const firebaseSignIn = firebase.auth().signInWithEmailAndPassword(email, password);
+
+  const [cognitoSignedInUser, firebaseSignedInUser] = await Promise.all([
+    cognitoSignIn.catch(cognitoSignInFailError => loginUserFail(cognitoSignInFailError)),
+    firebaseSignIn.catch(firebaseSignInFailError => loginUserFail(firebaseSignInFailError)),
+  ]);
+
+  console.log(cognitoSignedInUser);
+
+  const { uid: accountId } = firebaseSignedInUser.user;
 
   await AsyncStorage.setItem('accountId', accountId);
 

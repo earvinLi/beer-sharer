@@ -1,8 +1,10 @@
 // External Dependencies
+import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Image,
   Text,
   View,
 } from 'react-native';
@@ -22,6 +24,17 @@ import {
 
 // Local Variables
 const styles = {
+  avatarPickerImageStyle: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: 100,
+  },
+  avatarPickerLabelStyle: {
+    fontSize: 18,
+    paddingBottom: 9,
+    paddingLeft: 21,
+    paddingTop: 9,
+  },
   errorTextStyle: {
     alignSelf: 'center',
     color: 'red',
@@ -33,34 +46,63 @@ const styles = {
 class SignUpForm extends Component {
   static navigationOptions = { title: 'Sign Up' };
 
-  onPressSignUpButton = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressBrowseButton = this.onPressBrowseButton.bind(this);
+    this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+  }
+
+  onPressBrowseButton() {
+    const { onUpdateSignUpInfo } = this.props;
+
+    const browseOption = {
+      noData: true,
+    };
+
+    ImagePicker.launchImageLibrary(browseOption, (response) => {
+      if (response.uri) return onUpdateSignUpInfo('avatar', response);
+
+      return null;
+    });
+  }
+
+  onPressSignUpButton() {
     const {
+      avatar,
       email,
-      name,
       navigation,
       onSignUpUser,
       password,
+      username,
     } = this.props;
 
-    onSignUpUser(email, name, navigation, password);
+    return onSignUpUser(avatar, email, navigation, password, username);
   }
 
   render() {
     const {
+      avatar,
       email,
       isSigningUp,
-      name,
       onUpdateSignUpInfo,
       password,
       signUpFailErrorText,
+      username,
     } = this.props;
+
+    const {
+      avatarPickerImageStyle,
+      avatarPickerLabelStyle,
+      errorTextStyle,
+    } = styles;
 
     const inputSections = [
       {
-        label: 'Name',
-        prop: 'name',
+        label: 'Username',
+        prop: 'username',
         placeholder: 'Ninkasi',
-        value: name,
+        value: username,
       },
       {
         label: 'Email',
@@ -89,7 +131,7 @@ class SignUpForm extends Component {
 
     const signUpFailErrorElement = Boolean(signUpFailErrorText) && (
       <View style={{ backgroundColor: 'white' }}>
-        <Text style={styles.errorTextStyle}>{signUpFailErrorText}</Text>
+        <Text style={errorTextStyle}>{signUpFailErrorText}</Text>
       </View>
     );
 
@@ -100,6 +142,24 @@ class SignUpForm extends Component {
     return (
       <Card>
         {inputSections}
+        <CardSection variantStyle={{ flexDirection: 'column' }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={avatarPickerLabelStyle}>Avatar</Text>
+            <Button
+              hasBorder={false}
+              onPress={this.onPressBrowseButton}
+              variantStyle={{ marginLeft: 12 }}
+            >
+              Browse for Uploading
+            </Button>
+          </View>
+          {avatar && (
+            <Image
+              style={avatarPickerImageStyle}
+              source={{ uri: avatar.uri }}
+            />
+          )}
+        </CardSection>
         {signUpFailErrorElement}
         <CardSection>{signUpButton}</CardSection>
       </Card>
@@ -109,39 +169,43 @@ class SignUpForm extends Component {
 
 // Prop Validations
 SignUpForm.propTypes = {
+  avatar: PropTypes.shape({}),
   email: PropTypes.string,
   isSigningUp: PropTypes.bool,
-  name: PropTypes.string,
   navigation: PropTypes.shape({}).isRequired,
   password: PropTypes.string,
   signUpFailErrorText: PropTypes.string,
   onSignUpUser: PropTypes.func.isRequired,
   onUpdateSignUpInfo: PropTypes.func.isRequired,
+  username: PropTypes.string,
 };
 
 SignUpForm.defaultProps = {
+  avatar: null,
   email: '',
   isSigningUp: false,
-  name: '',
   password: '',
   signUpFailErrorText: '',
+  username: '',
 };
 
 const mapStateToProps = (state) => {
   const {
+    avatar,
     email,
     isSigningUp,
-    name,
     password,
     signUpFailErrorText,
+    username,
   } = state.Auth.signUpForm;
 
   return {
+    avatar,
     email,
     isSigningUp,
-    name,
     password,
     signUpFailErrorText,
+    username,
   };
 };
 

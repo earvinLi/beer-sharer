@@ -11,7 +11,7 @@ import {
 const styles = {
   pickerLabelStyle: {
     fontSize: 18,
-    paddingLeft: 20,
+    paddingLeft: 21,
   },
 };
 

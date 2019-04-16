@@ -33,18 +33,26 @@ const styles = {
 class LoginForm extends Component {
   static navigationOptions = { title: 'Beer Sharer' };
 
-  onLoginButtonPress = () => {
+  constructor(props) {
+    super(props);
+
+    this.onPressLoginButton = this.onPressLoginButton.bind(this);
+    this.onPressSignUpButton = this.onPressSignUpButton.bind(this);
+  }
+
+  onPressLoginButton() {
     const {
       email,
       navigation,
       onLoginUser,
       password,
+      username,
     } = this.props;
 
-    onLoginUser(email, password, navigation);
+    onLoginUser(email, password, navigation, username);
   }
 
-  onSignUpButtonPress = () => {
+  onPressSignUpButton() {
     const { navigation: toSignUpNav } = this.props;
 
     toSignUpNav.navigate('SignUp');
@@ -57,6 +65,7 @@ class LoginForm extends Component {
       loginFailErrorText,
       onUpdateLoginInfo,
       password,
+      username,
     } = this.props;
 
     const loginFailErrorElement = Boolean(loginFailErrorText) && (
@@ -67,17 +76,17 @@ class LoginForm extends Component {
 
     const loginButton = isLoggingin
       ? <Spinner size="large" />
-      : <Button onPress={this.onLoginButtonPress}>Login</Button>;
+      : <Button onPress={this.onPressLoginButton}>Login</Button>;
 
     return (
       <Card>
         <CardSection>
           <Input
             autoCapitalize="none"
-            label="Email"
-            onChange={value => onUpdateLoginInfo('email', value)}
-            placeholder="email@gmail.com"
-            value={email}
+            label="Username"
+            onChange={value => onUpdateLoginInfo('username', value)}
+            placeholder="Ninkasi"
+            value={username}
           />
         </CardSection>
         <CardSection>
@@ -90,12 +99,21 @@ class LoginForm extends Component {
             value={password}
           />
         </CardSection>
+        <CardSection>
+          <Input
+            autoCapitalize="none"
+            label="Email"
+            onChange={value => onUpdateLoginInfo('email', value)}
+            placeholder="email@gmail.com"
+            value={email}
+          />
+        </CardSection>
         {loginFailErrorElement}
         <CardSection>
           {loginButton}
           <Button
             hasBorder={false}
-            onPress={this.onSignUpButtonPress}
+            onPress={this.onPressSignUpButton}
           >
             Not a user? Sign up!
           </Button>
@@ -114,6 +132,7 @@ LoginForm.propTypes = {
   password: PropTypes.string,
   onLoginUser: PropTypes.func.isRequired,
   onUpdateLoginInfo: PropTypes.func.isRequired,
+  username: PropTypes.string,
 };
 
 LoginForm.defaultProps = {
@@ -121,6 +140,7 @@ LoginForm.defaultProps = {
   isLoggingin: false,
   loginFailErrorText: '',
   password: '',
+  username: '',
 };
 
 const mapStateToProps = (state) => {
@@ -129,6 +149,7 @@ const mapStateToProps = (state) => {
     isLoggingin,
     loginFailErrorText,
     password,
+    username,
   } = state.Auth.loginForm;
 
   return {
@@ -136,6 +157,7 @@ const mapStateToProps = (state) => {
     isLoggingin,
     loginFailErrorText,
     password,
+    username,
   };
 };
 

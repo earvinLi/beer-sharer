@@ -12,6 +12,7 @@ import {
 import Button from '../SharedUnits/Button';
 import ListItem from '../SharedUnits/ListItem';
 import Spinner from '../SharedUnits/Spinner';
+import { grey } from '../App/Theme';
 
 // Local Dependencies
 import FriendAddDialog from './FriendAddDialog';
@@ -21,7 +22,13 @@ import {
 } from './actions/FriendAction';
 
 // Local Variables
+const { grey200 } = grey;
+
 const styles = {
+  listItemStyle: {
+    borderBottomColor: grey200,
+    borderBottomWidth: 1,
+  },
   spinnerContainerStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -61,9 +68,12 @@ class FriendList extends Component {
 
   renderFriendItem = ({ item: friend }) => (
     <ListItem
-      // TODO: Change to not declare a function inside render
+      image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel.jpg"
+      // TODO: Change not to declare a function inside 'render'
       onPress={() => {}}
-      title={friend.name}
+      primaryTitle={friend.name}
+      secondaryTitle={friend.email}
+      variantStyle={styles.listItemStyle}
     />
   );
 
@@ -76,10 +86,7 @@ class FriendList extends Component {
     return isFetching
       ? (
         <View style={styles.spinnerContainerStyle}>
-          <Spinner
-            hasLabel
-            loadingItemsLabel="friends"
-          />
+          <Spinner loadingText="Loading friends ..." />
         </View>
       )
       : (

@@ -3,21 +3,11 @@ import firebase from 'firebase';
 
 // Internal Dependencies
 import {
-  BEER_CREATE,
   BEER_DELETE,
   BEER_SAVE,
-  BEER_FETCH,
+  BEER_FETCH_REQUEST,
   BEER_FETCH_SUCCESS,
-  BEER_UPDATE,
 } from '../../App/ActionTypes';
-
-export const beerCreate = ({ brewery, name, style }) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
-
-  firebase.database().ref(`/users/${currentUserId}/beer`)
-    .push({ brewery, name, style })
-    .then(() => dispatch({ type: BEER_CREATE }));
-};
 
 export const beerDelete = ({ id }) => (dispatch, getState) => {
   const { currentUserId } = getState().auth;
@@ -40,21 +30,17 @@ export const beerSave = ({
     .then(() => dispatch({ type: BEER_SAVE }));
 };
 
-export const beerFetch = () => (dispatch, getState) => {
+export const fetchBeer = () => (dispatch, getState) => {
+  dispatch({ type: BEER_FETCH_REQUEST });
+
   const { accountId } = getState().Auth.account;
+  const accountRef = firebase.database().ref(`/user/users/${accountId}`);
 
-  dispatch({ type: BEER_FETCH });
-
-  firebase.database().ref(`/users/${accountId}/beer`)
+  accountRef.child('beer')
     .on('value', (snapshot) => {
       dispatch({
         type: BEER_FETCH_SUCCESS,
-        payload: snapshot.val(),
+        fetchedBeer: snapshot.val(),
       });
     });
 };
-
-export const beerUpdate = ({ prop, value }) => ({
-  type: BEER_UPDATE,
-  payload: { prop, value },
-});
