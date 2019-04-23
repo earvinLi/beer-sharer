@@ -5,6 +5,7 @@ import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
 import {
+  appSyncInitConfig,
   cognitoInitConfig,
   fireBaseInitConfig,
   s3InitConfig,
@@ -26,6 +27,7 @@ export const initApp = navigation => async (dispatch) => {
   dispatch({ type: APP_INIT_REQUEST });
 
   // TODO: Call configure or initialize functions before the app mounts
+  Amplify.configure(appSyncInitConfig);
   Amplify.configure({
     Auth: cognitoInitConfig,
     Storage: s3InitConfig,
