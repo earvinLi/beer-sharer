@@ -1,0 +1,18 @@
+projects:
+  Beer Sharer Test 1:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        graphQLApiId: wb32ehjwj5es5j7d2btsktxrfy
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: us-east-1
+        maxDepth: 2
+      endpoints:
+        prod: >-
+          https://fvgzp276hre3voc4mv4lpluu4q.appsync-api.us-east-1.amazonaws.com/graphql
