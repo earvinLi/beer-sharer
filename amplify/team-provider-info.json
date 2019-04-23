@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "beersharer-20190423171910-authRole",
+            "UnauthRoleArn": "arn:aws:iam::949333961119:role/beersharer-20190423171910-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::949333961119:role/beersharer-20190423171910-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "beersharer-20190423171910-deployment",
+            "UnauthRoleName": "beersharer-20190423171910-unauthRole",
+            "StackName": "beersharer-20190423171910",
+            "StackId": "arn:aws:cloudformation:us-east-1:949333961119:stack/beersharer-20190423171910/dc3c9620-65a8-11e9-9447-0a79b0f3a14a"
+        }
+    }
+}
