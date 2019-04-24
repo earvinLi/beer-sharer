@@ -1,5 +1,9 @@
 // External Dependencies
-import Amplify, { Storage as s3Storage } from 'aws-amplify';
+import Amplify, {
+  API,
+  graphqlOperation,
+  Storage as s3Storage,
+} from 'aws-amplify';
 import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
 
@@ -10,6 +14,7 @@ import {
   fireBaseInitConfig,
   s3InitConfig,
 } from '../../App/Configs';
+import { listTodos } from '../../graphql/queries';
 import {
   APP_INIT_REQUEST,
   APP_INIT_SUCCESS,
@@ -45,6 +50,10 @@ export const initApp = navigation => async (dispatch) => {
 
     return navigation.navigate('Home');
   }
+
+  const allTodos = await API.graphql(graphqlOperation(listTodos));
+
+  console.log(allTodos);
 
   dispatch({ type: APP_INIT_SUCCESS });
 
