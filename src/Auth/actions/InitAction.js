@@ -32,8 +32,8 @@ export const initApp = navigation => async (dispatch) => {
   dispatch({ type: APP_INIT_REQUEST });
 
   // TODO: Call configure or initialize functions before the app mounts
-  Amplify.configure(appSyncInitConfig);
   Amplify.configure({
+    ...appSyncInitConfig,
     Auth: cognitoInitConfig,
     Storage: s3InitConfig,
   });
