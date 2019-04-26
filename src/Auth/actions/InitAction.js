@@ -1,6 +1,6 @@
 // External Dependencies
 import Amplify, {
-  API,
+  API as appSyncAPI,
   graphqlOperation,
   Storage as s3Storage,
 } from 'aws-amplify';
@@ -14,7 +14,7 @@ import {
   fireBaseInitConfig,
   s3InitConfig,
 } from '../../App/Configs';
-import { listTodos } from '../../graphql/queries';
+import { getUser } from '../../App/graphQlUtils/queries';
 import {
   APP_INIT_REQUEST,
   APP_INIT_SUCCESS,
@@ -51,9 +51,9 @@ export const initApp = navigation => async (dispatch) => {
     return navigation.navigate('Home');
   }
 
-  const allTodos = await API.graphql(graphqlOperation(listTodos));
+  const userFound = await appSyncAPI.graphql(graphqlOperation(getUser, { id: 'ce505f56-1e78-4e68-ba16-02b97204fb5e' }));
 
-  console.log(allTodos);
+  console.log(userFound);
 
   dispatch({ type: APP_INIT_SUCCESS });
 
