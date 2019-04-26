@@ -1,18 +1,18 @@
 projects:
-  Beer Sharer Test 1:
-    schemaPath: src/graphql/schema.json
+  BeerSharerUserAPI:
+    schemaPath: src/App/graphQlUtils/schema.json
     includes:
-      - src/graphql/**/*.js
+      - src/App/graphQlUtils/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
-        graphQLApiId: wb32ehjwj5es5j7d2btsktxrfy
+        graphQLApiId: acbdyf4qwbdfxhd4v5jk53unbe
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: src/graphql
+        docsFilePath: src/App/graphQlUtils
         region: us-east-1
         maxDepth: 2
       endpoints:
         prod: >-
-          https://fvgzp276hre3voc4mv4lpluu4q.appsync-api.us-east-1.amazonaws.com/graphql
+          https://xloqq3d6efguxa7kdpfyqhgsle.appsync-api.us-east-1.amazonaws.com/graphql
