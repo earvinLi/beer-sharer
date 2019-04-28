@@ -51,7 +51,7 @@ export const initApp = navigation => async (dispatch) => {
     return navigation.navigate('Home');
   }
 
-  const userFound = await appSyncAPI.graphql(graphqlOperation(getUser, { id: 'ce505f56-1e78-4e68-ba16-02b97204fb5e' }));
+  const userFound = await appSyncAPI.graphql(graphqlOperation(getUser, { email: 'beer@home.com' }));
 
   console.log(userFound);
 
