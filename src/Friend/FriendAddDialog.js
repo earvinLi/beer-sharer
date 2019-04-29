@@ -118,11 +118,11 @@ class FriendAddDialog extends Component {
     return Object.keys(friendFound).length
       ? (
         <ListItem
-          image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel-keg-cask-oak-o.jpg"
+          image="https://s3.amazonaws.com/beer-sharer/img/beer-barrel.jpg"
           // TODO: Change not to declare a function inside 'return'
           // TODO: Changes needed when multiple friends found
           onPress={() => onSelectFriend(friendFound)}
-          primaryTitle={friendFound.name}
+          primaryTitle={friendFound.username}
           secondaryTitle={friendFound.email}
           variantStyle={hasSelected && listItemStyle}
         />

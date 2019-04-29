@@ -1,9 +1,12 @@
 // External Dependencies
-import base64 from 'base-64';
-import firebase from 'firebase';
+import {
+  API as appSyncAPI,
+  graphqlOperation,
+} from 'aws-amplify';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
+import { getUser } from '../../App/graphQlUtils/queries';
 import {
   FRIEND_SEARCH_FAIL,
   FRIEND_SEARCH_INFO_UPDATE,
@@ -16,20 +19,16 @@ const searchFriendFail = createActionCreator(FRIEND_SEARCH_FAIL, 'searchFriendFa
 export const searchFriend = email => async (dispatch) => {
   dispatch({ type: FRIEND_SEARCH_REQUEST });
 
-  const encodedEmail = base64.encode(email);
-  const userRef = firebase.database().ref('/user');
-
-  const uidSnapshot = await userRef.child(`/emailToUid/${encodedEmail}`)
-    .once('value')
-    .catch(getUidFailError => searchFriendFail(getUidFailError));
-
-  const userSnapshot = await userRef.child(`/users/${uidSnapshot.val()}`)
-    .once('value')
+  const userFound = await appSyncAPI.graphql(graphqlOperation(
+    getUser,
+    { email },
+  ))
     .catch(getUserFailError => searchFriendFail(getUserFailError));
 
   dispatch({
     type: FRIEND_SEARCH_SUCCESS,
-    friendFound: userSnapshot.val(),
+    // TODO: Make the structure of the returned value better to use
+    friendFound: userFound.data.getUser,
   });
 };
 
