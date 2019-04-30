@@ -1,5 +1,4 @@
 // External Dependencies
-import firebase from 'firebase';
 
 // Internal Dependencies
 import { createActionCreator } from '../../App/RootUtilities';
@@ -16,17 +15,10 @@ export const closeFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_CLOSE)
 
 export const openFriendAddDialog = createActionCreator(FRIEND_ADD_DIALOG_OPEN);
 
-export const fetchFriend = () => (dispatch, getState) => {
+export const fetchFriend = () => (dispatch) => {
   dispatch({ type: FRIEND_FETCH_REQUEST });
 
-  const { accountId } = getState().Auth.account;
-  const accountRef = firebase.database().ref(`/user/users/${accountId}`);
+  // TODO: Change to use fetchFriend from graphQlUtils
 
-  accountRef.child('friends')
-    .on('value', (snapshot) => {
-      dispatch({
-        type: FRIEND_FETCH_SUCCESS,
-        fetchedFriend: snapshot.val(),
-      });
-    });
+  dispatch({ type: FRIEND_FETCH_SUCCESS });
 };

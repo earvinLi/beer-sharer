@@ -1,5 +1,4 @@
 // External Dependencies
-import firebase from 'firebase';
 
 // Internal Dependencies
 import {
@@ -9,38 +8,29 @@ import {
   BEER_FETCH_SUCCESS,
 } from '../../App/ActionTypes';
 
-export const beerDelete = ({ id }) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
+export const deleteBeer = ({ id }) => (dispatch) => {
+  // TODO: Change to use deleteBeer from graphQlUtils
+  console.log(id);
 
-  firebase.database().ref(`/users/${currentUserId}/beer/${id}`)
-    .remove()
-    .then(() => dispatch({ type: BEER_DELETE }));
+  dispatch({ type: BEER_DELETE });
 };
 
-export const beerSave = ({
+export const saveBeer = ({
   brewery,
   id,
   name,
   style,
-}) => (dispatch, getState) => {
-  const { currentUserId } = getState().auth;
+}) => (dispatch) => {
+  // TODO: Change to use saveBeer from graphQlUtils
+  console.log(brewery, id, name, style);
 
-  firebase.database().ref(`/users/${currentUserId}/beer/${id}`)
-    .set({ brewery, name, style })
-    .then(() => dispatch({ type: BEER_SAVE }));
+  dispatch({ type: BEER_SAVE });
 };
 
-export const fetchBeer = () => (dispatch, getState) => {
+export const fetchBeer = () => (dispatch) => {
   dispatch({ type: BEER_FETCH_REQUEST });
 
-  const { accountId } = getState().Auth.account;
-  const accountRef = firebase.database().ref(`/user/users/${accountId}`);
+  // TODO: Change to use fetchBeer from graphQlUtils
 
-  accountRef.child('beer')
-    .on('value', (snapshot) => {
-      dispatch({
-        type: BEER_FETCH_SUCCESS,
-        fetchedBeer: snapshot.val(),
-      });
-    });
+  dispatch({ type: BEER_FETCH_SUCCESS });
 };
