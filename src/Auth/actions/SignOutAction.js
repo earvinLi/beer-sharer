@@ -1,5 +1,4 @@
 // External Dependencies
-import firebase from 'firebase';
 import { AsyncStorage } from 'react-native';
 
 // Internal Dependencies
@@ -18,10 +17,8 @@ export const signOutUser = navigation => async (dispatch) => {
   // and the unhandled promise rejection of the second await
   dispatch({ type: SIGN_OUT_USER_REQUEST });
 
-  await firebase.auth().signOut()
+  await AsyncStorage.removeItem('accountId')
     .catch(signOutFailError => signOutUserFail(signOutFailError));
-
-  await AsyncStorage.removeItem('accountId');
 
   navigation.navigate('Auth');
 };

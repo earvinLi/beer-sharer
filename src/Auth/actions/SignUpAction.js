@@ -1,6 +1,4 @@
 // External Dependencies
-import base64 from 'base-64';
-import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { AsyncStorage } from 'react-native';
 import {
@@ -29,15 +27,8 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
 const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
 const saveSignedUpUser = async (accountId, email, username) => {
-  const encodedEmail = base64.encode(email);
-  const userRef = firebase.database().ref('/user');
-  const updateData = {
-    [`users/${accountId}`]: { email, username },
-    [`emailToUid/${encodedEmail}`]: accountId,
-  };
-
-  await userRef.update(updateData)
-    .catch(saveUserFailError => signUpUserFail(saveUserFailError));
+  // TODO: Change to use addUser from graphQlUtils
+  console.log(accountId, email, username);
 };
 
 export const updateSignUpInfo = createActionCreator(
@@ -57,14 +48,10 @@ export const signUpUser = (avatar, email, navigation, password, username) => asy
     username,
   });
 
-  const firebaseSignUp = firebase.auth().createUserWithEmailAndPassword(email, password);
+  const cognitoSignedUpUser = await cognitoSignUp
+    .catch(cognitoSignUpFailError => signUpUserFail(cognitoSignUpFailError));
 
-  const [cognitoSignedUpUser, firebaseSignedUpUser] = await Promise.all([
-    cognitoSignUp.catch(cognitoSignUpFailError => signUpUserFail(cognitoSignUpFailError)),
-    firebaseSignUp.catch(firebaseSignUpFailError => signUpUserFail(firebaseSignUpFailError)),
-  ]);
-
-  console.log(cognitoSignedUpUser);
+  const accountId = cognitoSignedUpUser.attributes.sub;
 
   // TODO: If a user's OS is Android, we need a different form of the uri
   const avatarUri = avatar.uri.replace('file://', '');
@@ -78,8 +65,6 @@ export const signUpUser = (avatar, email, navigation, password, username) => asy
   );
 
   console.log(uploadedAvatar);
-
-  const { uid: accountId } = firebaseSignedUpUser.user;
 
   await AsyncStorage.setItem('accountId', accountId);
 
