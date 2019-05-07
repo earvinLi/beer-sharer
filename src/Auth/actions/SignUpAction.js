@@ -2,11 +2,14 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import { AsyncStorage } from 'react-native';
 import {
+  API as appSyncAPI,
   Auth as cognitoAuth,
+  graphqlOperation,
   Storage as s3Storage,
 } from 'aws-amplify';
 
 // Internal Dependencies
+import { addUser } from '../../App/graphQlUtils/mutations';
 import { createActionCreator } from '../../App/RootUtilities';
 import {
   SIGN_UP_INFO_UPDATE,
@@ -27,8 +30,13 @@ const signUpUserSuccess = (accountId, dispatch, navigation) => {
 const signUpUserFail = createActionCreator(SIGN_UP_USER_FAIL, 'signUpFailError');
 
 const saveSignedUpUser = async (accountId, email, username) => {
-  // TODO: Change to use addUser from graphQlUtils
-  console.log(accountId, email, username);
+  // TODO: Create a root util to simplify the calling appSyncAPI
+  // We may need to import appSyncAPI and graphqlOperation globallly
+  await appSyncAPI.graphql(graphqlOperation(
+    addUser,
+    { email, id: accountId, username },
+  ))
+    .catch(addUserFailError => signUpUserFail(addUserFailError));
 };
 
 export const updateSignUpInfo = createActionCreator(
@@ -51,7 +59,7 @@ export const signUpUser = (avatar, email, navigation, password, username) => asy
   const cognitoSignedUpUser = await cognitoSignUp
     .catch(cognitoSignUpFailError => signUpUserFail(cognitoSignUpFailError));
 
-  const accountId = cognitoSignedUpUser.attributes.sub;
+  const accountId = cognitoSignedUpUser.userSub;
 
   // TODO: If a user's OS is Android, we need a different form of the uri
   const avatarUri = avatar.uri.replace('file://', '');

@@ -26,6 +26,8 @@ export const initApp = navigation => async (dispatch) => {
 
   // TODO: Call configure or initialize functions before the app mounts
   Amplify.configure({
+    // The API key will expire after certain time at most a year
+    // TODO: Change to a different authorization type
     ...appSyncInitConfig,
     Auth: cognitoInitConfig,
     Storage: s3InitConfig,
